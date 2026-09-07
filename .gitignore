@@ -4,3 +4,7 @@ node_modules
 next-env.d.ts
 /dist/
 .vinext/
+tsconfig.tsbuildinfo
+
+*storybook.log
+storybook-static
