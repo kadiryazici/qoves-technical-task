@@ -1,0 +1,28 @@
+{
+  "name": "technical-task",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.32.0",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "motion": "^13.2.0",
+    "next": "^16.3.4",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}
