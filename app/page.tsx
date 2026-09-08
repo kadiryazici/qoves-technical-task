@@ -1,6 +1,6 @@
-import { PageMain } from "@/components/PageMain/PageMain";
-import { SectionFacialAnalysis } from "@/components/SectionFacialAnalysis/SectionFacialAnalysis";
-import { SectionHero } from "@/components/SectionHero/SectionHero";
+import { PageMain } from "@/components/Layout/PageMain/PageMain";
+import { SectionFacialAnalysis } from "@/components/Sections/SectionFacialAnalysis/SectionFacialAnalysis";
+import { SectionHero } from "@/components/Sections/SectionHero/SectionHero";
 
 export const revalidate = 300;
 
