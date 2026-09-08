@@ -4,6 +4,7 @@ import { PageSectionContent } from "../PageSectionContent/PageSectionContent";
 import { cn } from "@/utils/cn";
 import { ContentHeader } from "../ContentHeader/ContentHeader";
 import { GlowupCard } from "../GlowupCard/GlowupCard";
+import { BeforeAfterComparison } from "../BeforeAfterComparison/BeforeAfterComparison";
 
 const glowupCardBodies = [
   <>
@@ -43,12 +44,12 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
         <PageSectionContent className="inner-border-x">
           <ContentHeader
             type="secondary"
-            className="mx-auto py-10 text-center max-w-[660px]"
+            className="mx-auto py-10 text-center max-w-[700px]"
             label="Personalized Analysis"
             heading={<>
               Get your personalised
               {" "}
-              <span className="text-text-disabled">Qoves plan</span>
+              <span className="text-text-disabled">Qoves™ plan</span>
             </>}
             description={
               <>
@@ -65,8 +66,8 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
         {...attrs}
         className="inner-border-b"
       >
-        <PageSectionContent className="inner-border-x">
-          <div className="h-[300px]"></div>
+        <PageSectionContent className="inner-border-x p-4">
+          <BeforeAfterComparison />
         </PageSectionContent>
       </PageSection>
 
@@ -75,16 +76,16 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
         className="inner-border-b"
       >
         <PageSectionContent className="inner-border-x">
-          <div className="grid grid-cols-4">
+          <div className="grid grid-cols-4 auto-cols-fr">
             {glowupCardBodies.map((body, index) => (
               <div
                 key={index}
                 className={cn(
-                  "p-4",
+                  "p-4 flex",
                   index !== glowupCardBodies.length - 1 && "inner-border-r"
                 )}
               >
-                <GlowupCard number={index + 1}>
+                <GlowupCard className="w-full" number={index + 1}>
                   {body}
                 </GlowupCard>
               </div>

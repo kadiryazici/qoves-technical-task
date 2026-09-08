@@ -32,11 +32,12 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
       <PageSectionContent>
         <div className="pt-14">
           <ContentHeader
+            gap="lg"
             type="primary"
             className="text-center gap-6 max-w-[556px] mx-auto"
             label="Personalized aesthetics"
             heading={<>
-              <span className="text-white">Your complete</span>
+              Your complete
               {" "}
               <span className="text-white/50">facial analysis</span>
             </>}

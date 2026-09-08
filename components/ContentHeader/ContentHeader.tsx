@@ -7,17 +7,19 @@ export type ContentHeaderProps = Omit<ComponentProps<"div">, "children"> & {
   heading: ReactNode
   description: ReactNode
   type: "primary" | "secondary"
+  gap?: "base" | "lg"
 }
 
 export function ContentHeader(props: ContentHeaderProps) {
-  const { className, type, description, heading, label, ...attrs } = props
+  const { className, type, gap = "base", description, heading, label, ...attrs } = props
 
   return (
     <div
       {...attrs}
       className={cn(
-        "*:[text-align:inherit] flex flex-col gap-[16px]",
+        "*:[text-align:inherit] flex flex-col",
         className,
+        gap === "base" ? "gap-4" : "gap-6"
       )}
     >
       {label && (

@@ -9,6 +9,7 @@ const meta = {
     style: { maxWidth: "700px" },
     className: "text-center",
     label: "Personalized Analysis",
+    type: "secondary",
     heading: <>
       Get your personalised
       {" "}
