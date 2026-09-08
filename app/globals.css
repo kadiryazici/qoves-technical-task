@@ -39,6 +39,7 @@
   --text-body-4-zagma--letter-spacing: -0.005em;
 
   --shadow-glow-up-card: 0px 20px 32px -20px #0000004D;
+  --shadow-hero-photo: 0px 14.25px 17.81px 0px #0000000D;
 }
 
 @utility font-zagma {

@@ -71,7 +71,7 @@ function PhotoCard(props: PhotoCardProps) {
   return (
     <div
       {...attrs}
-      className={cn("border-[1.02px] border-transparent p-[12.21px] rounded-xl w-[462.15px] h-[524.59px] shrink-0 flex", className)}
+      className={cn("shadow-hero-photo p-[12.21px] rounded-xl w-[462.15px] h-[524.59px] shrink-0 flex", className)}
     >
       <div className="overflow-clip isolate relative rounded-lg bg-bg-secondary-hover min-w-0 size-full">
         <h3 className="w-full py-[16.15px] uppercase font-zagma text-body-3-zagma text-center text-text-button-primary">{heading}</h3>
