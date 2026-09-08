@@ -15,7 +15,7 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
   return (
     <PageSection
       {...attrs}
-      className={cn("min-h-[832px] bg-primary-400",className)}
+      className={cn("min-h-[832px] bg-primary-400 overflow-clip",className)}
     >
       <PageSectionContentBackground className="max-w-full overflow-hidden items-center justify-center">
         <div className="relative shrink-0 will-change-[filter] blur-[250px] w-[820px] h-[1000px]">
@@ -29,25 +29,35 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
         </div>
       </PageSectionContentBackground>
 
-      <PageSectionContent>
-        <div className="pt-14">
-          <ContentHeader
-            gap="lg"
-            type="primary"
-            className="text-center gap-6 max-w-[556px] mx-auto"
-            label="Personalized aesthetics"
-            heading={<>
-              Your complete
-              {" "}
-              <span className="text-white/50">facial analysis</span>
-            </>}
-            description={
-              <>
-                <span className="contents text-text-button-primary">
-                  Every face is unique. We assess more than 100 unique facial markers to give you a precise understanding of your aesthetics.
-                </span>
-              </>
-            }
+
+      <PageSectionContent className="pt-14">
+        <ContentHeader
+          gap="lg"
+          type="primary"
+          className="text-center max-w-[556px] mx-auto"
+          label="Personalized aesthetics"
+          heading={<>
+            Your complete
+            {" "}
+            <span className="text-white/50">facial analysis</span>
+          </>}
+          description={
+            <>
+              <span className="contents text-text-button-primary">
+                Every face is unique. We assess more than 100 unique facial markers to
+                <br />
+                give you a precise understanding of your aesthetics.
+              </span>
+            </>
+          }
+        />
+
+        <div className="aspect-732/1097 absolute left-[348px] top-[112px] w-full max-w-[732px]">
+          <Image
+            src="/images/facial-analysis/image.webp"
+            alt="facial analysis poster woman"
+            className="object-contain object-top inset-0"
+            fill
           />
         </div>
       </PageSectionContent>

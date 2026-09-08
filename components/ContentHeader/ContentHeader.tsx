@@ -62,18 +62,22 @@ function Badge(props: BadgeProps) {
     <div
       {...attrs}
       className={cn(
-        "inline-flex flex-none items-center justify-center gap-2 whitespace-nowrap rounded-full ring px-[10px] py-[7px]",
+        "inline-flex px-2.5 items-center justify-center rounded-full ring",
         className,
-        type === "primary" ? "ring-[#F2F2F21A]" : "ring-[#C7D1D54D]"
+        type === "primary"
+          ? "ring-[#F2F2F21A] py-1"
+          : "ring-[#C7D1D54D] py-1.75"
       )}
     >
       <span
         style={{
-          textBox: "trim-both cap alphabetic"
+          textBox: type === "primary" ? undefined : "trim-both cap alphabetic"
         }}
         className={cn(
-          "flex-none text-center font-zagma text-body-4-zagma uppercase",
-          type === "primary" ? "text-text-button-primary" : "text-text-button-secondary-disabled"
+          "whitespace-nowrap flex-none text-center font-zagma uppercase",
+          type === "primary"
+            ? "text-body-5-zagma text-text-button-primary"
+            : "text-body-4-zagma text-text-button-secondary-disabled"
         )}
       >
         {children}

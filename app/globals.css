@@ -38,6 +38,10 @@
   --text-body-4-zagma--line-height: 0.875rem;
   --text-body-4-zagma--letter-spacing: -0.005em;
 
+  --text-body-5-zagma: 0.625rem;
+  --text-body-5-zagma--font-weight: 400;
+  --text-body-5-zagma--line-height: 0.875rem;
+
   --shadow-glow-up-card: 0px 20px 32px -20px #0000004D;
   --shadow-hero-photo: 0px 14.25px 17.81px 0px #0000000D;
 }
