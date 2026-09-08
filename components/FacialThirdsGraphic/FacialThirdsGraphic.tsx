@@ -35,7 +35,7 @@ export function FacialThirdsGraphic(props: FacialThirdsGraphicProps) {
   return (
     <div
       {...attrs}
-      className={cn("duration-[500] w-[352px] h-[165px] bg-black/10 backdrop-blur-[22.5px] flex flex-col justify-between px-[6.75px] py-[9px] rounded-[8px] ring ring-[#F2F2F21A]", className)}
+      className={cn("w-[352px] h-[165px] bg-black/10 backdrop-blur-[22.5px] flex flex-col justify-between px-[6.75px] py-[9px] rounded-[8px] ring ring-[#F2F2F21A]", className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -47,7 +47,7 @@ export function FacialThirdsGraphic(props: FacialThirdsGraphicProps) {
         {barElements.map(([text, value, bgColor], index) => (
           <div
             key={index}
-            className="flex flex-col gap-[4.5px] items-center justify-end transition-[width]"
+            className="duration-600 flex flex-col gap-[4.5px] items-center justify-end transition-[width]"
             style={{
               width: `${value}%`
             }}
