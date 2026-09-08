@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/nextjs-vite"
 
+import { fontClassName } from "../app/fonts"
 import "../app/globals.css"
 
 const preview: Preview = {
@@ -11,6 +12,13 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <div className={fontClassName}>
+        <Story />
+      </div>
+    ),
+  ],
 }
 
 export default preview

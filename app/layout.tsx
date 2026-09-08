@@ -1,30 +1,10 @@
-import type { Metadata } from "next";
 import "./globals.css";
 
-import localFont from "next/font/local"
-
-import { cn } from "@/utils/cn"
-
-const ppNeueMontreal = localFont({
-  src: [
-    { path: "../public/PP_Neue_Montreal/PPNeueMontreal-Book.otf", weight: "400" },
-    { path: "../public/PP_Neue_Montreal/PPNeueMontreal-Medium.otf", weight: "500" },
-  ],
-  display: "swap",
-  variable: "--font-pp-neue",
-})
-
-const f37Zagma = localFont({
-  src: "../public/Zagma_Mono/F37ZagmaMonoTrial-Book.otf",
-  display: "swap",
-  variable: "--font-zagma",
-})
-
-export const fontClassName = cn(ppNeueMontreal.variable, f37Zagma.variable)
+import { fontClassName } from "./fonts"
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={fontClassName}>
       <body>{children}</body>
     </html>
   );
