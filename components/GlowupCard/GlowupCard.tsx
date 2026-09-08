@@ -16,7 +16,7 @@ export function GlowupCard(props: GlowupCardProps) {
     >
       <GlowupCardBackgroundBlur className="transition-opacity opacity-0 group-hover:opacity-100 rounded-xl" />
 
-      <div className="transition-colors group-hover:bg-white/20 size-6 grid place-items-center text-body-4-zagma rounded-full bg-primary-400 text-text-button-primary">
+      <div className="transition-colors group-hover:bg-white/20 size-6 grid place-items-center font-zagma text-body-4-zagma rounded-full bg-primary-400 text-text-button-primary">
         {number}
       </div>
 

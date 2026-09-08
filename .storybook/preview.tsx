@@ -13,11 +13,15 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => (
-      <div className={fontClassName}>
-        <Story />
-      </div>
-    ),
+    (Story) => {
+      document.documentElement.classList.add(...fontClassName.split(" "))
+
+      return (
+        <div className="w-fit">
+          <Story />
+        </div>
+      )
+    },
   ],
 }
 

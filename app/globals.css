@@ -5,20 +5,36 @@
 
   --color-primary-400: #9AAEB5;
   --color-text-button-primary: #FFF;
+  --color-text-button-secondary-disabled: #9AAEB5;
   --color-text-primary: #233137;
   --color-border-primary-muted: #F2F2F2;
+  --color-text-disabled: #9AAEB5;
+  --color-bg-base: #fff;
+  --color-text-secondary: #515255;
 
   --text-heading-8: 1.25rem;
   --text-heading--font-weight: 400;
   --text-heading--line-height: 1.5rem;
 
-  --font-body-4-zagma: var(--font-zagma);
+  --text-heading-4: 3rem;
+  --text-heading-4--font-weight: 400;
+  --text-heading-4--line-height: 3.5rem;
+  --text-heading-4--letter-spacing: -0.015em;
+
+  --text-body-2: 1rem;
+  --text-body-2--font-weight: 400;
+  --text-body-2--line-height: 1.5rem;
+
   --text-body-4-zagma: 0.75rem;
   --text-body-4-zagma--font-weight: 400;
   --text-body-4-zagma--line-height: 0.875rem;
   --text-body-4-zagma--letter-spacing: -0.005em;
 
   --shadow-glow-up-card: 0px 20px 32px -20px #0000004D;
+}
+
+@utility font-zagma {
+  font-family: var(--font-zagma);
 }
 
 @property --inner-border-left {

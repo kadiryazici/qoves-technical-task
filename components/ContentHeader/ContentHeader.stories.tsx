@@ -6,10 +6,15 @@ const meta = {
   title: "Components/ContentHeader",
   component: ContentHeader,
   args: {
-    align: "left",
-    label: "Etiket",
-    heading: "Başlık",
-    description: "Dummy açıklama",
+    style: { maxWidth: "700px" },
+    className: "text-center",
+    label: "Personalized Analysis",
+    heading: <>
+      Get your personalised
+      {" "}
+      <span className="text-text-disabled">Qoves plan</span>
+    </>,
+    description: "Understand your facial features and start your glow-up today with a proven action plan, no plastic surgery needed.",
   },
 } satisfies Meta<typeof ContentHeader>
 
