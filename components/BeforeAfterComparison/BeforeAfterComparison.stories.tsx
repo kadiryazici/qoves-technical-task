@@ -5,6 +5,9 @@ import { BeforeAfterComparison } from "./BeforeAfterComparison"
 const meta = {
   title: "Components/BeforeAfterComparison",
   component: BeforeAfterComparison,
+  args: {
+    className: "max-w-[1328px]"
+  }
 } satisfies Meta<typeof BeforeAfterComparison>
 
 export default meta

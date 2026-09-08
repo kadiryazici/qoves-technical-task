@@ -49,7 +49,7 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
             heading={<>
               Get your personalised
               {" "}
-              <span className="text-text-disabled">Qoves™ plan</span>
+              <span className="text-text-disabled">Qoves plan</span>
             </>}
             description={
               <>

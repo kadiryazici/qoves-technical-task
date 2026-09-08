@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+  --breakpoint-desktop: 90rem;
+
   --font-sans: var(--font-pp-neue);
 
   --color-primary-400: #9AAEB5;
@@ -13,8 +15,8 @@
   --color-text-secondary: #515255;
 
   --text-heading-8: 1.25rem;
-  --text-heading--font-weight: 400;
-  --text-heading--line-height: 1.5rem;
+  --text-heading-8--font-weight: 400;
+  --text-heading-8--line-height: 1.5rem;
 
   --text-heading-4: 3rem;
   --text-heading-4--font-weight: 400;

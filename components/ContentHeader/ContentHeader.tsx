@@ -62,12 +62,15 @@ function Badge(props: BadgeProps) {
     <div
       {...attrs}
       className={cn(
-        "inline-flex flex-none items-center justify-center gap-2 whitespace-nowrap rounded-full border px-[10px] py-[7px]",
+        "inline-flex flex-none items-center justify-center gap-2 whitespace-nowrap rounded-full ring px-[10px] py-[7px]",
         className,
-        type === "primary" ? "border-[#F2F2F21A]" : "border-[#C7D1D54D]"
+        type === "primary" ? "ring-[#F2F2F21A]" : "ring-[#C7D1D54D]"
       )}
     >
       <span
+        style={{
+          textBox: "trim-both cap alphabetic"
+        }}
         className={cn(
           "flex-none text-center font-zagma text-body-4-zagma uppercase",
           type === "primary" ? "text-text-button-primary" : "text-text-button-secondary-disabled"
