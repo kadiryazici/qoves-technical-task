@@ -2,12 +2,16 @@
 
 import type { ComponentProps, ReactNode, RefObject } from "react"
 import { useLayoutEffect, useRef } from "react"
+import ReactDOM from "react-dom"
 
 import { cn } from "@/utils/cn"
 import { gsap } from "gsap"
 import Image from "next/image"
 
 export type BeforeAfterComparisonProps = Omit<ComponentProps<"div">, "children">
+
+const beforeImageSrc = "/images/before-after/before.webp"
+const afterImageSrc = "/images/before-after/after.webp"
 
 type MotionPathTrailProps = {
   gradientId: string
@@ -21,6 +25,9 @@ type MotionPathMarkerProps = {
 export function BeforeAfterComparison(props: BeforeAfterComparisonProps) {
   const { className, ...attrs } = props
 
+  ReactDOM.preload(beforeImageSrc, { as: "image" })
+  ReactDOM.preload(afterImageSrc, { as: "image" })
+
   return (
     <div
       {...attrs}
@@ -33,7 +40,7 @@ export function BeforeAfterComparison(props: BeforeAfterComparisonProps) {
         image={
           <Image
             alt="before image of a woman"
-            src="/images/before-after/before.webp"
+            src={beforeImageSrc}
             fill
           />
         }
@@ -44,7 +51,7 @@ export function BeforeAfterComparison(props: BeforeAfterComparisonProps) {
         image={
           <Image
             alt="after image of a woman"
-            src="/images/before-after/after.webp"
+            src={afterImageSrc}
             fill
           />
         }
