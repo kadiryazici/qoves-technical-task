@@ -59,7 +59,7 @@ export function LipSmoothnessGraphic(props: LipSmoothnessGraphicProps) {
           </div>
         </div>
 
-          <div className="mt-[1.12px] rounded-[1.13px] overflow-hidden flex flex-row flex-nowrap w-full">
+          <div className="mt-[1.12px] rounded-full overflow-clip flex flex-row flex-nowrap w-full">
             <div className="h-[6.75px] w-[11.25px] shrink-0 bg-primary-100" />
             <div className="h-[6.75px] w-[146.25px] shrink-0 bg-primary-200" />
             <div className="h-[6.75px] w-[76.5px] shrink-0 bg-primary-300" />
@@ -117,7 +117,7 @@ function PercentageCursor(props: PercentageCursorProps) {
           "transition-transform whitespace-nowrap bg-[#fafafa]/20 text-text-button-primary rounded-[7.88px] font-medium text-[5.63px] leading-[7.88px] tracking-normal bottom-[36px] left-[0px] absolute w-fit px-[3.94px]",
           value < 20
             ? "translate-x-[7.74px]"
-            : "translate-x-[calc(-100%_-_7.74px)]"
+            : "translate-x-[calc(-100%-7.74px)]"
         )}
       >
         {value}%
