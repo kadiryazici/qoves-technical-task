@@ -42,6 +42,7 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
       >
         <PageSectionContent className="inner-border-x">
           <ContentHeader
+            type="secondary"
             className="mx-auto py-10 text-center max-w-[660px]"
             label="Personalized Analysis"
             heading={<>
@@ -94,7 +95,7 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
 
       <PageSection>
         <PageSectionContent className="inner-border-x h-[120px]" />
-      </PageSection>
+    </PageSection>
     </div>
   )
 }

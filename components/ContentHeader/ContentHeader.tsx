@@ -6,10 +6,11 @@ export type ContentHeaderProps = Omit<ComponentProps<"div">, "children"> & {
   label?: ReactNode
   heading: ReactNode
   description: ReactNode
+  type: "primary" | "secondary"
 }
 
 export function ContentHeader(props: ContentHeaderProps) {
-  const { className, description, heading, label, ...attrs } = props
+  const { className, type, description, heading, label, ...attrs } = props
 
   return (
     <div
@@ -21,35 +22,55 @@ export function ContentHeader(props: ContentHeaderProps) {
     >
       {label && (
         <div className="w-full">
-          <Badge>
+          <Badge type={type}>
             {label}
           </Badge>
         </div>
       )}
 
-      <h2 className="text-heading-4 text-balance text-text-primary">
+      <h2
+        className={cn(
+          "text-balance text-heading-4",
+          type === "primary" ? "text-white" : "text-text-primary"
+        )}
+      >
         {heading}
       </h2>
 
-      <p className="text-body-2 text-balance text-text-secondary">
+      <p
+        className={cn(
+          "text-body-2 text-balance",
+          type === "primary" ? "text-text-button-primary" : "text-text-secondary"
+        )}
+      >
         {description}
       </p>
     </div>
   )
 }
 
-function Badge(props: ComponentProps<"div">) {
-  const { className, children, ...attrs } = props;
+type BadgeProps = ComponentProps<"div"> & {
+  type: ContentHeaderProps["type"]
+}
+
+function Badge(props: BadgeProps) {
+  const { className, type, children, ...attrs } = props;
 
   return (
     <div
       {...attrs}
       className={cn(
-        "inline-flex flex-none items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[#C7D1D54D] bg-bg-base px-[10px] py-[7px]",
+        "inline-flex flex-none items-center justify-center gap-2 whitespace-nowrap rounded-full border px-[10px] py-[7px]",
         className,
+        type === "primary" ? "border-[#F2F2F21A]" : "border-[#C7D1D54D]"
       )}
     >
-      <span className="flex-none text-center font-zagma text-body-4-zagma uppercase text-text-button-secondary-disabled">
+      <span
+        className={cn(
+          "flex-none text-center font-zagma text-body-4-zagma uppercase",
+          type === "primary" ? "text-text-button-primary" : "text-text-button-secondary-disabled"
+        )}
+      >
         {children}
       </span>
     </div>

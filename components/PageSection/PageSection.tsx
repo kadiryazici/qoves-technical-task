@@ -12,7 +12,7 @@ export function PageSection<T extends ElementType = "section">(props: PageSectio
   const Component = as ?? "section"
 
   return (
-    <Component {...attrs} className={cn("w-full", className)}>
+    <Component {...attrs} className={cn("isolate relative w-full", className)}>
       {children}
     </Component>
   )
