@@ -1,17 +1,134 @@
 @import "tailwindcss";
 
-:root {
-  color-scheme: light;
-  background: #f8fafc;
-  color: #111827;
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+@theme {
+  --font-sans: var(--font-pp-neue);
+
+  --color-primary-400: #9AAEB5;
+  --color-text-button-primary: #FFF;
+  --color-text-primary: #233137;
+  --color-border-primary-muted: #F2F2F2;
+
+  --text-heading-8: 1.25rem;
+  --text-heading--font-weight: 400;
+  --text-heading--line-height: 1.5rem;
+
+  --font-body-4-zagma: var(--font-zagma);
+  --text-body-4-zagma: 0.75rem;
+  --text-body-4-zagma--font-weight: 400;
+  --text-body-4-zagma--line-height: 0.875rem;
+  --text-body-4-zagma--letter-spacing: -0.005em;
+
+  --shadow-glow-up-card: 0px 20px 32px -20px #0000004D;
 }
 
-body {
+@property --inner-border-left {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+
+@property --inner-border-right {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+
+@property --inner-border-top {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+
+@property --inner-border-bottom {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+
+@utility inner-border {
+  box-shadow: var(--tw-inset-shadow),
+    var(--tw-inset-ring-shadow),
+    var(--inner-border-left),
+    var(--inner-border-right),
+    var(--inner-border-top),
+    var(--inner-border-bottom),
+    var(--tw-ring-offset-shadow),
+    var(--tw-ring-shadow),
+    var(--tw-shadow);
+}
+
+@utility inner-border-b {
+  @apply inner-border;
+  --inner-border-bottom: inset 0px -1px 0px 0px var(--color-surface-3);
+}
+
+@utility inner-border-t {
+  @apply inner-border;
+  --inner-border-top: inset 0px 1px 0px 0px var(--color-surface-3);
+}
+
+@utility inner-border-l {
+  @apply inner-border;
+  --inner-border-left: inset 1px 0px 0px 0px var(--color-surface-3);
+}
+
+@utility inner-border-r {
+  @apply inner-border;
+  --inner-border-right: inset -1px 0px 0px 0px var(--color-surface-3);
+}
+
+
+@utility inner-border-x {
+  @apply inner-border-l inner-border-r;
+}
+
+@utility inner-border-y {
+  @apply inner-border-t inner-border-b;
+}
+
+
+/* CREDITS: https://www.joshwcomeau.com/css/custom-css-reset/ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+*:not(dialog) {
   margin: 0;
 }
 
-a {
-  color: inherit;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
 }

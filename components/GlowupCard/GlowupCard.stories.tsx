@@ -6,8 +6,13 @@ const meta = {
   title: "Components/GlowupCard",
   component: GlowupCard,
   args: {
+    style: { maxWidth: "308px", height: "fit-content" },
     number: 1,
-    children: "Dummy glowup card",
+    children: <>
+      Get your expert facial
+      <br />
+      analysis
+    </>,
   },
 } satisfies Meta<typeof GlowupCard>
 
