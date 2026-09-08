@@ -5,11 +5,19 @@ import { LipSmoothnessGraphic } from "./LipSmoothnessGraphic"
 const meta = {
   title: "Components/LipSmoothnessGraphic",
   component: LipSmoothnessGraphic,
-  args: { children: "Dummy lip smoothness graphic" },
+  args: {},
+  render() {
+    return (
+      <div className="bg-primary-600/70 p-10">
+        <LipSmoothnessGraphic />
+      </div>
+    )
+  }
 } satisfies Meta<typeof LipSmoothnessGraphic>
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+}

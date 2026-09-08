@@ -5,6 +5,9 @@
 
   --font-sans: var(--font-pp-neue);
 
+  --color-primary-100: #F2F5F5;
+  --color-primary-200: #CDDBE1;
+  --color-primary-300: #AEC2C9;
   --color-primary-400: #9AAEB5;
   --color-primary-600: #5D767E;
   --color-text-button-primary: #FFF;
