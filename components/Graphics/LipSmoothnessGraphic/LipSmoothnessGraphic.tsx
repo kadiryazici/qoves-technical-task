@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState, type ComponentProps } from "react"
+import { useEffect, useRef, useState, type ComponentProps } from "react"
 
 import { cn } from "@/utils/cn"
 import { getRandomInt } from "@/utils/random"
-import { animate, useMotionValue, useMotionValueEvent } from "motion/react"
+import { gsap } from "gsap"
 
 export type LipSmoothnessGraphicProps = Omit<ComponentProps<"div">, "children">
 
@@ -77,17 +77,21 @@ type AnimatedNumberProps = Omit<ComponentProps<"span">, "children"> & {
 function AnimatedNumber(props: AnimatedNumberProps) {
   const { className, value, ...attrs } = props
   const [displayValue, setDisplayValue] = useState(value)
-  const motionValue = useMotionValue(value)
-
-  useMotionValueEvent(motionValue, "change", (latestValue) => {
-    setDisplayValue(Math.round(latestValue))
-  })
+  const displayValueRef = useRef(value)
 
   useEffect(() => {
-    const animation = animate(motionValue, value, { duration: 0.5 })
+    const animation = gsap.to(displayValueRef, {
+      current: value,
+      duration: 0.5,
+      onUpdate() {
+        setDisplayValue(Math.round(displayValueRef.current))
+      },
+    })
 
-    return animation.stop
-  }, [motionValue, value])
+    return () => {
+      animation.kill()
+    }
+  }, [value])
 
   return (
     <span {...attrs} className={className}>
@@ -120,7 +124,7 @@ function PercentageCursor(props: PercentageCursorProps) {
             : "translate-x-[calc(-100%-7.74px)]"
         )}
       >
-        {value}%
+        <AnimatedNumber value={value} />%
         {" "}
         <span className="text-text-button-primary/50">(You)</span>
       </div>
