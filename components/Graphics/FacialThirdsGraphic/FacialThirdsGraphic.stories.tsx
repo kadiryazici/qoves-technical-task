@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 
-import { LipSmoothnessGraphic } from "./LipSmoothnessGraphic"
+import { FacialThirdsGraphic } from "./FacialThirdsGraphic"
 
 const meta = {
-  title: "Components/LipSmoothnessGraphic",
-  component: LipSmoothnessGraphic,
+  title: "Graphics/FacialThirdsGraphic",
+  component: FacialThirdsGraphic,
   args: {},
   render() {
     return (
       <div className="bg-primary-600/70 p-10">
-        <LipSmoothnessGraphic />
+        <FacialThirdsGraphic />
       </div>
     )
   }
-} satisfies Meta<typeof LipSmoothnessGraphic>
+} satisfies Meta<typeof FacialThirdsGraphic>
 
 export default meta
 

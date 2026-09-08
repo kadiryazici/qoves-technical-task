@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { BrowsFallGraphic } from "./BrowsFallGraphic"
 
 const meta = {
-  title: "Components/BrowsFallGraphic",
+  title: "Graphics/BrowsFallGraphic",
   component: BrowsFallGraphic,
   args: { children: "Dummy brows fall graphic" },
 } satisfies Meta<typeof BrowsFallGraphic>
