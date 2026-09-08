@@ -1,8 +1,12 @@
+import { PageMain } from "@/components/PageMain/PageMain";
+import { SectionHero } from "@/components/SectionHero/SectionHero";
+
 export const revalidate = 300;
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-50 px-6 py-10 text-slate-950">
-    </main>
+    <PageMain>
+      <SectionHero />
+    </PageMain>
   );
 }

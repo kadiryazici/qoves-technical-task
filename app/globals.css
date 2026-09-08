@@ -75,22 +75,22 @@
 
 @utility inner-border-b {
   @apply inner-border;
-  --inner-border-bottom: inset 0px -1px 0px 0px var(--color-surface-3);
+  --inner-border-bottom: inset 0px -1px 0px 0px var(--color-border-primary-muted);
 }
 
 @utility inner-border-t {
   @apply inner-border;
-  --inner-border-top: inset 0px 1px 0px 0px var(--color-surface-3);
+  --inner-border-top: inset 0px 1px 0px 0px var(--color-border-primary-muted);
 }
 
 @utility inner-border-l {
   @apply inner-border;
-  --inner-border-left: inset 1px 0px 0px 0px var(--color-surface-3);
+  --inner-border-left: inset 1px 0px 0px 0px var(--color-border-primary-muted);
 }
 
 @utility inner-border-r {
   @apply inner-border;
-  --inner-border-right: inset -1px 0px 0px 0px var(--color-surface-3);
+  --inner-border-right: inset -1px 0px 0px 0px var(--color-border-primary-muted);
 }
 
 
@@ -104,15 +104,6 @@
 
 
 /* CREDITS: https://www.joshwcomeau.com/css/custom-css-reset/ */
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-*:not(dialog) {
-  margin: 0;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   html {
     interpolate-size: allow-keywords;
@@ -136,10 +127,6 @@ input, button, textarea, select {
 /* 8. Avoid text overflows */
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  text-wrap: balance;
 }
 
 /*

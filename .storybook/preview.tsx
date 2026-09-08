@@ -17,7 +17,7 @@ const preview: Preview = {
       document.documentElement.classList.add(...fontClassName.split(" "))
 
       return (
-        <div className="w-fit">
+        <div className="">
           <Story />
         </div>
       )
