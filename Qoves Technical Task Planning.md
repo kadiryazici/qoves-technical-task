@@ -43,7 +43,6 @@ I'll create tailwind predefined utilities and custom color values for spesific v
 
 ## Hero
 
-
 Hero has an svg path animation and it looks like it’s hidden under 1440px. The bottom cards has an hover effect but they are seems to not clickable. I guess the reason why this is hidden under 1440px is because of svg animation. A different style or a different svg path can be created for mobile devices. Or pure css animations.
 
 I’ll export the SVG from Figma and use an AI agent to make the dot and trail to follow the given path.
@@ -69,3 +68,6 @@ Also content header's design is a bit different in this section. Badge has diffe
 # FAQ Section
 
 This is a classic Accordion component behavior but nested. I'll create Accordion components with extra props to handle the nested behavior and style changes.
+
+# SCSS Styling
+I accidently skipped SCSS being used in the real world application. as last step I'll convert tailwind implementetion to scss and css modules with mixing, scss functions etc.
