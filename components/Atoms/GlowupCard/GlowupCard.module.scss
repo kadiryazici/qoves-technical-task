@@ -24,7 +24,7 @@
 
   &:hover {
     @include shadow(0 20px 32px -20px color-mix(in srgb, var(--color-black) 30%, transparent));
-    background: var(--color-primary-400);
+    background-color: var(--color-primary-400);
   }
 
   &:hover .background {
@@ -32,7 +32,7 @@
   }
 
   &:hover .number {
-    background: color-mix(in srgb, var(--color-bg-base) 20%, transparent);
+    background-color: color-mix(in srgb, var(--color-bg-base) 20%, transparent);
   }
 
   &:hover .body {
@@ -61,7 +61,7 @@
   place-items: center;
   border-radius: 9999px;
   color: var(--color-text-button-primary);
-  background: var(--color-primary-400);
+  background-color: var(--color-primary-400);
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
 }
 
@@ -84,12 +84,12 @@
 
 .leftCircle {
   left: -6.35px;
-  background: var(--color-glow-brown);
+  background-color: var(--color-glow-brown);
   transform: rotate(90deg);
 }
 
 .rightCircle {
   right: -6.35px;
   opacity: 0.5;
-  background: var(--color-black);
+  background-color: var(--color-black);
 }

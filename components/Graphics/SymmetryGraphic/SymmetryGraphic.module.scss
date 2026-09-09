@@ -9,7 +9,7 @@
   gap: 6.75px;
   padding: 13.5px 9px 9px;
   border-radius: 8px;
-  background: color-mix(in srgb, var(--color-black) 10%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 10%, transparent);
   backdrop-filter: blur(22.5px);
 }
 
@@ -70,15 +70,15 @@
 }
 
 .primary200 {
-  background: var(--color-primary-200);
+  background-color: var(--color-primary-200);
 }
 
 .primary400 {
-  background: var(--color-primary-400);
+  background-color: var(--color-primary-400);
 }
 
 .primary600 {
-  background: var(--color-primary-600);
+  background-color: var(--color-primary-600);
 }
 
 .marker {
@@ -95,7 +95,7 @@
   padding: 1.12px 2.25px;
   border: 0.28px solid var(--color-border-base);
   border-radius: 1.95px;
-  background: var(--color-bg-base);
+  background-color: var(--color-bg-base);
 }
 
 .markerSwatch {
@@ -105,7 +105,7 @@
   height: 6.75px;
   place-items: center;
   border-radius: 1.13px;
-  background: var(--color-bg-subtle);
+  background-color: var(--color-bg-subtle);
 }
 
 .markerColor {

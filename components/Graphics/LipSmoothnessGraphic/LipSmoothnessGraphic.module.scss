@@ -8,7 +8,7 @@
   height: 126px;
   padding: 6.75px;
   border-radius: 8px;
-  background: color-mix(in srgb, var(--color-black) 10%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 10%, transparent);
   backdrop-filter: blur(22.5px);
   transition-duration: 500ms;
 }
@@ -74,7 +74,7 @@
   width: 0.56px;
   height: 9.28px;
   margin-inline: auto;
-  background: var(--color-bg-secondary-disabled);
+  background-color: var(--color-bg-secondary-disabled);
 }
 
 .scale {
@@ -93,23 +93,23 @@
 
 .scalePrimary100 {
   width: 11.25px;
-  background: var(--color-primary-100);
+  background-color: var(--color-primary-100);
 }
 
 .scalePrimary200 {
   width: 146.25px;
-  background: var(--color-primary-200);
+  background-color: var(--color-primary-200);
 }
 
 .scalePrimary300 {
   width: 76.5px;
-  background: var(--color-primary-300);
+  background-color: var(--color-primary-300);
 }
 
 .scalePrimary400 {
   flex-shrink: 1;
   width: 100%;
-  background: var(--color-primary-400);
+  background-color: var(--color-primary-400);
 }
 
 .cursor {
@@ -129,7 +129,7 @@
   padding-inline: 3.94px;
   border-radius: 7.88px;
   color: var(--color-text-button-primary);
-  background: color-mix(in srgb, var(--color-bg-base) 20%, transparent);
+  background-color: color-mix(in srgb, var(--color-bg-base) 20%, transparent);
   font-size: 5.63px;
   font-weight: 500;
   line-height: 7.88px;

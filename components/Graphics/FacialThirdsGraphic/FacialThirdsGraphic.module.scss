@@ -7,7 +7,7 @@
   height: 165px;
   padding: 9px 6.75px;
   border-radius: 8px;
-  background: color-mix(in srgb, var(--color-black) 10%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 10%, transparent);
   backdrop-filter: blur(22.5px);
 }
 
@@ -52,15 +52,15 @@
 }
 
 .primary600 {
-  background: var(--color-primary-600);
+  background-color: var(--color-primary-600);
 }
 
 .primary400 {
-  background: var(--color-primary-400);
+  background-color: var(--color-primary-400);
 }
 
 .secondaryDisabled {
-  background: var(--color-bg-secondary-disabled);
+  background-color: var(--color-bg-secondary-disabled);
 }
 
 .value {

@@ -11,13 +11,13 @@
 
 .rootPrimary {
   border-radius: spacing(3);
-  background: var(--color-primary-50);
+  background-color: var(--color-primary-50);
   backdrop-filter: blur(12px);
 }
 
 .rootSub {
   border-radius: spacing(2);
-  background: color-mix(in srgb, var(--color-bg-base) 20%, transparent);
+  background-color: color-mix(in srgb, var(--color-bg-base) 20%, transparent);
   backdrop-filter: blur(12px);
 }
 
@@ -29,6 +29,7 @@
   overflow: clip;
   border-color: transparent;
   transition-property: background-color, border-radius;
+  transition-duration: 300ms;
 
   &:not(:last-child) {
     border-bottom-width: 1px;
@@ -46,13 +47,13 @@
 .itemPrimaryVisible {
   @include shadow(0 14px 17.5px 0 color-mix(in srgb, var(--color-primary-400) 10%, transparent));
   border-radius: spacing(2);
-  background: var(--color-primary-400);
+  background-color: var(--color-primary-400);
 }
 
 .itemSubVisible {
   @include shadow(0 16px 16px 0 color-mix(in srgb, var(--color-text-primary) 3%, transparent));
   border-radius: 6px;
-  background: color-mix(in srgb, var(--color-bg-base) 20%, transparent);
+  background-color: color-mix(in srgb, var(--color-bg-base) 20%, transparent);
 }
 
 .itemPrimaryHidden {
@@ -98,6 +99,10 @@
   justify-content: space-between;
   gap: spacing(4);
   cursor: pointer;
+
+  * {
+    transition: color 300ms;
+  }
 }
 
 .primaryTrigger {

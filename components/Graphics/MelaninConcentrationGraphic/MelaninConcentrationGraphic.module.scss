@@ -7,7 +7,7 @@
   height: 337px;
   padding: 6.75px;
   border-radius: 8px;
-  background: color-mix(in srgb, var(--color-black) 10%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 10%, transparent);
   backdrop-filter: blur(22.5px);
   transition-duration: 500ms;
 }
@@ -40,7 +40,7 @@
   min-height: 0;
   padding: 4.62px 6.87px;
   border-radius: 3.47px;
-  background: color-mix(in srgb, var(--color-primary-100) 20%, transparent);
+  background-color: color-mix(in srgb, var(--color-primary-100) 20%, transparent);
 }
 
 .messageText {
@@ -99,7 +99,7 @@
   flex-shrink: 0;
   width: 9.28px;
   height: 1px;
-  background: color-mix(in srgb, var(--color-border-primary-muted) 56%, transparent);
+  background-color: color-mix(in srgb, var(--color-border-primary-muted) 56%, transparent);
 }
 
 .galleryFrame {
@@ -166,7 +166,7 @@
   margin-block: auto;
   border: 0.28px solid var(--color-border-base);
   border-radius: 1.95px;
-  background: var(--color-bg-base);
+  background-color: var(--color-bg-base);
 }
 
 .cursorCard {
@@ -187,7 +187,7 @@
   height: 6.75px;
   place-items: center;
   border-radius: 1.13px;
-  background: var(--color-bg-subtle);
+  background-color: var(--color-bg-subtle);
 }
 
 .swatchColor {
