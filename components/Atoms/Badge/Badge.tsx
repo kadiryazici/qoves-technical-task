@@ -4,7 +4,7 @@ import type { ComponentProps } from "react"
 import styles from "./Badge.module.scss"
 
 export type BadgeProps = ComponentProps<"div"> & {
-  type: "primary" | "secondary"
+  type: "primary" | "secondary" | "tertiary"
 }
 
 export function Badge(props: BadgeProps) {
@@ -16,13 +16,21 @@ export function Badge(props: BadgeProps) {
       className={clsx(
         styles.root,
         className,
-        type === "primary" ? styles.primary : styles.secondary,
+        {
+          [styles.primary]: type === "primary",
+          [styles.secondary]: type === "secondary",
+          [styles.tertiary]: type === "tertiary",
+        },
       )}
     >
       <span
         className={clsx(
           styles.label,
-          type === "primary" ? styles.primaryLabel : styles.secondaryLabel,
+          {
+            [styles.primaryLabel]: type === "primary",
+            [styles.secondaryLabel]: type === "secondary",
+            [styles.tertiaryLabel]: type === "tertiary",
+          },
         )}
       >
         {children}

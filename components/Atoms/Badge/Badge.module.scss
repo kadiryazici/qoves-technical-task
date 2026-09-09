@@ -8,12 +8,19 @@
 
 .primary {
   @include ring(0 0 0 1px color-mix(in srgb, var(--color-border-primary-muted) 10%, transparent));
+  background-color: color-mix(in srgb, var(--colo-bg-base) 10%, transparent);
   padding-block: spacing(1);
 }
 
 .secondary {
   @include ring(0 0 0 1px color-mix(in srgb, var(--color-border-secondary) 30%, transparent));
   padding-block: spacing(1.75);
+}
+
+.tertiary {
+  padding-block: spacing(1.75);
+  background-color: color-mix(in srgb, #fff 10%, transparent);
+  backdrop-filter: blur(2px);
 }
 
 .label {
@@ -33,4 +40,10 @@
   @include body-4-zagma;
   @include trim-text;
   color: var(--color-text-button-secondary-disabled);
+}
+
+.tertiaryLabel {
+  @include body-4-zagma;
+  @include trim-text;
+  color: var(--color-text-button-primary);
 }

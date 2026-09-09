@@ -1,5 +1,15 @@
 @use "sass:list";
 
+/// Hides scrollbars while preserving scroll behavior across browsers.
+@mixin scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /// Adds one or more outer shadows without replacing rings or inner borders.
 /// @example @include shadow(0 4px 12px rgb(0 0 0 / 10%));
 @mixin shadow($shadows...) {

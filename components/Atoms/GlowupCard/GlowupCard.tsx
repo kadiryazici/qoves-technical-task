@@ -1,42 +1,34 @@
 import { clsx } from "clsx"
-import { memo, type ComponentProps } from "react"
+import { ReactNode, type ComponentProps } from "react"
 
-import styles from "./GlowupCard.module.scss"
+import styles from "./GlowUpCard.module.scss"
 
-export type GlowupCardProps = ComponentProps<"div"> & {
-  number: number
+export type GlowUpCardProps = ComponentProps<"div"> & {
+  image: ReactNode
+  heading: ReactNode
+  description: ReactNode
 }
 
-export function GlowupCard(props: GlowupCardProps) {
-  const { children, className, number, ...attrs } = props
+export function GlowUpCard(props: GlowUpCardProps) {
+  const { className, image, heading, description, ...attrs } = props
 
   return (
     <div
       {...attrs}
       className={clsx(styles.root, className)}
     >
-      <GlowupCardBackgroundBlur />
-
-      <div className={styles.number}>
-        {number}
+      <div className={styles.imageContainer}>
+        {image}
       </div>
 
-      <p className={styles.body}>
-        {children}
-      </p>
+      <div className={styles.content}>
+        <h3 className={styles.heading}>
+          {heading}
+        </h3>
+        <p className={styles.description}>
+          {description}
+        </p>
+      </div>
     </div>
   )
 }
-
-const GlowupCardBackgroundBlur = memo(function GlowupCardBackgroundBlur(props: ComponentProps<"div">) {
-  const { className, ...attrs } = props
-  return (
-    <div
-      {...attrs}
-      className={clsx(styles.background, className)}
-    >
-      <div className={clsx(styles.circle, styles.leftCircle)} />
-      <div className={clsx(styles.circle, styles.rightCircle)} />
-    </div>
-  )
-})

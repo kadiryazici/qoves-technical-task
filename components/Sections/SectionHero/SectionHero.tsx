@@ -5,7 +5,7 @@ import type { ComponentProps } from "react"
 import { useLayoutEffect, useRef } from "react"
 import { ContentHeader } from "@/components/Atoms/ContentHeader/ContentHeader";
 import { BeforeAfterComparison } from "@/components/Atoms/BeforeAfterComparison/BeforeAfterComparison";
-import { GlowupCard } from "@/components/Atoms/GlowupCard/GlowupCard";
+import { NumberCard } from "@/components/Atoms/NumberCard/NumberCard";
 import { PageSection } from "@/components/Layout/PageSection/PageSection";
 import { PageSectionContent } from "@/components/Layout/PageSectionContent/PageSectionContent";
 import { gsap } from "gsap"
@@ -123,9 +123,9 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
                   index !== glowupCardBodies.length - 1 && styles.cardDivider,
                 )}
               >
-                <GlowupCard className={styles.card} number={index + 1}>
+                <NumberCard className={styles.card} number={index + 1}>
                   {body}
-                </GlowupCard>
+                </NumberCard>
               </div>
             ))}
           </div>

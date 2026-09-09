@@ -65,3 +65,9 @@ Also content header's design is a bit different in this section. Badge has diffe
 # FAQ Section
 
 This is a classic Accordion component behavior but nested. I'll create Accordion components with extra props to handle the nested behavior and style changes.
+
+# Last Section
+
+I'll create an optimized video using Handbrake, I'll remove the audio and wil save 80% of the video size.
+On desktop the section will have a custom scroll height, I'm currently guessing 3x window height. 
+To trakc scroll position and update the background video and other elements visuals, I'll use gsap's scroll timeline.

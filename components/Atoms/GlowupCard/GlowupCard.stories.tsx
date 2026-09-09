@@ -1,23 +1,47 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { GlowupCard } from "./GlowupCard"
+import { GlowUpCard } from "./GlowUpCard";
 
 const meta = {
-  title: "Atoms/GlowupCard",
-  component: GlowupCard,
+  title: "Atoms/GlowUpCard",
+  component: GlowUpCard,
   args: {
-    style: { maxWidth: "308px", height: "fit-content" },
-    number: 1,
-    children: <>
-      Get your expert facial
-      <br />
-      analysis
-    </>,
+    heading: "Lifestyle Factors",
+    description: "Considers diet, climate, stress, sleep, and habits.",
+    image: <img src="/images/glow-up/lifestyle-factors.webp" />,
   },
-} satisfies Meta<typeof GlowupCard>
+  render(args) {
+    return (
+      <div
+        style={{
+          width: "453px",
+          height: "262px",
+          padding: "16px",
+          display: "flex",
+          position: "relative",
+          isolation: "isolate",
+          // overflow: "clip"
+        }}
+      >
+        <div
+          style={{
+            backgroundImage: "url('/images/glow-up/lifestyle-factors.webp')",
+            position: "absolute",
+            inset: 0,
+            zIndex: -1,
+            filter: "blur(24px)",
+            scale: 2
+          }}
+        />
 
-export default meta
+        <GlowUpCard {...args} style={{ width: "100%", height: "100%" }} />
+      </div>
+    );
+  },
+} satisfies Meta<typeof GlowUpCard>;
 
-type Story = StoryObj<typeof meta>
+export default meta;
 
-export const Default: Story = {}
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};

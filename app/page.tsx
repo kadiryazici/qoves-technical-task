@@ -3,6 +3,7 @@ import { SectionFacialAnalysis } from "@/components/Sections/SectionFacialAnalys
 import { SectionFAQ } from "@/components/Sections/SectionFAQ/SectionFAQ";
 import { SectionHero } from "@/components/Sections/SectionHero/SectionHero";
 import styles from "./page.module.scss";
+import { SectionGlowUp } from "@/components/Sections/SectionGlowUp/SectionGlowUp";
 
 export const revalidate = 300;
 
@@ -12,6 +13,7 @@ export default function Home() {
       <SectionHero className={styles.hero} />
       <SectionFacialAnalysis />
       <SectionFAQ />
+      <SectionGlowUp />
     </PageMain>
   );
 }
