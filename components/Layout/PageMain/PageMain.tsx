@@ -1,5 +1,7 @@
-import { cn } from "@/utils/cn";
-import { ComponentProps } from "react";
+import { clsx } from "clsx"
+import type { ComponentProps } from "react"
+
+import styles from "./PageMain.module.scss"
 
 export function PageMain(props: ComponentProps<"main">) {
   const { className, children, ...attrs } = props
@@ -7,7 +9,7 @@ export function PageMain(props: ComponentProps<"main">) {
   return (
     <main
       {...attrs}
-      className={cn("min-h-screen", className)}
+      className={clsx(styles.root, className)}
     >
       {children}
     </main>

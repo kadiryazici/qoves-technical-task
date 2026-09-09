@@ -1,5 +1,6 @@
 "use client"
 
+import { clsx } from "clsx"
 import type { ComponentProps } from "react"
 import { useLayoutEffect, useRef } from "react"
 import { ContentHeader } from "@/components/Atoms/ContentHeader/ContentHeader";
@@ -7,8 +8,8 @@ import { BeforeAfterComparison } from "@/components/Atoms/BeforeAfterComparison/
 import { GlowupCard } from "@/components/Atoms/GlowupCard/GlowupCard";
 import { PageSection } from "@/components/Layout/PageSection/PageSection";
 import { PageSectionContent } from "@/components/Layout/PageSectionContent/PageSectionContent";
-import { cn } from "@/utils/cn";
 import { gsap } from "gsap"
+import styles from "./SectionHero.module.scss"
 
 const glowupCardBodies = [
   <>
@@ -50,7 +51,7 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
     }
 
     const context = gsap.context(() => {
-      const cards = cardsContainer.querySelectorAll(".glowup-card-animation-item")
+      const cards = cardsContainer.querySelectorAll(`.${styles.cardItem}`)
       const timeline = gsap.timeline({ defaults: { ease: "power2.out" } })
 
       timeline
@@ -68,22 +69,22 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
   return (
     <div
       {...attrs}
-      className={cn("", className)}
+      className={clsx(className)}
     >
       <PageSection
         {...attrs}
-        className="inner-border-b"
+        className={styles.sectionBorder}
       >
-        <PageSectionContent className="inner-border-x">
+        <PageSectionContent className={styles.contentBorder}>
           <div ref={headerRef}>
             <ContentHeader
               type="secondary"
-              className="mx-auto py-10 text-center max-w-[700px]"
+              className={styles.header}
               label="Personalized Analysis"
               heading={<>
                 Get your personalised
                 {" "}
-                <span className="text-text-disabled">Qoves plan</span>
+                <span className={styles.disabled}>Qoves plan</span>
               </>}
               description={
                 <>
@@ -99,9 +100,9 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
 
       <PageSection
         {...attrs}
-        className="inner-border-b"
+        className={styles.sectionBorder}
       >
-        <PageSectionContent className="inner-border-x p-4">
+        <PageSectionContent className={styles.comparisonContent}>
           <div ref={beforeAfterRef}>
             <BeforeAfterComparison />
           </div>
@@ -110,19 +111,19 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
 
       <PageSection
         {...attrs}
-        className="inner-border-b"
+        className={styles.sectionBorder}
       >
-        <PageSectionContent className="inner-border-x">
-          <div ref={cardsContainerRef} className="grid grid-cols-4 auto-cols-fr">
+        <PageSectionContent className={styles.contentBorder}>
+          <div ref={cardsContainerRef} className={styles.cards}>
             {glowupCardBodies.map((body, index) => (
               <div
                 key={index}
-                className={cn(
-                  "glowup-card-animation-item p-4 flex",
-                  index !== glowupCardBodies.length - 1 && "inner-border-r"
+                className={clsx(
+                  styles.cardItem,
+                  index !== glowupCardBodies.length - 1 && styles.cardDivider,
                 )}
               >
-                <GlowupCard className="w-full" number={index + 1}>
+                <GlowupCard className={styles.card} number={index + 1}>
                   {body}
                 </GlowupCard>
               </div>
@@ -132,7 +133,7 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
       </PageSection>
 
       <PageSection>
-        <PageSectionContent className="inner-border-x h-[120px]" />
+        <PageSectionContent className={styles.spacer} />
     </PageSection>
     </div>
   )

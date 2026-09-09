@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 
 import { BeforeAfterComparison } from "./BeforeAfterComparison"
+import styles from "./BeforeAfterComparison.stories.module.scss"
 
 const meta = {
   title: "Atoms/BeforeAfterComparison",
   component: BeforeAfterComparison,
   args: {
-    className: "max-w-[1328px]"
+    className: styles.root,
   }
 } satisfies Meta<typeof BeforeAfterComparison>
 

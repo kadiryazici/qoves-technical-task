@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 
 import { FacialThirdsGraphic } from "./FacialThirdsGraphic"
+import styles from "../Graphics.stories.module.scss"
 
 const meta = {
   title: "Graphics/FacialThirdsGraphic",
@@ -8,7 +9,7 @@ const meta = {
   args: {},
   render() {
     return (
-      <div className="bg-primary-600/70 p-10">
+      <div className={styles.canvas}>
         <FacialThirdsGraphic />
       </div>
     )

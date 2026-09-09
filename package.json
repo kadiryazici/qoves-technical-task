@@ -9,17 +9,15 @@
     "motion": "^13.2.0",
     "next": "^16.3.4",
     "react": "latest",
-    "react-dom": "latest",
-    "tailwind-merge": "^3.6.0"
+    "react-dom": "latest"
   },
   "devDependencies": {
     "@storybook/nextjs-vite": "^10.6.0",
-    "@tailwindcss/postcss": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "sass": "^1.92.1",
     "storybook": "^10.6.0",
-    "tailwindcss": "latest",
     "typescript": "latest"
   },
   "type": "module",

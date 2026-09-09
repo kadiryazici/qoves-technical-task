@@ -1,6 +1,7 @@
+import { clsx } from "clsx"
 import type { ComponentProps, ElementType } from "react"
 
-import { cn } from "@/utils/cn"
+import styles from "./PageSection.module.scss"
 
 export type PageSectionProps<T extends ElementType = "section"> = {
   as?: T
@@ -12,7 +13,7 @@ export function PageSection<T extends ElementType = "section">(props: PageSectio
   const Component = as ?? "section"
 
   return (
-    <Component {...attrs} className={cn("isolate relative w-full", className)}>
+    <Component {...attrs} className={clsx(styles.root, className)}>
       {children}
     </Component>
   )

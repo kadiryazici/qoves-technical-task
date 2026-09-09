@@ -1,0 +1,12 @@
+.root {
+  @include ring(0 0 0 1px color-mix(in srgb, var(--color-border-primary-muted) 10%, transparent));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 285px;
+  height: 337px;
+  padding: 6.93px;
+  border-radius: 8px;
+  background-color: color-mix(in srgb, var(--color-black) 10%, transparent);
+  backdrop-filter: blur(22.5px);
+}

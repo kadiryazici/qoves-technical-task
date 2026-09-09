@@ -1,6 +1,7 @@
+import { clsx } from "clsx"
 import type { ComponentProps } from "react"
 
-import { cn } from "@/utils/cn"
+import styles from "./PageSectionContent.module.scss"
 
 export type PageSectionContentProps = ComponentProps<"div">
 
@@ -8,7 +9,7 @@ export function PageSectionContent(props: PageSectionContentProps) {
   const { children, className, ...attrs } = props
 
   return (
-    <div {...attrs} className={cn("w-full max-w-340 mx-auto relative",className)}>
+    <div {...attrs} className={clsx(styles.root, className)}>
       {children}
     </div>
   )

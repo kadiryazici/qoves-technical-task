@@ -1,0 +1,49 @@
+.root {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    text-align: inherit;
+  }
+}
+
+.gapBase {
+  gap: spacing(4);
+}
+
+.gapLarge {
+  gap: spacing(6);
+}
+
+.label {
+  width: 100%;
+}
+
+.heading,
+.description {
+  text-wrap: balance;
+}
+
+.heading4 {
+  @include heading-4;
+}
+
+.heading5 {
+  @include heading-5;
+}
+
+.description {
+  @include body-2;
+}
+
+.primaryText {
+  color: var(--color-text-button-primary);
+}
+
+.secondaryHeading {
+  color: var(--color-text-primary);
+}
+
+.secondaryDescription {
+  color: var(--color-text-secondary);
+}

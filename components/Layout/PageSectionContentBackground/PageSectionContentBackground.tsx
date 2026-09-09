@@ -1,6 +1,7 @@
+import { clsx } from "clsx"
 import type { ComponentProps } from "react"
 
-import { cn } from "@/utils/cn"
+import styles from "./PageSectionContentBackground.module.scss"
 
 export type PageSectionContentBackgroundProps = ComponentProps<"div">
 
@@ -8,7 +9,7 @@ export function PageSectionContentBackground(props: PageSectionContentBackground
   const { children, className, ...attrs } = props
 
   return (
-    <div {...attrs} className={cn("pointer-events-none absolute mx-auto max-w-340 inset-0 flex",className)}>
+    <div {...attrs} className={clsx(styles.root, className)}>
       {children}
     </div>
   )

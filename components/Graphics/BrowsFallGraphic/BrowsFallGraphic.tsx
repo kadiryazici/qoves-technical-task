@@ -1,8 +1,9 @@
 "use client";
 
+import { clsx } from "clsx";
 import { useState, type ComponentProps } from "react";
 
-import { cn } from "@/utils/cn";
+import styles from "./BrowsFallGraphic.module.scss";
 
 export type BrowsFallGraphicProps = Omit<ComponentProps<"div">, "children">;
 
@@ -16,10 +17,7 @@ export function BrowsFallGraphic(props: BrowsFallGraphicProps) {
   return (
     <div
       {...attrs}
-      className={cn(
-        "w-[285px] h-[337px] bg-black/10 backdrop-blur-[22.5px] flex flex-col justify-between p-[6.93px] rounded-[8px] ring ring-[#F2F2F21A]",
-        className,
-      )}
+      className={clsx(styles.root, className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

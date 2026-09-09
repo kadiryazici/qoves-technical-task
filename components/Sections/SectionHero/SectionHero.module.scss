@@ -1,0 +1,47 @@
+.sectionBorder {
+  @include inner-border(bottom);
+}
+
+.contentBorder {
+  @include inner-border(x);
+}
+
+.header {
+  max-width: 700px;
+  margin-inline: auto;
+  padding-block: spacing(10);
+  text-align: center;
+}
+
+.disabled {
+  color: var(--color-text-disabled);
+}
+
+.comparisonContent {
+  @include inner-border(x);
+  padding: spacing(4);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+.cardItem {
+  display: flex;
+  padding: spacing(4);
+}
+
+.cardDivider {
+  @include inner-border(right);
+}
+
+.card {
+  width: 100%;
+}
+
+.spacer {
+  @include inner-border(x);
+  height: 120px;
+}

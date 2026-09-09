@@ -1,9 +1,9 @@
 "use client"
 
+import { clsx } from "clsx"
 import type { ComponentProps } from "react"
 import { useLayoutEffect, useRef } from "react"
 
-import { cn } from "@/utils/cn"
 import { ContentHeader } from "@/components/Atoms/ContentHeader/ContentHeader"
 import { PageSection } from "@/components/Layout/PageSection/PageSection"
 import { PageSectionContent } from "@/components/Layout/PageSectionContent/PageSectionContent"
@@ -17,6 +17,7 @@ import { FacialThirdsGraphic } from "@/components/Graphics/FacialThirdsGraphic/F
 import { SymmetryGraphic } from "@/components/Graphics/SymmetryGraphic/SymmetryGraphic"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import styles from "./SectionFacialAnalysis.module.scss"
 
 export type SectionFacialAnalysisProps = Omit<ComponentProps<typeof PageSection>, "children">
 
@@ -86,14 +87,14 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
   return (
     <PageSection
       {...attrs}
-      className={cn("min-h-[832px] bg-primary-400 overflow-clip",className)}
+      className={clsx(styles.root, className)}
     >
-      <PageSectionContentBackground className="z-[-2] isolate max-w-full overflow-hidden items-center justify-center">
-        <div className="pointer-events-none z-[-1] relative shrink-0 will-change-[filter] blur-[250px] w-[820px] h-[1000px]">
+      <PageSectionContentBackground className={styles.background}>
+        <div className={styles.backgroundGlow}>
           <Image
             alt="blurred background image"
             aria-hidden="true"
-            className="print:invisible object-contain"
+            className={styles.backgroundImage}
             fill
             src="/images/facial-analysis-background-blur.webp"
           />
@@ -104,21 +105,21 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
       <CornerBlurs />
 
 
-      <PageSectionContent className="pointer-events-none pt-14 pointer">
+      <PageSectionContent className={styles.content}>
           <ContentHeader
             gap="lg"
             type="primary"
-            className="pointer-events-auto text-center max-w-[556px] mx-auto"
+            className={styles.header}
             label="Personalized aesthetics"
             ref={headerRef}
             heading={<>
               Your complete
               {" "}
-              <span className="text-white/50">facial analysis</span>
+              <span className={styles.mutedHeading}>facial analysis</span>
             </>}
             description={
               <>
-                <span className="contents text-text-button-primary">
+                <span className={styles.description}>
                   Every face is unique. We assess more than 100 unique facial markers to
                   <br />
                   give you a precise understanding of your aesthetics.
@@ -127,12 +128,12 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
             }
           />
 
-        <div ref={portraitParallaxRef} className="aspect-732/1097 absolute left-0 right-0 mx-auto top-[112px] w-full max-w-[732px]">
-          <div ref={portraitRef} className="relative size-full">
+        <div ref={portraitParallaxRef} className={styles.portraitParallax}>
+          <div ref={portraitRef} className={styles.portrait}>
             <Image
               src="/images/facial-analysis/image.webp"
               alt="facial analysis poster woman"
-              className="object-contain object-top inset-0"
+              className={styles.portraitImage}
               fill
             />
           </div>
@@ -148,19 +149,19 @@ function BackgroundGraphics(props: ComponentProps<"div">) {
   return (
     <div
       {...attrs}
-      className={cn("pointer-events-auto flex flex-row w-[1565px] justify-between absolute left-1/2 -translate-x-1/2 bottom-[154px]", className)}
+      className={clsx(styles.graphics, className)}
     >
-      <div className="flex flex-row gap-4">
-        <BrowsFallGraphic className="shrink-0" />
-        <div className="flex flex-col gap-[14.18px] shrink-0">
+      <div className={styles.graphicsGroup}>
+        <BrowsFallGraphic className={styles.graphic} />
+        <div className={styles.graphicsColumnTight}>
           <EyebrowDensityChart />
           <LipSmoothnessGraphic />
         </div>
       </div>
 
-      <div className="flex flex-row gap-4">
-        <MelaninConcentrationGraphic className="shrink-0" />
-        <div className="flex flex-col gap-4 shrink-0">
+      <div className={styles.graphicsGroup}>
+        <MelaninConcentrationGraphic className={styles.graphic} />
+        <div className={styles.graphicsColumn}>
           <FacialThirdsGraphic />
           <SymmetryGraphic />
         </div>
@@ -171,18 +172,12 @@ function BackgroundGraphics(props: ComponentProps<"div">) {
 
 function CornerBlurs() {
   return (
-    <div className="absolute inset-0 z-[-1] pointer-events-none">
+    <div className={styles.cornerBlurs}>
       <div
-        className="h-full w-[16%] backdrop-blur-xs absolute left-0 top-0"
-        style={{
-          maskImage: "linear-gradient(to right, #000 70%, transparent 100%)"
-        }}
+        className={clsx(styles.cornerBlur, styles.cornerBlurLeft)}
       />
       <div
-        className="h-full w-[16%] backdrop-blur-xs absolute right-0 top-0"
-        style={{
-          maskImage: "linear-gradient(to left, #000 70%, transparent 100%)"
-        }}
+        className={clsx(styles.cornerBlur, styles.cornerBlurRight)}
       />
     </div>
   )

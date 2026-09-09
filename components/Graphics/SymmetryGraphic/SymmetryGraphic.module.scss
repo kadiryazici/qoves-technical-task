@@ -1,0 +1,137 @@
+.root {
+  @include ring(0 0 0 1px color-mix(in srgb, var(--color-border-primary-muted) 10%, transparent));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 284.55px;
+  height: 156px;
+  gap: 6.75px;
+  padding: 13.5px 9px 9px;
+  border-radius: 8px;
+  background-color: color-mix(in srgb, var(--color-black) 10%, transparent);
+  backdrop-filter: blur(22.5px);
+}
+
+.chart {
+  position: relative;
+  display: flex;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+}
+
+.chartLines {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 44px;
+  margin-block: auto;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1.12px;
+  color: var(--color-text-button-primary-disabled);
+  font-family: var(--font-zagma);
+  font-size: 6.93104px;
+  font-weight: 400;
+  line-height: 8px;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+.line {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 1px;
+}
+
+.lineBackground {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  margin: auto;
+}
+
+.lineFill {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  height: 2.25px;
+  margin-block: auto;
+  transition: width 500ms;
+}
+
+.primary200 {
+  background-color: var(--color-primary-200);
+}
+
+.primary400 {
+  background-color: var(--color-primary-400);
+}
+
+.primary600 {
+  background-color: var(--color-primary-600);
+}
+
+.marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(100% - 3px);
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  gap: 2.25px;
+  margin-block: auto;
+  padding: 1.12px 2.25px;
+  border: 0.28px solid var(--color-border-base);
+  border-radius: 1.95px;
+  background-color: var(--color-bg-base);
+}
+
+.markerSwatch {
+  display: grid;
+  flex-shrink: 0;
+  width: 6.75px;
+  height: 6.75px;
+  place-items: center;
+  border-radius: 1.13px;
+  background-color: var(--color-bg-subtle);
+}
+
+.markerColor {
+  flex-shrink: 0;
+  width: 3.38px;
+  height: 3.38px;
+  border-radius: 0.56px;
+}
+
+.markerLabel {
+  color: var(--color-text-secondary);
+  font-family: var(--font-zagma);
+  font-size: 5.625px;
+  font-weight: 400;
+  line-height: 8px;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+.verticalLines {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  isolation: isolate;
+}

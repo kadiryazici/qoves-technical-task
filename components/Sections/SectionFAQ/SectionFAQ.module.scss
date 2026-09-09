@@ -1,0 +1,33 @@
+.sectionBorder {
+  @include inner-border(bottom);
+}
+
+.spacer {
+  @include inner-border(x);
+  height: 120px;
+}
+
+.content {
+  @include inner-border(x);
+  padding: spacing(10) spacing(15);
+}
+
+.header {
+  max-width: 600px;
+  margin: 0 auto spacing(8);
+  text-align: center;
+}
+
+.disabled {
+  color: var(--color-text-disabled);
+}
+
+.accordion {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+.body {
+  padding: spacing(2);
+}

@@ -1,0 +1,53 @@
+@use "sass:list";
+
+/// Adds one or more outer shadows without replacing rings or inner borders.
+/// @example @include shadow(0 4px 12px rgb(0 0 0 / 10%));
+@mixin shadow($shadows...) {
+  --shadow: #{$shadows};
+  @include render-effects;
+}
+
+/// Adds one or more rings without replacing shadows or inner borders.
+/// @example @include ring(0 0 0 2px var(--color-border-primary-muted));
+@mixin ring($rings...) {
+  --ring: #{$rings};
+  @include render-effects;
+}
+
+/// Draws inset borders on all or selected sides: left, right, top, bottom, x, or y.
+/// @example @include inner-border(left right, var(--color-border-primary-muted));
+@mixin inner-border(
+  $sides: all,
+  $color: var(--color-border-primary-muted),
+  $width: 1px
+) {
+  @if $sides == all or list.index($sides, left) or list.index($sides, x) {
+    --inner-border-left: inset #{$width} 0 0 0 #{$color};
+  }
+
+  @if $sides == all or list.index($sides, right) or list.index($sides, x) {
+    --inner-border-right: inset #{-$width} 0 0 0 #{$color};
+  }
+
+  @if $sides == all or list.index($sides, top) or list.index($sides, y) {
+    --inner-border-top: inset 0 #{$width} 0 0 #{$color};
+  }
+
+  @if $sides == all or list.index($sides, bottom) or list.index($sides, y) {
+    --inner-border-bottom: inset 0 #{-$width} 0 0 #{$color};
+  }
+
+  @include render-effects;
+}
+
+/// Renders the composed inner borders, ring, and shadow.
+/// @access private
+@mixin render-effects {
+  box-shadow:
+    var(--inner-border-left, 0 0 #0000),
+    var(--inner-border-right, 0 0 #0000),
+    var(--inner-border-top, 0 0 #0000),
+    var(--inner-border-bottom, 0 0 #0000),
+    var(--ring, 0 0 #0000),
+    var(--shadow, 0 0 #0000);
+}

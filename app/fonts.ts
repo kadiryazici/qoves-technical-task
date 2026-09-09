@@ -1,6 +1,5 @@
+import { clsx } from "clsx"
 import localFont from "next/font/local"
-
-import { cn } from "@/utils/cn"
 
 const ppNeueMontreal = localFont({
   src: [
@@ -17,4 +16,4 @@ const f37Zagma = localFont({
   variable: "--font-zagma",
 })
 
-export const fontClassName = cn(ppNeueMontreal.variable, f37Zagma.variable)
+export const fontClassName = clsx(ppNeueMontreal.variable, f37Zagma.variable)

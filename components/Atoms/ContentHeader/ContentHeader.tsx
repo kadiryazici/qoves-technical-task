@@ -1,7 +1,8 @@
+import { clsx } from "clsx"
 import type { ComponentProps, ReactNode } from "react"
 
 import { Badge } from "@/components/Atoms/Badge/Badge"
-import { cn } from "@/utils/cn"
+import styles from "./ContentHeader.module.scss"
 
 export type ContentHeaderProps = Omit<ComponentProps<"div">, "children"> & {
   label?: ReactNode
@@ -18,14 +19,14 @@ export function ContentHeader(props: ContentHeaderProps) {
   return (
     <div
       {...attrs}
-      className={cn(
-        "*:[text-align:inherit] flex flex-col",
+      className={clsx(
+        styles.root,
         className,
-        gap === "base" ? "gap-4" : "gap-6"
+        gap === "base" ? styles.gapBase : styles.gapLarge,
       )}
     >
       {label && (
-        <div className="w-full">
+        <div className={styles.label}>
           <Badge type={type}>
             {label}
           </Badge>
@@ -33,22 +34,19 @@ export function ContentHeader(props: ContentHeaderProps) {
       )}
 
       <h2
-        className={cn(
-          "text-balance",
-          type === "primary" ? "text-white" : "text-text-primary",
-          {
-            "text-heading-4": headingType === "heading-4",
-            "text-heading-5": headingType === "heading-5",
-          }
+        className={clsx(
+          styles.heading,
+          type === "primary" ? styles.primaryText : styles.secondaryHeading,
+          headingType === "heading-4" ? styles.heading4 : styles.heading5,
         )}
       >
         {heading}
       </h2>
 
       <p
-        className={cn(
-          "text-body-2 text-balance",
-          type === "primary" ? "text-text-button-primary" : "text-text-secondary"
+        className={clsx(
+          styles.description,
+          type === "primary" ? styles.primaryText : styles.secondaryDescription,
         )}
       >
         {description}

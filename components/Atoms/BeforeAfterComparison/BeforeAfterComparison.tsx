@@ -1,12 +1,13 @@
 "use client"
 
+import { clsx } from "clsx"
 import type { ComponentProps, ReactNode, RefObject } from "react"
 import { useLayoutEffect, useRef } from "react"
 import ReactDOM from "react-dom"
 
-import { cn } from "@/utils/cn"
 import { gsap } from "gsap"
 import Image from "next/image"
+import styles from "./BeforeAfterComparison.module.scss"
 
 export type BeforeAfterComparisonProps = Omit<ComponentProps<"div">, "children">
 
@@ -31,9 +32,9 @@ export function BeforeAfterComparison(props: BeforeAfterComparisonProps) {
   return (
     <div
       {...attrs}
-      className={cn("relative isolate flex justify-between w-full",className)}
+      className={clsx(styles.root, className)}
     >
-      <MotionPathSVG className="absolute inset-0 z-[-1]" preserveAspectRatio="none" />
+      <MotionPathSVG className={styles.motionPath} preserveAspectRatio="none" />
 
       <PhotoCard
         heading="Before"
@@ -73,12 +74,12 @@ function PhotoCard(props: PhotoCardProps) {
   return (
     <div
       {...attrs}
-      className={cn("shadow-hero-photo p-[12.21px] rounded-xl w-[462.15px] h-[524.59px] shrink-0 flex", className)}
+      className={clsx(styles.photoCard, className)}
     >
-      <div className="overflow-clip isolate relative rounded-lg bg-bg-secondary-hover min-w-0 size-full">
-        <h3 className="w-full py-[16.15px] uppercase font-zagma text-body-3-zagma text-center text-text-button-primary">{heading}</h3>
+      <div className={styles.photoFrame}>
+        <h3 className={styles.heading}>{heading}</h3>
 
-        <div className="absolute z-[-1] size-full top-[26.91px] left-0 right-0 *:size-full *:object-cover">
+        <div className={styles.image}>
           {image}
         </div>
       </div>
