@@ -8,12 +8,9 @@ First thing I thought when I saw the design was “image and network optimizatio
 - I'll create a prompt to create the boilerplate project. I'll request AI agent to create every single component without styles and just a div and will improve the components later. First commit of the repository will be boilerplate components code made with AI agents use.
 
 ## General Styling
+I'll use `clsx` for dynamic class names.
 
-I’m considering tailwindcss for use in this case because it lets us create flexible styles and easy to develop with component. Not to have class name conflicts I’m going to install `tailwind-merge` and `clsx` dependencies.
-
-TwMerge removes class conflicts from parent and child tailwilnd classes, and clsx allows us to use conditional class names.
-
-I’ll also create components with support for all HTML attributes. Such as `<SteppedCard className="absolute" />` because in the future this component might require different stylings.
+I’ll create components with support for all HTML attributes. Such as `<SteppedCard className="absolute" />` because in the future this component might require different stylings.
 
 First section has an svg path animation and it looks like it’s hidden under 1440px. The bottom cards has an hover effect but they are seems to not clickable. I guess the reason why this is hidden under 1440px is because of svg animation. A different style or a different svg path can be created for mobile devices. Or pure css animations.
 
@@ -29,7 +26,7 @@ I’ll create `ContentHeader`  component with custom props
 
 To make components future proof, I'll isolate functionality to seperate sub components and separate hooks for easy manipulation.
 
-I'll use tailwind media queries and container queries for responsvieness. and `useMedia` hook if plain css is not enough to achieve the desired effect.
+I'll use media queries and container queries for responsvieness. and `useMedia` hook if plain css is not enough to achieve the desired effect.
 
 The main challange I see in this design is SVG animation in Hero component. It's not simple to create path following animations in HTML and CSS. So I might need some custom SVG animation library or some JavaScript approach.
 
@@ -39,7 +36,7 @@ I'll start by implementing with a "atom to template" strategy. I'll start with c
 
 I'll follow the development with Storybook previews.
 
-I'll create tailwind predefined utilities and custom color values for spesific values.
+I'll create mixins, variables and scss functions for reusable styling.
 
 ## Hero
 
@@ -68,6 +65,3 @@ Also content header's design is a bit different in this section. Badge has diffe
 # FAQ Section
 
 This is a classic Accordion component behavior but nested. I'll create Accordion components with extra props to handle the nested behavior and style changes.
-
-# SCSS Styling
-I accidently skipped SCSS being used in the real world application. as last step I'll convert tailwind implementetion to scss and css modules with mixing, scss functions etc.
