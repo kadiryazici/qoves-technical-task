@@ -6,6 +6,12 @@ import { PageSection } from "@/components/Layout/PageSection/PageSection"
 import { PageSectionContent } from "@/components/Layout/PageSectionContent/PageSectionContent"
 import { PageSectionContentBackground } from "@/components/Layout/PageSectionContentBackground/PageSectionContentBackground"
 import Image from "next/image"
+import { BrowsFallGraphic } from "@/components/Graphics/BrowsFallGraphic/BrowsFallGraphic"
+import { EyebrowDensityChart } from "@/components/Graphics/EyebrowDensityChart/EyebrowDensityChart"
+import { LipSmoothnessGraphic } from "@/components/Graphics/LipSmoothnessGraphic/LipSmoothnessGraphic"
+import { MelaninConcentrationGraphic } from "@/components/Graphics/MelaninConcentrationGraphic/MelaninConcentrationGraphic"
+import { FacialThirdsGraphic } from "@/components/Graphics/FacialThirdsGraphic/FacialThirdsGraphic"
+import { SymmetryGraphic } from "@/components/Graphics/SymmetryGraphic/SymmetryGraphic"
 
 export type SectionFacialAnalysisProps = Omit<ComponentProps<typeof PageSection>, "children">
 
@@ -17,8 +23,8 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
       {...attrs}
       className={cn("min-h-[832px] bg-primary-400 overflow-clip",className)}
     >
-      <PageSectionContentBackground className="max-w-full overflow-hidden items-center justify-center">
-        <div className="relative shrink-0 will-change-[filter] blur-[250px] w-[820px] h-[1000px]">
+      <PageSectionContentBackground className="isolate max-w-full overflow-hidden items-center justify-center">
+        <div className="pointer-events-none z-[-1] relative shrink-0 will-change-[filter] blur-[250px] w-[820px] h-[1000px]">
           <Image
             alt="blurred background image"
             aria-hidden="true"
@@ -27,14 +33,16 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
             src="/images/facial-analysis-background-blur.webp"
           />
         </div>
+
+        <BackgroundGraphics />
       </PageSectionContentBackground>
 
 
-      <PageSectionContent className="pt-14">
+      <PageSectionContent className="pointer-events-none pt-14 pointer">
         <ContentHeader
           gap="lg"
           type="primary"
-          className="text-center max-w-[556px] mx-auto"
+          className="pointer-events-auto text-center max-w-[556px] mx-auto"
           label="Personalized aesthetics"
           heading={<>
             Your complete
@@ -52,7 +60,7 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
           }
         />
 
-        <div className="aspect-732/1097 absolute left-[348px] top-[112px] w-full max-w-[732px]">
+        <div className="aspect-732/1097 absolute left-0 right-0 mx-auto top-[112px] w-full max-w-[732px]">
           <Image
             src="/images/facial-analysis/image.webp"
             alt="facial analysis poster woman"
@@ -63,4 +71,32 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
       </PageSectionContent>
     </PageSection>
   )
+}
+
+function BackgroundGraphics() {
+  return (
+    <div className="pointer-events-auto flex flex-row w-[1565px] justify-between absolute left-1/2 -translate-x-1/2 bottom-[154px]">
+      <div className="flex flex-row gap-4">
+        <BrowsFallGraphic className="shrink-0" />
+        <div className="flex flex-col gap-[14.18px] shrink-0">
+          <EyebrowDensityChart />
+          <LipSmoothnessGraphic />
+        </div>
+      </div>
+
+      <div className="flex flex-row gap-4">
+        <MelaninConcentrationGraphic className="shrink-0" />
+        <div className="flex flex-col gap-4 shrink-0">
+          <FacialThirdsGraphic />
+          <SymmetryGraphic />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CornerBlur() {
+  <div className="absolute inset-0 ">
+
+  </div>
 }
