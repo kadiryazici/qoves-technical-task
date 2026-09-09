@@ -97,7 +97,7 @@ function HorizontalChartLine(props: HorizontalChartLineProps) {
       )}
     >
       <svg className="w-full absolute z-[-1] inset-0 m-auto" width="267" height="1" viewBox="0 0 267 1" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 0.28125H266.231" stroke="#CDDBE1" stroke-width="0.5625" stroke-dasharray="2.25 2.25"/>
+        <path d="M0 0.28125H266.231" stroke="#CDDBE1" strokeWidth="0.5625" strokeDasharray="2.25 2.25"/>
       </svg>
 
       <div
@@ -149,8 +149,8 @@ function VerticalLine(props: ComponentProps<"svg">) {
         opacity="0.5"
         d="M0.28125 0L0.281255 115.5"
         stroke="#E8E8E8"
-        stroke-width="0.5625"
-        stroke-dasharray="0.66 0.66"
+        strokeWidth="0.5625"
+        strokeDasharray="0.66 0.66"
       />
     </svg>
   )

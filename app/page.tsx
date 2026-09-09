@@ -9,6 +9,10 @@ export default function Home() {
     <PageMain>
       <SectionHero className="max-desktop:hidden" />
       <SectionFacialAnalysis />
+
+      <div className="h-[1000px]">
+
+      </div>
     </PageMain>
   );
 }

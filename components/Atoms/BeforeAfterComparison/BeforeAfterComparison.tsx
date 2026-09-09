@@ -42,6 +42,7 @@ export function BeforeAfterComparison(props: BeforeAfterComparisonProps) {
             alt="before image of a woman"
             src={beforeImageSrc}
             fill
+            loading="eager"
           />
         }
       />
@@ -53,6 +54,7 @@ export function BeforeAfterComparison(props: BeforeAfterComparisonProps) {
             alt="after image of a woman"
             src={afterImageSrc}
             fill
+            loading="eager"
           />
         }
       />
