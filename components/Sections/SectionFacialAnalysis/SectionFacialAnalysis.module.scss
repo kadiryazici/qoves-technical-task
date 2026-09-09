@@ -137,3 +137,11 @@
   right: 0;
   mask-image: linear-gradient(to left, var(--color-black) 70%, transparent 100%);
 }
+
+.innerBorderContainer {
+  @include inner-border(x, color-mix(in srgb, #F2F2F2 10%, transparent));
+  position: absolute;
+  inset: 0;
+  margin: 0 auto;
+  z-index: -3;
+}

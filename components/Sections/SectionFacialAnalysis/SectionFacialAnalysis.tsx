@@ -89,6 +89,8 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
       {...attrs}
       className={clsx(styles.root, className)}
     >
+      <PageSectionContent className={styles.innerBorderContainer} />
+
       <PageSectionContentBackground className={styles.background}>
         <div className={styles.backgroundGlow}>
           <Image
