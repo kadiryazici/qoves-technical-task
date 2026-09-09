@@ -1,5 +1,3 @@
-@use "../../../styles/mixins" as *;
-
 .sectionBorder {
   @include inner-border(bottom);
 }

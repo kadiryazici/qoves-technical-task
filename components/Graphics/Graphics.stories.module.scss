@@ -1,6 +1,4 @@
-@use "../../styles/mixins" as *;
-
 .canvas {
   padding: spacing(10);
-  background: var(--color-primary-600-70);
+  background: color-mix(in srgb, var(--color-primary-600) 70%, transparent);
 }

@@ -1,7 +1,5 @@
-@use "../../../styles/mixins" as *;
-
 .root {
-  @include ring(0 0 0 1px var(--color-ring-light));
+  @include ring(0 0 0 1px color-mix(in srgb, var(--color-border-primary-muted) 10%, transparent));
   position: relative;
   display: flex;
   flex-direction: column;
@@ -9,7 +7,7 @@
   height: 337px;
   padding: 6.75px;
   border-radius: 8px;
-  background: var(--color-black-10);
+  background: color-mix(in srgb, var(--color-black) 10%, transparent);
   backdrop-filter: blur(22.5px);
   transition-duration: 500ms;
 }
@@ -42,7 +40,7 @@
   min-height: 0;
   padding: 4.62px 6.87px;
   border-radius: 3.47px;
-  background: var(--color-bg-message);
+  background: color-mix(in srgb, var(--color-primary-100) 20%, transparent);
 }
 
 .messageText {
@@ -101,11 +99,15 @@
   flex-shrink: 0;
   width: 9.28px;
   height: 1px;
-  background: var(--color-border-muted-56);
+  background: color-mix(in srgb, var(--color-border-primary-muted) 56%, transparent);
 }
 
 .galleryFrame {
-  @include inner-border(all, var(--color-border-muted-50), 0.56px);
+  @include inner-border(
+    all,
+    color-mix(in srgb, var(--color-border-primary-muted) 50%, transparent),
+    0.56px
+  );
   position: absolute;
   z-index: 5;
   inset: 0;

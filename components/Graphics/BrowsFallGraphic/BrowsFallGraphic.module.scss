@@ -1,7 +1,5 @@
-@use "../../../styles/mixins" as *;
-
 .root {
-  @include ring(0 0 0 1px var(--color-ring-light));
+  @include ring(0 0 0 1px color-mix(in srgb, var(--color-border-primary-muted) 10%, transparent));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -9,6 +7,6 @@
   height: 337px;
   padding: 6.93px;
   border-radius: 8px;
-  background: var(--color-black-10);
+  background: color-mix(in srgb, var(--color-black) 10%, transparent);
   backdrop-filter: blur(22.5px);
 }

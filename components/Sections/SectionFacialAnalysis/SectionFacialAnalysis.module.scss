@@ -1,5 +1,3 @@
-@use "../../../styles/mixins" as *;
-
 .root {
   min-height: 832px;
   overflow: clip;
@@ -47,7 +45,7 @@
 }
 
 .mutedHeading {
-  color: var(--color-white-50);
+  color: color-mix(in srgb, var(--color-bg-base) 50%, transparent);
 }
 
 .description {

@@ -1,7 +1,5 @@
-@use "../../../styles/mixins" as *;
-
 .root {
-  @include ring(0 0 0 1px var(--color-ring-light));
+  @include ring(0 0 0 1px color-mix(in srgb, var(--color-border-primary-muted) 10%, transparent));
   position: relative;
   display: flex;
   flex-direction: column;
@@ -10,7 +8,7 @@
   height: 126px;
   padding: 6.75px;
   border-radius: 8px;
-  background: var(--color-black-10);
+  background: color-mix(in srgb, var(--color-black) 10%, transparent);
   backdrop-filter: blur(22.5px);
   transition-duration: 500ms;
 }
@@ -69,7 +67,7 @@
 }
 
 .muted {
-  color: var(--color-white-50);
+  color: color-mix(in srgb, var(--color-bg-base) 50%, transparent);
 }
 
 .tick {
@@ -131,7 +129,7 @@
   padding-inline: 3.94px;
   border-radius: 7.88px;
   color: var(--color-text-button-primary);
-  background: var(--color-white-20);
+  background: color-mix(in srgb, var(--color-bg-base) 20%, transparent);
   font-size: 5.63px;
   font-weight: 500;
   line-height: 7.88px;
