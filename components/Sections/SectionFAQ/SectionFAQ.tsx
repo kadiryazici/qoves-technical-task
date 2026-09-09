@@ -90,35 +90,37 @@ export function SectionFAQ(props: SectionFAQProps) {
             }
           />
 
-          <Accordion.Root ref={accordionRootRef} className={styles.accordion}>
-            <Accordion.Item
-              ref={(element) => handleAccordionItemRef(0, element)}
-              heading="General Questions"
-              body={
-                <div className={styles.body}>
-                  <Accordion.Root>
-                    <Accordion.Item heading="What is Qoves?" body={<p>{qovesDescription}</p>} />
-                    <Accordion.Item heading="Who is this for?" body={<p>{qovesDescription}</p>} />
-                    <Accordion.Item heading="What exactly will I receive?" body={<p>{qovesDescription}</p>} />
-                    <Accordion.Item heading="How does it work?" body={<p>{qovesDescription}</p>} />
-                    <Accordion.Item heading="How long will it take for me to receive my results?" body={<p>{qovesDescription}</p>} />
-                    <Accordion.Item heading="Is this a one-time report or a continuous service?" body={<p>{qovesDescription}</p>} />
-                    <Accordion.Item heading="How often do I need to submit photos?" body={<p>{qovesDescription}</p>} />
-                    <Accordion.Item heading="What makes Qoves different from beauty apps or filters?" body={<p>{qovesDescription}</p>} />
-                    <Accordion.Item heading="Can I really get results without surgery?" body={<p>{qovesDescription}</p>} />
-                  </Accordion.Root>
-                </div>
-              }
-            />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(1, element)} heading="About the Analysis" body={<p className={styles.body}>{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(2, element)} heading="About the Protocol" body={<p className={styles.body}>{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(3, element)} heading="Experience & Use" body={<p className={styles.body}>{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(4, element)} heading="Pricing & Subscription" body={<p className={styles.body}>{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(5, element)} heading="Privacy & Data" body={<p className={styles.body}>{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(6, element)} heading="Mindset & Philosophy" body={<p className={styles.body}>{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(7, element)} heading="Practical Concerns" body={<p className={styles.body}>{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(8, element)} heading="About Support" body={<p className={styles.body}>{loremIpsum}</p>} />
-          </Accordion.Root>
+          <div className={styles.accordionContainer}>
+            <Accordion.Root ref={accordionRootRef} className={styles.accordion}>
+              <Accordion.Item
+                ref={(element) => handleAccordionItemRef(0, element)}
+                heading="General Questions"
+                body={
+                  <div className={styles.body}>
+                    <Accordion.Root>
+                      <Accordion.Item heading="What is Qoves?" body={<p>{qovesDescription}</p>} />
+                      <Accordion.Item heading="Who is this for?" body={<p>{qovesDescription}</p>} />
+                      <Accordion.Item heading="What exactly will I receive?" body={<p>{qovesDescription}</p>} />
+                      <Accordion.Item heading="How does it work?" body={<p>{qovesDescription}</p>} />
+                      <Accordion.Item heading="How long will it take for me to receive my results?" body={<p>{qovesDescription}</p>} />
+                      <Accordion.Item heading="Is this a one-time report or a continuous service?" body={<p>{qovesDescription}</p>} />
+                      <Accordion.Item heading="How often do I need to submit photos?" body={<p>{qovesDescription}</p>} />
+                      <Accordion.Item heading="What makes Qoves different from beauty apps or filters?" body={<p>{qovesDescription}</p>} />
+                      <Accordion.Item heading="Can I really get results without surgery?" body={<p>{qovesDescription}</p>} />
+                    </Accordion.Root>
+                  </div>
+                }
+              />
+              <Accordion.Item ref={(element) => handleAccordionItemRef(1, element)} heading="About the Analysis" body={<p className={styles.body}>{loremIpsum}</p>} />
+              <Accordion.Item ref={(element) => handleAccordionItemRef(2, element)} heading="About the Protocol" body={<p className={styles.body}>{loremIpsum}</p>} />
+              <Accordion.Item ref={(element) => handleAccordionItemRef(3, element)} heading="Experience & Use" body={<p className={styles.body}>{loremIpsum}</p>} />
+              <Accordion.Item ref={(element) => handleAccordionItemRef(4, element)} heading="Pricing & Subscription" body={<p className={styles.body}>{loremIpsum}</p>} />
+              <Accordion.Item ref={(element) => handleAccordionItemRef(5, element)} heading="Privacy & Data" body={<p className={styles.body}>{loremIpsum}</p>} />
+              <Accordion.Item ref={(element) => handleAccordionItemRef(6, element)} heading="Mindset & Philosophy" body={<p className={styles.body}>{loremIpsum}</p>} />
+              <Accordion.Item ref={(element) => handleAccordionItemRef(7, element)} heading="Practical Concerns" body={<p className={styles.body}>{loremIpsum}</p>} />
+              <Accordion.Item ref={(element) => handleAccordionItemRef(8, element)} heading="About Support" body={<p className={styles.body}>{loremIpsum}</p>} />
+            </Accordion.Root>
+          </div>
         </PageSectionContent>
       </PageSection>
 

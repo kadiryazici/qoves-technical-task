@@ -1,5 +1,39 @@
-.root,
-.item,
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: spacing(4);
+  gap: spacing(4);
+  border-radius: spacing(4);
+  background-color: color-mix(in srgb, #fff 10%, transparent);
+  backdrop-filter: blur(32px);
+}
+
 .heading {
-  display: block;
+  @include heading-7;
+  width: 100%;
+  color: var(--color-text-button-primary);
+
+  @include tablet {
+    @include heading-6;
+  }
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(2);
+}
+
+.item {
+  padding: spacing(3);
+  width: 100%;
+  border-radius: spacing(1.5);
+  background-color: color-mix(in srgb, #fff 10%, transparent);
+  color: var(--color-text-button-primary);
+  @include body-3;
+
+  @include small-mobile {
+    @include body-4;
+  }
 }

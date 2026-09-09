@@ -13,6 +13,7 @@ import { Badge } from "@/components/Atoms/Badge/Badge";
 import { ContentHeader } from "@/components/Atoms/ContentHeader/ContentHeader";
 import { GlowUpCard } from "@/components/Atoms/GlowUpCard/GlowUpCard";
 import Image from "next/image";
+import { InfoCard } from "@/components/Atoms/InfoCard/InfoCard";
 
 export type SectionGlowUpProps = Omit<ComponentProps<"div">, "children">;
 
@@ -52,7 +53,7 @@ export function SectionGlowUp(props: SectionGlowUpProps) {
 
     const context = gsap.context(() => {
       gsap.to(video, {
-        filter: "blur(12px)",
+        filter: "blur(48px)",
         ease: "none",
         scrollTrigger: {
           trigger: section,
@@ -78,7 +79,7 @@ export function SectionGlowUp(props: SectionGlowUpProps) {
             <div className={styles.contentHeading}>
               <ContentHeader
                 label="Backed by 2000+ research papers"
-                style={{ maxWidth: "526px", width: "100%" }}
+                className={styles.header}
                 gap="base"
                 type="primary"
                 heading={
@@ -104,6 +105,24 @@ export function SectionGlowUp(props: SectionGlowUpProps) {
               ))}
             </div>
           </div>
+
+          <div className={styles.floatingHeaderContainer}>
+            <ContentHeader
+              className={styles.floatingHeader}
+              gap="base"
+              type="primary"
+              heading={
+                <>
+                  Is it vain to care
+                  <br />
+                  <span style={{ opacity: "0.5" }}>about your appearance?</span>
+                </>
+              }
+              description="Many feel guilty about wanting to improve their looks, fearing it means they’re shallow or insecure. But here's what research tells us : caring about appearance is natural. Like health, finances, and education, it’s just another form of self-improvement."
+            />
+          </div>
+
+          <InfoCards />
         </PageSectionContent>
       </PageSection>
     </div>
@@ -114,7 +133,7 @@ type BackgroundVideoProps = Omit<ComponentProps<"div">, "children"> & {
   videoRef: RefObject<HTMLVideoElement | null>;
 };
 
-export function BackgroundVideo(props: BackgroundVideoProps) {
+function BackgroundVideo(props: BackgroundVideoProps) {
   const { className, videoRef, ...attrs } = props;
 
   return (
@@ -133,4 +152,38 @@ export function BackgroundVideo(props: BackgroundVideoProps) {
       </div>
     </div>
   );
+}
+
+function InfoCards(props: Omit<ComponentProps<"div">, "children">) {
+  const { className, ...attrs } = props;
+
+  return (
+    <div
+      {...attrs}
+      className={clsx(styles.infoCards, className)}
+    >
+      <InfoCard
+        className={styles.infoCardConsider}
+        heading="Consider this..."
+      >
+        <InfoCard.Item>First impressions matter</InfoCard.Item>
+        <InfoCard.Item>It has a considerable impact on interpersonal interactions</InfoCard.Item>
+        <InfoCard.Item>Small improvements can drastically impact quality of life</InfoCard.Item>
+      </InfoCard>
+
+      <InfoCard
+        className={styles.infoCardApproach}
+        heading={<>
+          The key is approaching
+          <br />
+          it intelligently
+        </>}
+      >
+        <InfoCard.Item>Not chasing unrealistic standards</InfoCard.Item>
+        <InfoCard.Item>Not trying to look like someone else</InfoCard.Item>
+        <InfoCard.Item>Not seeking perfection</InfoCard.Item>
+        <InfoCard.Item>Aiming only for a better version of yourself</InfoCard.Item>
+      </InfoCard>
+    </div>
+  )
 }

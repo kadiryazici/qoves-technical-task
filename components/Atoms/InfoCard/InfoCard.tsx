@@ -1,24 +1,26 @@
 import { clsx } from "clsx"
-import type { ComponentProps } from "react"
-
+import type { ComponentProps, ReactNode } from "react"
 import styles from "./InfoCard.module.scss"
 
-export type InfoCardProps = ComponentProps<"div">
-export type InfoCardItemProps = ComponentProps<"div">
-export type InfoCardHeadingProps = ComponentProps<"div">
+export type InfoCardProps = ComponentProps<"div"> & {
+  heading: ReactNode,
+}
 
-function InfoCardRoot(props: InfoCardProps) {
-  const { children, className, ...attrs } = props
+export function InfoCard(props: InfoCardProps) {
+  const { children, heading, className, ...attrs } = props
 
   return (
     <div {...attrs} className={clsx(styles.root, className)}>
-      {children}
+      <h3 className={styles.heading}>{heading}</h3>
+      <div className={styles.items}>
+        {children}
+      </div>
     </div>
   )
 }
 
-function InfoCardItem(props: InfoCardItemProps) {
-  const { children, className, ...attrs } = props
+InfoCard.Item = function InfoCardItem(props: ComponentProps<"div">) {
+  const { className, children, ...attrs } = props;
 
   return (
     <div {...attrs} className={clsx(styles.item, className)}>
@@ -26,18 +28,3 @@ function InfoCardItem(props: InfoCardItemProps) {
     </div>
   )
 }
-
-function InfoCardHeading(props: InfoCardHeadingProps) {
-  const { children, className, ...attrs } = props
-
-  return (
-    <div {...attrs} className={clsx(styles.heading, className)}>
-      {children}
-    </div>
-  )
-}
-
-export const InfoCard = Object.assign(InfoCardRoot, {
-  Item: InfoCardItem,
-  Heading: InfoCardHeading,
-})

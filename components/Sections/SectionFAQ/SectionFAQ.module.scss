@@ -3,19 +3,32 @@
 }
 
 .spacer {
+  display: none;
+  @include desktop {
+    display: block
+  }
+
   @include inner-border(x);
   height: 120px;
 }
 
 .content {
   @include inner-border(x);
-  padding: spacing(10) spacing(15);
+  padding-top: spacing(20);
+
+  @include tablet {
+    padding: spacing(10) spacing(15);
+  }
 }
 
 .header {
   max-width: 600px;
-  margin: 0 auto spacing(8);
+  margin: 0 auto spacing(6);
   text-align: center;
+
+  @include tablet {
+    margin: 0 auto spacing(8);
+  }
 }
 
 .disabled {
@@ -26,6 +39,14 @@
   width: 100%;
   max-width: 1080px;
   margin-inline: auto;
+}
+
+.accordionContainer {
+  padding: spacing(2);
+
+  @include desktop {
+    display: contents;
+  }
 }
 
 .body {

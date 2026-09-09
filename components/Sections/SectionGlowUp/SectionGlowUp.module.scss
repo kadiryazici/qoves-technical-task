@@ -2,12 +2,21 @@
   display: block;
   width: 100%;
   height: 100dvh;
-  height: 300vh;
+  height: 400vh;
 }
 
 .content {
   @include inner-border(x, color-mix(in srgb, #f2f2f2 20%, transparent));
   height: 100%;
+}
+
+.header {
+  max-width: 526px;
+
+  @include mobile {
+    margin: 0 auto;
+    text-align: center;
+  }
 }
 
 .fixedContentContainer {
@@ -89,5 +98,65 @@
   position: absolute;
   z-index: 5;
   inset: 0;
-  background: linear-gradient(360deg, rgba(0, 0, 0, 0.56) 0%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(
+    360deg,
+    rgba(0, 0, 0, 0.56) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.infoCards {
+  @include scrollbar-hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: spacing(10);
+  gap: spacing(4);
+  width: 100%;
+  overflow-x: auto;
+
+  > * {
+    flex-shrink: 0;
+    min-width: 275px;
+  }
+
+  @include tablet {
+    height: 80vh;
+    width: 100%;
+  }
+}
+
+.infoCardConsider {
+  margin-bottom: auto;
+  width: 443px;
+  height: 400px;
+}
+
+.infoCardApproach {
+  margin-top: auto;
+  width: 443px;
+  height: 400px;
+}
+
+.floatingHeaderContainer {
+  height: 100vh;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.floatingHeader {
+  max-width: 550px;
+  margin: auto;
+  text-align: center;
+
+  @include small-mobile {
+    :global(.heading) {
+        @include heading-7;
+    }
+
+    :global(.description) {
+        @include body-3;
+    }
+  }
 }
