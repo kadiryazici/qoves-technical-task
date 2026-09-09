@@ -4,7 +4,7 @@ import { extendTailwindMerge } from "tailwind-merge"
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
-      text: ["heading-4", "heading-8", "body-2", "body-3-zagma", "body-4-zagma", "body-5-zagma"],
+      text: ["heading-4", "heading-5", "heading-8", "body-2", "body-3", "body-3-zagma", "body-4-zagma", "body-5-zagma"],
     },
   },
 })

@@ -5,6 +5,7 @@
 
   --font-sans: var(--font-pp-neue);
 
+  --color-primary-50: #F9FBFB;
   --color-primary-100: #F2F5F5;
   --color-primary-200: #CDDBE1;
   --color-primary-300: #AEC2C9;
@@ -13,6 +14,8 @@
   --color-bg-subtle: #FAFAFA;
   --color-border-base: #E8E8E8;
   --color-text-button-primary: #FFF;
+  --color-icon-button-primary: #FFF;
+  --color-icon-secondary: #758084;
   --color-text-button-secondary-disabled: #9AAEB5;
   --color-bg-secondary-disabled: #CDDBE1;
   --color-text-primary: #233137;
@@ -32,9 +35,18 @@
   --text-heading-4--line-height: 3.5rem;
   --text-heading-4--letter-spacing: -0.015em;
 
+  --text-heading-5: 2.5rem;
+  --text-heading-5--font-weight: 400;
+  --text-heading-5--line-height: 3rem;
+  --text-heading-5--letter-spacing: -0.015em;
+
   --text-body-2: 1rem;
   --text-body-2--font-weight: 400;
   --text-body-2--line-height: 1.5rem;
+
+  --text-body-3: 0.875rem;
+  --text-body-3--font-weight: 400;
+  --text-body-3--line-height: 1.25rem;
 
   --text-body-3-zagma: 1.009244rem;
   --text-body-3-zagma--font-weight: 400;

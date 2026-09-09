@@ -1,5 +1,6 @@
 import { PageMain } from "@/components/Layout/PageMain/PageMain";
 import { SectionFacialAnalysis } from "@/components/Sections/SectionFacialAnalysis/SectionFacialAnalysis";
+import { SectionFAQ } from "@/components/Sections/SectionFAQ/SectionFAQ";
 import { SectionHero } from "@/components/Sections/SectionHero/SectionHero";
 
 export const revalidate = 300;
@@ -9,10 +10,7 @@ export default function Home() {
     <PageMain>
       <SectionHero className="max-desktop:hidden" />
       <SectionFacialAnalysis />
-
-      <div className="h-[1000px]">
-
-      </div>
+      <SectionFAQ />
     </PageMain>
   );
 }

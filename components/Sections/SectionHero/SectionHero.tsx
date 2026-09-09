@@ -54,9 +54,10 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
       const timeline = gsap.timeline({ defaults: { ease: "power2.out" } })
 
       timeline
+        .delay(0.25)
         .from(header, { autoAlpha: 0, y: 24, duration: 0.7 })
         .from(beforeAfter, { autoAlpha: 0, scale: 1.05, y: 24, filter: "blur(6px)", duration: 1 })
-        .from(cards, { autoAlpha: 0, x: -24, duration: 0.45, filter: "blur(3px)", stagger: 0.12 })
+        .from(cards, { autoAlpha: 0, x: -24, duration: 1, filter: "blur(3px)", stagger: 0.20 })
     })
 
     return () => {

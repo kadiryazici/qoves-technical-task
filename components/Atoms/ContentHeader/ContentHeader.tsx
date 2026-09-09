@@ -1,5 +1,6 @@
 import type { ComponentProps, ReactNode } from "react"
 
+import { Badge } from "@/components/Atoms/Badge/Badge"
 import { cn } from "@/utils/cn"
 
 export type ContentHeaderProps = Omit<ComponentProps<"div">, "children"> & {
@@ -8,10 +9,11 @@ export type ContentHeaderProps = Omit<ComponentProps<"div">, "children"> & {
   description: ReactNode
   type: "primary" | "secondary"
   gap?: "base" | "lg"
+  headingType?: "heading-4" | "heading-5"
 }
 
 export function ContentHeader(props: ContentHeaderProps) {
-  const { className, type, gap = "base", description, heading, label, ...attrs } = props
+  const { className, type, gap = "base", headingType = "heading-4", description, heading, label, ...attrs } = props
 
   return (
     <div
@@ -32,8 +34,12 @@ export function ContentHeader(props: ContentHeaderProps) {
 
       <h2
         className={cn(
-          "text-balance text-heading-4",
-          type === "primary" ? "text-white" : "text-text-primary"
+          "text-balance",
+          type === "primary" ? "text-white" : "text-text-primary",
+          {
+            "text-heading-4": headingType === "heading-4",
+            "text-heading-5": headingType === "heading-5",
+          }
         )}
       >
         {heading}
@@ -47,41 +53,6 @@ export function ContentHeader(props: ContentHeaderProps) {
       >
         {description}
       </p>
-    </div>
-  )
-}
-
-type BadgeProps = ComponentProps<"div"> & {
-  type: ContentHeaderProps["type"]
-}
-
-function Badge(props: BadgeProps) {
-  const { className, type, children, ...attrs } = props;
-
-  return (
-    <div
-      {...attrs}
-      className={cn(
-        "inline-flex px-2.5 items-center justify-center rounded-full ring",
-        className,
-        type === "primary"
-          ? "ring-[#F2F2F21A] py-1"
-          : "ring-[#C7D1D54D] py-1.75"
-      )}
-    >
-      <span
-        style={{
-          textBox: type === "primary" ? undefined : "trim-both cap alphabetic"
-        }}
-        className={cn(
-          "whitespace-nowrap flex-none text-center font-zagma uppercase",
-          type === "primary"
-            ? "text-body-5-zagma text-text-button-primary"
-            : "text-body-4-zagma text-text-button-secondary-disabled"
-        )}
-      >
-        {children}
-      </span>
     </div>
   )
 }

@@ -88,7 +88,7 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
       {...attrs}
       className={cn("min-h-[832px] bg-primary-400 overflow-clip",className)}
     >
-      <PageSectionContentBackground className="isolate max-w-full overflow-hidden items-center justify-center">
+      <PageSectionContentBackground className="z-[-2] isolate max-w-full overflow-hidden items-center justify-center">
         <div className="pointer-events-none z-[-1] relative shrink-0 will-change-[filter] blur-[250px] w-[820px] h-[1000px]">
           <Image
             alt="blurred background image"
@@ -98,9 +98,10 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
             src="/images/facial-analysis-background-blur.webp"
           />
         </div>
-
         <BackgroundGraphics ref={backgroundGraphicsRef} />
       </PageSectionContentBackground>
+
+      <CornerBlurs />
 
 
       <PageSectionContent className="pointer-events-none pt-14 pointer">
@@ -168,8 +169,21 @@ function BackgroundGraphics(props: ComponentProps<"div">) {
   )
 }
 
-function CornerBlur() {
-  <div className="absolute inset-0 ">
-
-  </div>
+function CornerBlurs() {
+  return (
+    <div className="absolute inset-0 z-[-1] pointer-events-none">
+      <div
+        className="h-full w-[16%] backdrop-blur-xs absolute left-0 top-0"
+        style={{
+          maskImage: "linear-gradient(to right, #000 70%, transparent 100%)"
+        }}
+      />
+      <div
+        className="h-full w-[16%] backdrop-blur-xs absolute right-0 top-0"
+        style={{
+          maskImage: "linear-gradient(to left, #000 70%, transparent 100%)"
+        }}
+      />
+    </div>
+  )
 }
