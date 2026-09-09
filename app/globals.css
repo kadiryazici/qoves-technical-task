@@ -123,6 +123,10 @@
   @apply inner-border-t inner-border-b;
 }
 
+@utility trim-text {
+  text-box: trim-both cap alphabetic
+}
+
 
 /* CREDITS: https://www.joshwcomeau.com/css/custom-css-reset/ */
 @media (prefers-reduced-motion: no-preference) {
