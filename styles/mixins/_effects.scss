@@ -1,0 +1,45 @@
+@use "sass:list";
+
+@mixin shadow($shadows...) {
+  --shadow: #{$shadows};
+  @include render-effects;
+}
+
+@mixin ring($rings...) {
+  --ring: #{$rings};
+  @include render-effects;
+}
+
+@mixin inner-border(
+  $sides: all,
+  $color: var(--color-border-primary-muted),
+  $width: 1px
+) {
+  @if $sides == all or list.index($sides, left) or list.index($sides, x) {
+    --inner-border-left: inset #{$width} 0 0 0 #{$color};
+  }
+
+  @if $sides == all or list.index($sides, right) or list.index($sides, x) {
+    --inner-border-right: inset #{-$width} 0 0 0 #{$color};
+  }
+
+  @if $sides == all or list.index($sides, top) or list.index($sides, y) {
+    --inner-border-top: inset 0 #{$width} 0 0 #{$color};
+  }
+
+  @if $sides == all or list.index($sides, bottom) or list.index($sides, y) {
+    --inner-border-bottom: inset 0 #{-$width} 0 0 #{$color};
+  }
+
+  @include render-effects;
+}
+
+@mixin render-effects {
+  box-shadow:
+    var(--inner-border-left, 0 0 #0000),
+    var(--inner-border-right, 0 0 #0000),
+    var(--inner-border-top, 0 0 #0000),
+    var(--inner-border-bottom, 0 0 #0000),
+    var(--ring, 0 0 #0000),
+    var(--shadow, 0 0 #0000);
+}

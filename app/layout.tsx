@@ -1,11 +1,10 @@
-import "./globals.css";
+import "@/styles/main.scss"
 
 import { fontClassName } from "./fonts"
-import { cn } from "@/utils/cn";
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={cn("bg-bg-base",fontClassName)}>
+    <html lang="en" className={fontClassName}>
       <body>{children}</body>
     </html>
   );

@@ -1,5 +1,8 @@
 "use client";
 
+import { clsx } from "clsx";
+import { gsap } from "gsap";
+import Image from "next/image";
 import {
   createContext,
   Dispatch,
@@ -12,11 +15,9 @@ import {
   type ComponentProps,
   type ReactNode,
 } from "react";
-import { gsap } from "gsap";
 
-import { cn } from "@/utils/cn";
 import { IconClose, IconMinus, IconPlus } from "../Icons/Icons";
-import Image from "next/image";
+import styles from "./Accordion.module.scss";
 
 type AccordionContext = {
   activeId: string;
@@ -39,11 +40,9 @@ function AccordionRoot(props: ComponentProps<"div">) {
     >
       <div
         {...attrs}
-        className={cn(
-          "flex flex-col *:w-full p-2 translate-z-0",
-          isSubAccordion
-            ? "bg-white/20 backdrop-blur-[12px] rounded-lg"
-            : "bg-primary-50 backdrop-blur-[12px] rounded-xl",
+        className={clsx(
+          styles.root,
+          isSubAccordion ? styles.rootSub : styles.rootPrimary,
           className,
         )}
       >
@@ -76,38 +75,24 @@ function AccordionItem(props: AccordionItemProps) {
   return (
     <div
       {...attrs}
-      className={cn(
-        "flex flex-col not-last:border-b border-transparent transition-[background-color,border-radius] isolate relative overflow-clip",
-        isSubAccordion
-          ? [
-            "p-3",
-            visible
-              ? "bg-white/20 shadow-[0px_16px_16px_0px_#23313708]"
-              : "border-b-white/10"
-          ]
-          : [
-            "p-2",
-            visible
-              ? "bg-primary-400 shadow-[0px_14px_17.5px_0px_#9AAEB51A]"
-              : "border-b-border-primary-muted"
-          ],
-        visible && [
-          isSubAccordion ? "rounded-md" : "rounded-lg"
-        ],
+      className={clsx(
+        styles.item,
+        isSubAccordion ? styles.itemSub : styles.itemPrimary,
+        isSubAccordion && visible && styles.itemSubVisible,
+        isSubAccordion && !visible && styles.itemSubHidden,
+        !isSubAccordion && visible && styles.itemPrimaryVisible,
+        !isSubAccordion && !visible && styles.itemPrimaryHidden,
         className,
       )}
     >
       {!isSubAccordion && (
         <div
-          className={cn(
-            "blur-[150px] z-[-1] absolute left-0 right-0 mx-auto top-0 aspect-444/542 w-1/2 -translate-y-2/7 opacity-0 transition-opacity duration-500",
-            visible && "opacity-100"
-          )}
+          className={clsx(styles.background, visible && styles.backgroundVisible)}
         >
           <Image
             alt="blurred background image"
             aria-hidden="true"
-            className="print:invisible object-contain -rotate-90"
+            className={styles.backgroundImage}
             fill
             src="/images/facial-analysis-background-blur.webp"
           />
@@ -117,39 +102,29 @@ function AccordionItem(props: AccordionItemProps) {
       <div
         role="button"
         onClick={handleToggle}
-        className={cn(
-          "cursor-pointer flex flex-row justify-between gap-4 items-center",
-          !isSubAccordion && "p-4",
-        )}
+        className={clsx(styles.trigger, !isSubAccordion && styles.primaryTrigger)}
       >
         <span
-          className={cn(
-            isSubAccordion ? "text-body-2" : "text-heading-8 transition-colors",
-            isSubAccordion || visible
-              ? "text-icon-button-primary"
-              : "text-text-primary",
-            "font-medium"
+          className={clsx(
+            styles.heading,
+            isSubAccordion ? styles.subHeading : styles.primaryHeading,
+            isSubAccordion || visible ? styles.activeText : styles.inactiveText,
           )}
         >
           {heading}
         </span>
 
         <Icon
-          className={cn(
-            "text-base",
-            isSubAccordion || visible
-              ? "text-icon-button-primary"
-              : "text-icon-secondary",
+          className={clsx(
+            styles.icon,
+            isSubAccordion || visible ? styles.activeText : styles.inactiveIcon,
           )}
         />
       </div>
 
       <AnimatedAccordionBody isOpen={visible}>
         <div
-          className={cn(
-            "text-text-button-primary text-body-3",
-            isSubAccordion && "pt-2",
-          )}
+          className={clsx(styles.body, isSubAccordion && styles.subBody)}
         >
           {body}
         </div>
@@ -219,7 +194,7 @@ function AnimatedAccordionBody(props: AnimatedAccordionBodyProps) {
   }
 
   return (
-    <div ref={bodyRef} className="h-0 overflow-clip">
+    <div ref={bodyRef} className={styles.animatedBody}>
       {children}
     </div>
   );

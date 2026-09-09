@@ -1,0 +1,8 @@
+.root {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  max-width: 85rem;
+  margin-inline: auto;
+  pointer-events: none;
+}

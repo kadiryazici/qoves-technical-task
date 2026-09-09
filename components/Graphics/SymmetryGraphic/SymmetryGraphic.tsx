@@ -1,10 +1,11 @@
 "use client";
 
-import { ReactNode, useEffect, useState, type ComponentProps } from "react"
+import { clsx } from "clsx"
+import { useEffect, useState, type ComponentProps, type ReactNode } from "react"
 
-import { cn } from "@/utils/cn"
 import { getRandomInt } from "@/utils/random"
 import { animate, percent, useMotionValue, useMotionValueEvent } from "motion/react"
+import styles from "./SymmetryGraphic.module.scss"
 
 export type SymmetryGraphicProps = Omit<ComponentProps<"div">, "children">
 
@@ -34,13 +35,13 @@ export function SymmetryGraphic(props: SymmetryGraphicProps) {
   return (
     <div
       {...attrs}
-      className={cn("relative w-[284.55px] h-[156px] bg-black/10 backdrop-blur-[22.5px] flex flex-col justify-between pt-[13.5px] px-[9px] pb-[9px] gap-[6.75px] rounded-lg ring ring-[#F2F2F21A]", className)}
+      className={clsx(styles.root, className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="w-full relative isolate h-full flex">
-        <VerticalLinesBackground className="z-[-1]" />
-        <div className="flex flex-col h-[44px] w-full justify-between my-auto">
+      <div className={styles.chart}>
+        <VerticalLinesBackground />
+        <div className={styles.chartLines}>
           <HorizontalChartLine
             color="200"
             text="Ideal"
@@ -59,7 +60,7 @@ export function SymmetryGraphic(props: SymmetryGraphicProps) {
         </div>
       </div>
 
-      <div className="text-text-button-primary-disabled py-[1.12px] flex flex-row items-center justify-between font-zagma font-normal text-[6.93104px] leading-[8px] tracking-[-0.005em] uppercase">
+      <div className={styles.footer}>
         <span>Asymmetrical</span>
         <span>Symmetrical</span>
       </div>
@@ -82,36 +83,33 @@ function HorizontalChartLine(props: HorizontalChartLineProps) {
     ...attrs
   } = props
 
-  const bg = cn({
-    "bg-primary-200": color === "200",
-    "bg-primary-400": color === "400",
-    "bg-primary-600": color === "600",
+  const colorClassName = clsx({
+    [styles.primary200]: color === "200",
+    [styles.primary400]: color === "400",
+    [styles.primary600]: color === "600",
   })
 
   return (
     <div
       {...attrs}
-      className={cn(
-        "h-[1px] isolate relative w-full",
-        className
-      )}
+      className={clsx(styles.line, className)}
     >
-      <svg className="w-full absolute z-[-1] inset-0 m-auto" width="267" height="1" viewBox="0 0 267 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className={styles.lineBackground} width="267" height="1" viewBox="0 0 267 1" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0.28125H266.231" stroke="#CDDBE1" strokeWidth="0.5625" strokeDasharray="2.25 2.25"/>
       </svg>
 
       <div
-        className={cn("transiton-[width] duration-500 absolute my-auto inset-0 z-[2] h-[2.25px]", bg)}
+        className={clsx(styles.lineFill, colorClassName)}
         style={{
           width: `${percentage}%`
         }}
       >
-        <div className="flex flex-row gap-[2.25px] size-fit items-center px-[2.25px] py-[1.12px] bg-bg-base rounded-[1.95px] border-[0.28px] border-border-base absolute left-[calc(100%-3px)] top-0 bottom-0 my-auto">
-          <div className="shrink-0 aspect-square size-[6.75px] grid place-items-center bg-bg-subtle rounded-[1.13px]">
-            <div className={cn("aspect-square shrink-0 size-[3.38px] rounded-[0.56px]", bg)} />
+        <div className={styles.marker}>
+          <div className={styles.markerSwatch}>
+            <div className={clsx(styles.markerColor, colorClassName)} />
           </div>
 
-          <span className="font-zagma font-normal text-[5.625px] leading-[8px] tracking-[-0.005em] uppercase text-text-secondary">
+          <span className={styles.markerLabel}>
             {text}
           </span>
         </div>
@@ -126,7 +124,7 @@ function VerticalLinesBackground(props: Omit<ComponentProps<"div">, "children">)
   return (
     <div
       {...attrs}
-      className={cn("isolate absolute inset-0 flex flex-row justify-between items-stretch", className)}
+      className={clsx(styles.verticalLines, className)}
     >
       {Array.from({ length: 11 }, (_, index) => (
         <VerticalLine key={index} />

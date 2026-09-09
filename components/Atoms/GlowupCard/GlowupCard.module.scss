@@ -1,0 +1,97 @@
+@use "../../../styles/mixins" as *;
+
+.root {
+  display: flex;
+  position: relative;
+  isolation: isolate;
+  flex-direction: column;
+  flex-shrink: 1;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-width: 0;
+  gap: spacing(12);
+  padding: spacing(4);
+  overflow: hidden;
+  border: 1px solid var(--color-border-primary-muted);
+  border-radius: spacing(3);
+  user-select: none;
+  transition-duration: 600ms;
+  transition-property: background-color, box-shadow;
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 600ms;
+  }
+
+  &:hover {
+    @include shadow(0 20px 32px -20px var(--color-shadow-card));
+    background: var(--color-primary-400);
+  }
+
+  &:hover .background {
+    opacity: 1;
+  }
+
+  &:hover .number {
+    background: var(--color-white-20);
+  }
+
+  &:hover .body {
+    color: var(--color-text-button-primary);
+  }
+}
+
+.background {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateZ(0);
+  transition-property: opacity;
+}
+
+.number {
+  @include body-4-zagma;
+  display: grid;
+  width: spacing(6);
+  height: spacing(6);
+  place-items: center;
+  border-radius: 9999px;
+  color: var(--color-text-button-primary);
+  background: var(--color-primary-400);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+}
+
+.body {
+  @include heading-8;
+  color: var(--color-text-primary);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+}
+
+.circle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 52.59%;
+  aspect-ratio: 1;
+  margin-block: auto;
+  border-radius: 9999px;
+  filter: blur(105.84px);
+}
+
+.leftCircle {
+  left: -6.35px;
+  background: var(--color-glow-brown);
+  transform: rotate(90deg);
+}
+
+.rightCircle {
+  right: -6.35px;
+  opacity: 0.5;
+  background: var(--color-black);
+}

@@ -1,10 +1,11 @@
 "use client";
 
+import { clsx } from "clsx"
 import { useEffect, useRef, useState, type ComponentProps } from "react"
 
-import { cn } from "@/utils/cn"
 import { getRandomInt } from "@/utils/random"
 import { gsap } from "gsap"
+import styles from "./LipSmoothnessGraphic.module.scss"
 
 export type LipSmoothnessGraphicProps = Omit<ComponentProps<"div">, "children">
 
@@ -26,45 +27,45 @@ export function LipSmoothnessGraphic(props: LipSmoothnessGraphicProps) {
   return (
     <div
       {...attrs}
-      className={cn("duration-[500] relative w-[284px] h-[126px] bg-black/10 backdrop-blur-[22.5px] flex flex-col justify-between p-[6.75px] rounded-[8px] ring ring-[#F2F2F21A]", className)}
+      className={clsx(styles.root, className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <PercentageCursor value={percentage}  />
 
-      <div className="mr-auto space-y-[1.12px] pt-[4.5px]">
-        <div className="font-zagma font-normal text-[6.75px] leading-[7.88px] tracking-[-0.005em] uppercase text-text-disabled">
+      <div className={styles.summary}>
+        <div className={styles.title}>
           Lip Smoothness
         </div>
 
-        <div className="text-bg-base text-[27px] leading-[31.5px] tracking-[-0.015em] text-right">
+        <div className={styles.percentage}>
           <AnimatedNumber value={percentage} />%
         </div>
       </div>
 
-      <div className="mt-auto flex flex-col">
-        <div className="flex flex-row justify-between">
-          <div className="space-y-[2.91px]">
-            <div className="font-medium text-[5.63px] leading-[7.88px] tracking-normal text-right text-text-button-primary">
-              Rough <span className="text-text-button-primary/50">(0%)</span>
+      <div className={styles.scaleSection}>
+        <div className={styles.scaleLabels}>
+          <div className={styles.scaleLabel}>
+            <div className={styles.labelText}>
+              Rough <span className={styles.muted}>(0%)</span>
             </div>
-            <div className="h-[9.28px] w-[0.56px] bg-bg-secondary-disabled mx-auto" />
+            <div className={styles.tick} />
           </div>
 
-          <div className="space-y-[2.91px]">
-            <div className="font-medium text-[5.63px] leading-[7.88px] tracking-normal text-right text-text-button-primary">
-              Smooth <span className="text-text-button-primary/50">(100%)</span>
+          <div className={styles.scaleLabel}>
+            <div className={styles.labelText}>
+              Smooth <span className={styles.muted}>(100%)</span>
             </div>
-            <div className="h-[9.28px] w-[0.56px] bg-bg-secondary-disabled mx-auto" />
+            <div className={styles.tick} />
           </div>
         </div>
 
-          <div className="mt-[1.12px] rounded-full overflow-clip flex flex-row flex-nowrap w-full">
-            <div className="h-[6.75px] w-[11.25px] shrink-0 bg-primary-100" />
-            <div className="h-[6.75px] w-[146.25px] shrink-0 bg-primary-200" />
-            <div className="h-[6.75px] w-[76.5px] shrink-0 bg-primary-300" />
-            <div className="h-[6.75px] w-full shrink bg-primary-400" />
-          </div>
+        <div className={styles.scale}>
+          <div className={clsx(styles.scaleSegment, styles.scalePrimary100)} />
+          <div className={clsx(styles.scaleSegment, styles.scalePrimary200)} />
+          <div className={clsx(styles.scaleSegment, styles.scalePrimary300)} />
+          <div className={clsx(styles.scaleSegment, styles.scalePrimary400)} />
+        </div>
       </div>
     </div>
   )
@@ -110,23 +111,21 @@ function PercentageCursor(props: PercentageCursorProps) {
   return (
     <div
       {...attrs}
-      className={cn("isolate transition-[left] duration-500 absolute top-0 bottom-[13.25px] w-fit", className)}
+      className={clsx(styles.cursor, className)}
       style={{
         left: `${value}%`,
         ...style,
       }}
     >
       <div
-        className={cn(
-          "transition-transform whitespace-nowrap bg-[#fafafa]/20 text-text-button-primary rounded-[7.88px] font-medium text-[5.63px] leading-[7.88px] tracking-normal bottom-[36px] left-[0px] absolute w-fit px-[3.94px]",
-          value < 20
-            ? "translate-x-[7.74px]"
-            : "translate-x-[calc(-100%-7.74px)]"
+        className={clsx(
+          styles.cursorLabel,
+          value < 20 ? styles.cursorLabelLeft : styles.cursorLabelRight,
         )}
       >
         <AnimatedNumber value={value} />%
         {" "}
-        <span className="text-text-button-primary/50">(You)</span>
+        <span className={styles.muted}>(You)</span>
       </div>
 
       <svg

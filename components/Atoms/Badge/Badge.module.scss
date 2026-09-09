@@ -1,0 +1,38 @@
+@use "../../../styles/mixins" as *;
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: spacing(2.5);
+  border-radius: 9999px;
+}
+
+.primary {
+  @include ring(0 0 0 1px var(--color-ring-light));
+  padding-block: spacing(1);
+}
+
+.secondary {
+  @include ring(0 0 0 1px var(--color-ring-secondary));
+  padding-block: spacing(1.75);
+}
+
+.label {
+  flex: none;
+  font-family: var(--font-zagma);
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.primaryLabel {
+  @include body-5-zagma;
+  color: var(--color-text-button-primary);
+}
+
+.secondaryLabel {
+  @include body-4-zagma;
+  @include trim-text;
+  color: var(--color-text-button-secondary-disabled);
+}

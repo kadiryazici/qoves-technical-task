@@ -1,0 +1,150 @@
+@use "../../../styles/mixins" as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  padding: spacing(2);
+  transform: translateZ(0);
+
+  > * {
+    width: 100%;
+  }
+}
+
+.rootPrimary {
+  border-radius: spacing(3);
+  background: var(--color-primary-50);
+  backdrop-filter: blur(12px);
+}
+
+.rootSub {
+  border-radius: spacing(2);
+  background: var(--color-white-20);
+  backdrop-filter: blur(12px);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  isolation: isolate;
+  flex-direction: column;
+  overflow: clip;
+  border-color: transparent;
+  transition-property: background-color, border-radius;
+
+  &:not(:last-child) {
+    border-bottom-width: 1px;
+  }
+}
+
+.itemPrimary {
+  padding: spacing(2);
+}
+
+.itemSub {
+  padding: spacing(3);
+}
+
+.itemPrimaryVisible {
+  @include shadow(0 14px 17.5px 0 var(--color-shadow-accordion));
+  border-radius: spacing(2);
+  background: var(--color-primary-400);
+}
+
+.itemSubVisible {
+  @include shadow(0 16px 16px 0 var(--color-shadow-sub-accordion));
+  border-radius: 6px;
+  background: var(--color-white-20);
+}
+
+.itemPrimaryHidden {
+  border-bottom-color: var(--color-border-primary-muted);
+}
+
+.itemSubHidden {
+  border-bottom-color: var(--color-white-10);
+}
+
+.background {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 50%;
+  aspect-ratio: 444 / 542;
+  margin-inline: auto;
+  opacity: 0;
+  filter: blur(150px);
+  transform: translateY(-28.5714%);
+  transition: opacity 500ms;
+}
+
+.backgroundVisible {
+  opacity: 1;
+}
+
+.backgroundImage {
+  object-fit: contain;
+  transform: rotate(-90deg);
+
+  @media print {
+    visibility: hidden;
+  }
+}
+
+.trigger {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: spacing(4);
+  cursor: pointer;
+}
+
+.primaryTrigger {
+  padding: spacing(4);
+}
+
+.heading {
+  font-weight: 500;
+}
+
+.primaryHeading {
+  @include heading-8;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+}
+
+.subHeading {
+  @include body-2;
+}
+
+.activeText {
+  color: var(--color-icon-button-primary);
+}
+
+.inactiveText {
+  color: var(--color-text-primary);
+}
+
+.icon {
+  font-size: 1rem;
+}
+
+.inactiveIcon {
+  color: var(--color-icon-secondary);
+}
+
+.body {
+  @include body-3;
+  color: var(--color-text-button-primary);
+}
+
+.subBody {
+  padding-top: spacing(2);
+}
+
+.animatedBody {
+  height: 0;
+  overflow: clip;
+}

@@ -1,0 +1,216 @@
+@use "../../../styles/mixins" as *;
+
+.root {
+  @include ring(0 0 0 1px var(--color-ring-light));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 273px;
+  height: 337px;
+  padding: 6.75px;
+  border-radius: 8px;
+  background: var(--color-black-10);
+  backdrop-filter: blur(22.5px);
+  transition-duration: 500ms;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 13.5px;
+}
+
+.chart {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+}
+
+.galleryPosition {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin-inline: auto;
+}
+
+.message {
+  display: inline-flex;
+  flex-shrink: 1;
+  width: 100%;
+  min-height: 0;
+  padding: 4.62px 6.87px;
+  border-radius: 3.47px;
+  background: var(--color-bg-message);
+}
+
+.messageText {
+  padding-inline: 2.25px;
+  color: var(--color-text-button-primary);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 11px;
+}
+
+.emphasis {
+  font-weight: 500;
+}
+
+.gallery {
+  position: absolute;
+  isolation: isolate;
+}
+
+.galleryColors {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  width: 6.75px;
+  margin-inline: auto;
+}
+
+.galleryLabel {
+  position: absolute;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  align-items: center;
+  width: fit-content;
+  gap: 2.81px;
+  color: var(--color-text-button-primary);
+  font-size: 5.625px;
+  font-weight: 500;
+  line-height: 8px;
+}
+
+.galleryLabelRight {
+  left: calc(100% + 1.12px);
+}
+
+.galleryLabelLeft {
+  right: calc(100% + 1.12px);
+}
+
+.galleryLabelTextRight {
+  order: 4;
+}
+
+.galleryLabelLine {
+  flex-shrink: 0;
+  width: 9.28px;
+  height: 1px;
+  background: var(--color-border-muted-56);
+}
+
+.galleryFrame {
+  @include inner-border(all, var(--color-border-muted-50), 0.56px);
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+}
+
+.cursor {
+  position: absolute;
+  right: 0;
+  left: 0;
+  isolation: isolate;
+  width: 100%;
+  margin-inline: auto;
+  transition: top 500ms;
+}
+
+.cursorOutline {
+  @include inner-border(all, var(--color-border-base), 0.56px);
+  position: absolute;
+  inset: 0;
+  width: 9.44px;
+  height: 29.86px;
+  margin: auto;
+  border-radius: 1.13px;
+  opacity: 0.5;
+}
+
+.cursorLine,
+.youLine {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+  width: 135px;
+  height: 1px;
+}
+
+.cursorLine {
+  left: -22px;
+}
+
+.youLine {
+  right: 0;
+  transform: translateX(22px);
+}
+
+.cursorCard,
+.youCard {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  margin-block: auto;
+  border: 0.28px solid var(--color-border-base);
+  border-radius: 1.95px;
+  background: var(--color-bg-base);
+}
+
+.cursorCard {
+  right: 5.77px;
+  gap: 2.25px;
+  padding: 1.12px 2.25px;
+}
+
+.youCard {
+  left: 56.33px;
+  padding: 2.5px;
+}
+
+.swatch {
+  display: grid;
+  flex-shrink: 0;
+  width: 6.75px;
+  height: 6.75px;
+  place-items: center;
+  border-radius: 1.13px;
+  background: var(--color-bg-subtle);
+}
+
+.swatchColor {
+  flex-shrink: 0;
+  width: 3.38px;
+  height: 3.38px;
+  border-radius: 0.56px;
+}
+
+.cursorLabel {
+  @include trim-text;
+  color: var(--color-text-secondary);
+  font-family: var(--font-zagma);
+  font-size: 5.625px;
+  font-weight: 500;
+  line-height: 8px;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.youPath {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  margin-block: auto;
+}

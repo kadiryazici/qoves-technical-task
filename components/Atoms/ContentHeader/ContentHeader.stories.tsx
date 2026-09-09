@@ -1,19 +1,20 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 
 import { ContentHeader } from "./ContentHeader"
+import styles from "./ContentHeader.stories.module.scss"
 
 const meta = {
   title: "Atoms/ContentHeader",
   component: ContentHeader,
   args: {
     style: { maxWidth: "700px" },
-    className: "text-center",
+    className: styles.root,
     label: "Personalized Analysis",
     type: "secondary",
     heading: <>
       Get your personalised
       {" "}
-      <span className="text-text-disabled">Qoves plan</span>
+      <span className={styles.disabled}>Qoves plan</span>
     </>,
     description: "Understand your facial features and start your glow-up today with a proven action plan, no plastic surgery needed.",
   },

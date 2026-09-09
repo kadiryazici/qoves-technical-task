@@ -1,15 +1,16 @@
 "use client"
 
+import { clsx } from "clsx"
 import type { ComponentProps } from "react"
 import { useLayoutEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-import { cn } from "@/utils/cn"
 import { PageSection } from "@/components/Layout/PageSection/PageSection"
 import { PageSectionContent } from "@/components/Layout/PageSectionContent/PageSectionContent"
 import { Accordion } from "@/components/Atoms/Accordion/Accordion"
 import { ContentHeader } from "@/components/Atoms/ContentHeader/ContentHeader"
+import styles from "./SectionFAQ.module.scss"
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat ante et magna finibus dapibus. Suspendisse posuere nisl ante, a sagittis nulla posuere vel. Donec a mattis ex. Sed finibus, turpis non condimentum placerat, velit turpis commodo justo, eu imperdiet ipsum arcu ut enim."
 
@@ -57,18 +58,18 @@ export function SectionFAQ(props: SectionFAQProps) {
 
   return (
     <>
-      <PageSection className="inner-border-b">
-        <PageSectionContent className="inner-border-x h-[120px]"/>
+      <PageSection className={styles.sectionBorder}>
+        <PageSectionContent className={styles.spacer} />
       </PageSection>
 
       <PageSection
         {...attrs}
-        className={cn("inner-border-b", className)}
+        className={clsx(styles.sectionBorder, className)}
       >
-        <PageSectionContent className="py-10 px-15 inner-border-x">
+        <PageSectionContent className={styles.content}>
           <ContentHeader
             label="Your Questions"
-            className="max-w-[600px] mb-8 mx-auto text-center"
+            className={styles.header}
             ref={headerRef}
             gap="base"
             type="secondary"
@@ -77,7 +78,7 @@ export function SectionFAQ(props: SectionFAQProps) {
               <>
                 Frequently asked
                 {" "}
-                <span className="text-text-disabled">questions</span>
+                <span className={styles.disabled}>questions</span>
               </>
             }
             description={
@@ -89,12 +90,12 @@ export function SectionFAQ(props: SectionFAQProps) {
             }
           />
 
-          <Accordion.Root ref={accordionRootRef} className="w-full max-w-[1080px] mx-auto">
+          <Accordion.Root ref={accordionRootRef} className={styles.accordion}>
             <Accordion.Item
               ref={(element) => handleAccordionItemRef(0, element)}
               heading="General Questions"
               body={
-                <div className="p-2">
+                <div className={styles.body}>
                   <Accordion.Root>
                     <Accordion.Item heading="What is Qoves?" body={<p>{qovesDescription}</p>} />
                     <Accordion.Item heading="Who is this for?" body={<p>{qovesDescription}</p>} />
@@ -109,20 +110,20 @@ export function SectionFAQ(props: SectionFAQProps) {
                 </div>
               }
             />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(1, element)} heading="About the Analysis" body={<p className="p-2">{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(2, element)} heading="About the Protocol" body={<p className="p-2">{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(3, element)} heading="Experience & Use" body={<p className="p-2">{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(4, element)} heading="Pricing & Subscription" body={<p className="p-2">{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(5, element)} heading="Privacy & Data" body={<p className="p-2">{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(6, element)} heading="Mindset & Philosophy" body={<p className="p-2">{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(7, element)} heading="Practical Concerns" body={<p className="p-2">{loremIpsum}</p>} />
-            <Accordion.Item ref={(element) => handleAccordionItemRef(8, element)} heading="About Support" body={<p className="p-2">{loremIpsum}</p>} />
+            <Accordion.Item ref={(element) => handleAccordionItemRef(1, element)} heading="About the Analysis" body={<p className={styles.body}>{loremIpsum}</p>} />
+            <Accordion.Item ref={(element) => handleAccordionItemRef(2, element)} heading="About the Protocol" body={<p className={styles.body}>{loremIpsum}</p>} />
+            <Accordion.Item ref={(element) => handleAccordionItemRef(3, element)} heading="Experience & Use" body={<p className={styles.body}>{loremIpsum}</p>} />
+            <Accordion.Item ref={(element) => handleAccordionItemRef(4, element)} heading="Pricing & Subscription" body={<p className={styles.body}>{loremIpsum}</p>} />
+            <Accordion.Item ref={(element) => handleAccordionItemRef(5, element)} heading="Privacy & Data" body={<p className={styles.body}>{loremIpsum}</p>} />
+            <Accordion.Item ref={(element) => handleAccordionItemRef(6, element)} heading="Mindset & Philosophy" body={<p className={styles.body}>{loremIpsum}</p>} />
+            <Accordion.Item ref={(element) => handleAccordionItemRef(7, element)} heading="Practical Concerns" body={<p className={styles.body}>{loremIpsum}</p>} />
+            <Accordion.Item ref={(element) => handleAccordionItemRef(8, element)} heading="About Support" body={<p className={styles.body}>{loremIpsum}</p>} />
           </Accordion.Root>
         </PageSectionContent>
       </PageSection>
 
       <PageSection>
-        <PageSectionContent className="inner-border-x h-[120px]"/>
+        <PageSectionContent className={styles.spacer} />
       </PageSection>
     </>
   )

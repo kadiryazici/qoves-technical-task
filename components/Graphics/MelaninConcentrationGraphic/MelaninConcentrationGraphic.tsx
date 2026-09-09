@@ -1,9 +1,10 @@
 "use client";
 
+import { clsx } from "clsx";
 import { useState, type ComponentProps } from "react";
 
-import { cn } from "@/utils/cn";
 import { getRandomFloat } from "@/utils/random";
+import styles from "./MelaninConcentrationGraphic.module.scss";
 
 export type MelaninConcentrationGraphicProps = Omit<
   ComponentProps<"div">,
@@ -60,23 +61,20 @@ export function MelaninConcentrationGraphic(
   return (
     <div
       {...attrs}
-      className={cn(
-        "duration-[500] relative w-[273px] h-[337px] bg-black/10 backdrop-blur-[22.5px] flex flex-col p-[6.75px] rounded-[8px] ring ring-[#F2F2F21A]",
-        className,
-      )}
+      className={clsx(styles.root, className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="h-full w-full p-[13.5px] flex">
-        <div className="isolate size-full relative">
-          <VerticalColorGallery className="left-0 right-0 bottom-0 mx-auto" />
+      <div className={styles.content}>
+        <div className={styles.chart}>
+          <VerticalColorGallery className={styles.galleryPosition} />
           <VerticalCursor top={top} />
         </div>
       </div>
 
-      <div className="inline-flex shrink-0 shrink min-h-0 bg-[#f2f5f533] w-full rounded-[3.47px] py-[4.62px] px-[6.87px]">
-        <span className="px-[2.25px] text-text-button-primary font-normal text-[9px] leading-[11px]">
-          Your eyes have a medium <span className="font-medium">melanin</span>{" "}
+      <div className={styles.message}>
+        <span className={styles.messageText}>
+          Your eyes have a medium <span className={styles.emphasis}>melanin</span>{" "}
           concentration.
         </span>
       </div>
@@ -101,33 +99,26 @@ function VerticalColorGallery(props: Omit<ComponentProps<"div">, "children">) {
   return (
     <div
       {...attrs}
-      className={cn("ring-[#f2f2f2]/50 isolate absolute", className)}
+      className={clsx(styles.gallery, className)}
     >
-      <div className="isolate flex flex-col relative w-[6.75px] mx-auto">
+      <div className={styles.galleryColors}>
         {colorGalleryLabels.map(([text, top, side], index) => (
           <div
             key={index}
             style={{
               top: `${top}px`,
             }}
-            className={cn(
-              "shrink-0 w-fit absolute inline-flex flex-nowrap gap-[2.81px] items-center font-medium text-[5.625px] leading-[8px] text-text-button-primary",
-              side === "right"
-                ? "left-[calc(100%+1.12px)]"
-                : "right-[calc(100%+1.12px)]",
+            className={clsx(
+              styles.galleryLabel,
+              side === "right" ? styles.galleryLabelRight : styles.galleryLabelLeft,
             )}
           >
-            <span className={cn(side === "right" && "order-4")}>{text}</span>
-            <div className="h-[1px] w-[9.28px] bg-border-primary-muted/56 shrink-0" />
+            <span className={clsx(side === "right" && styles.galleryLabelTextRight)}>{text}</span>
+            <div className={styles.galleryLabelLine} />
           </div>
         ))}
 
-        <div
-          className="absolute inset-0 z-5"
-          style={{
-            boxShadow: "inset 0 0 0 0.56px #f2f2f280",
-          }}
-        />
+        <div className={styles.galleryFrame} />
 
         {colors.map(([height, , color], index) => (
           <div
@@ -151,36 +142,26 @@ function VerticalCursor(props: VerticalCursorProps) {
   return (
     <div
       {...attrs}
-      className={cn(
-        "transition-[top] w-full duration-500 isolate absolute left-0 right-0 mx-auto",
-        className,
-      )}
+      className={clsx(styles.cursor, className)}
       style={{
         top: `${top}px`,
         ...style,
       }}
     >
-      <div
-        className="opacity-50 w-[9.44px] h-[29.86px] rounded-[1.13px] absolute inset-0 m-auto"
-        style={{
-          boxShadow: "inset 0 0 0 0.56px var(--color-border-base)",
-        }}
-      />
+      <div className={styles.cursorOutline} />
 
-      <div className="h-[1px] flex items-center absolute isolate left-[-22px] w-[135px]">
-        <div className="z-[5] flex flex-row gap-[2.25px] size-fit items-center px-[2.25px] py-[1.12px] bg-bg-base rounded-[1.95px] border-[0.28px] border-border-base absolute right-[5.77px] top-0 bottom-0 my-auto">
-          <div className="shrink-0 aspect-square size-[6.75px] grid place-items-center bg-bg-subtle rounded-[1.13px]">
+      <div className={styles.cursorLine}>
+        <div className={styles.cursorCard}>
+          <div className={styles.swatch}>
             <div
-              className={cn(
-                "aspect-square shrink-0 size-[3.38px] rounded-[0.56px]",
-              )}
+              className={styles.swatchColor}
               style={{
                 backgroundColor: colorValue,
               }}
             />
           </div>
 
-          <span className="trim-text whitespace-nowrap uppercase font-zagma font-medium text-[5.625px] leading-[8px] tracking-[-0.005em] text-text-secondary">
+          <span className={styles.cursorLabel}>
             {colorName}
           </span>
         </div>
@@ -200,11 +181,9 @@ function VerticalCursor(props: VerticalCursorProps) {
         </svg>
       </div>
 
-      <div className="h-[1px] flex items-center isolate absolute right-0 translate-x-[22px] w-[135px]">
-        <div className="z-[5] flex flex-row gap-[2.25px] size-fit items-center p-[2.5px] bg-bg-base rounded-[1.95px] border-[0.28px] border-border-base absolute left-[56.33px] top-0 bottom-0 my-auto">
-          <span
-            className="trim-text whitespace-nowrap uppercase font-zagma font-medium text-[5.625px] leading-[8px] tracking-[-0.005em] text-text-secondary"
-          >
+      <div className={styles.youLine}>
+        <div className={styles.youCard}>
+          <span className={styles.cursorLabel}>
             You
           </span>
         </div>
@@ -217,7 +196,7 @@ function VerticalCursor(props: VerticalCursorProps) {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            className="absolute top-0 bottom-0 my-auto left-full"
+            className={styles.youPath}
             opacity="0.5"
             d="M131.393 1.9043L134.206 3.24684V-0.00075078L131.393 1.3418V1.9043ZM-1.52588e-05 1.62305L1.62378 3.24684L3.24757 1.62305L1.62378 -0.00075078L-1.52588e-05 1.62305ZM130.777 1.62305V1.3418L128.491 1.3418V1.62305V1.9043L130.777 1.9043V1.62305ZM126.205 1.62305V1.3418L123.919 1.3418V1.62305V1.9043L126.205 1.9043V1.62305ZM121.633 1.62305V1.3418L119.347 1.3418V1.62305V1.9043L121.633 1.9043V1.62305ZM117.062 1.62305V1.3418L114.776 1.3418V1.62305V1.9043L117.062 1.9043V1.62305ZM112.49 1.62305V1.3418L110.204 1.3418V1.62305V1.9043L112.49 1.9043V1.62305ZM107.918 1.62305V1.3418L105.632 1.3418V1.62305V1.9043L107.918 1.9043V1.62305ZM103.346 1.62305V1.3418L101.06 1.3418V1.62305V1.9043L103.346 1.9043V1.62305ZM98.7744 1.62305V1.3418L96.4885 1.3418V1.62305V1.9043L98.7744 1.9043V1.62305ZM94.2026 1.62305V1.3418L91.9167 1.3418V1.62305V1.9043L94.2026 1.9043V1.62305ZM89.6308 1.62305V1.3418L87.3449 1.3418V1.62305V1.9043L89.6308 1.9043V1.62305ZM85.059 1.62305V1.3418L82.7731 1.3418V1.62305V1.9043L85.059 1.9043V1.62305ZM80.4872 1.62305V1.3418L78.2013 1.3418V1.62305V1.9043L80.4872 1.9043V1.62305ZM75.9154 1.62305V1.3418L73.6295 1.3418V1.62305V1.9043L75.9154 1.9043V1.62305ZM71.3437 1.62305V1.3418L69.0578 1.3418V1.62305V1.9043L71.3437 1.9043V1.62305ZM66.7719 1.62305V1.3418L64.486 1.3418V1.62305V1.9043L66.7719 1.9043V1.62305ZM62.2001 1.62305V1.3418L59.9142 1.3418V1.62305V1.9043L62.2001 1.9043V1.62305ZM57.6283 1.62305V1.3418L55.3424 1.3418V1.62305V1.9043L57.6283 1.9043V1.62305ZM53.0565 1.62305V1.3418L50.7706 1.3418V1.62305V1.9043L53.0565 1.9043V1.62305ZM48.4847 1.62305V1.3418L46.1988 1.3418V1.62305V1.9043L48.4847 1.9043V1.62305ZM43.9129 1.62305V1.3418L41.627 1.3418V1.62305V1.9043L43.9129 1.9043V1.62305ZM39.3411 1.62305V1.3418L37.0552 1.3418V1.62305V1.9043L39.3411 1.9043V1.62305ZM34.7693 1.62305V1.3418L32.4834 1.3418V1.62305V1.9043L34.7693 1.9043V1.62305ZM30.1975 1.62305V1.3418L27.9116 1.3418V1.62305V1.9043L30.1975 1.9043V1.62305ZM25.6257 1.62305V1.3418L23.3398 1.3418V1.62305V1.9043L25.6257 1.9043V1.62305ZM21.0539 1.62305V1.3418L18.768 1.3418V1.62305V1.9043L21.0539 1.9043V1.62305ZM16.4821 1.62305V1.3418L14.1962 1.3418V1.62305V1.9043L16.4821 1.9043V1.62305ZM11.9103 1.62305V1.3418L9.62444 1.3418V1.62305V1.9043L11.9103 1.9043V1.62305ZM7.33855 1.62305V1.3418L5.05266 1.3418V1.62305V1.9043L7.33855 1.9043V1.62305ZM2.76675 1.62305V1.3418L1.62378 1.3418V1.62305V1.9043L2.76675 1.9043V1.62305Z"
             fill="#E8E8E8"

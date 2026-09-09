@@ -1,0 +1,148 @@
+@use "../../../styles/mixins" as *;
+
+.root {
+  @include ring(0 0 0 1px var(--color-ring-light));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 284px;
+  height: 126px;
+  padding: 6.75px;
+  border-radius: 8px;
+  background: var(--color-black-10);
+  backdrop-filter: blur(22.5px);
+  transition-duration: 500ms;
+}
+
+.summary {
+  margin-right: auto;
+  padding-top: 4.5px;
+
+  > * + * {
+    margin-top: 1.12px;
+  }
+}
+
+.title {
+  color: var(--color-text-disabled);
+  font-family: var(--font-zagma);
+  font-size: 6.75px;
+  font-weight: 400;
+  line-height: 7.88px;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+.percentage {
+  color: var(--color-bg-base);
+  font-size: 27px;
+  line-height: 31.5px;
+  letter-spacing: -0.015em;
+  text-align: right;
+}
+
+.scaleSection {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.scaleLabels {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.scaleLabel {
+  > * + * {
+    margin-top: 2.91px;
+  }
+}
+
+.labelText {
+  color: var(--color-text-button-primary);
+  font-size: 5.63px;
+  font-weight: 500;
+  line-height: 7.88px;
+  text-align: right;
+}
+
+.muted {
+  color: var(--color-white-50);
+}
+
+.tick {
+  width: 0.56px;
+  height: 9.28px;
+  margin-inline: auto;
+  background: var(--color-bg-secondary-disabled);
+}
+
+.scale {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  margin-top: 1.12px;
+  overflow: clip;
+  border-radius: 9999px;
+}
+
+.scaleSegment {
+  flex-shrink: 0;
+  height: 6.75px;
+}
+
+.scalePrimary100 {
+  width: 11.25px;
+  background: var(--color-primary-100);
+}
+
+.scalePrimary200 {
+  width: 146.25px;
+  background: var(--color-primary-200);
+}
+
+.scalePrimary300 {
+  width: 76.5px;
+  background: var(--color-primary-300);
+}
+
+.scalePrimary400 {
+  flex-shrink: 1;
+  width: 100%;
+  background: var(--color-primary-400);
+}
+
+.cursor {
+  position: absolute;
+  top: 0;
+  bottom: 13.25px;
+  width: fit-content;
+  isolation: isolate;
+  transition: left 500ms;
+}
+
+.cursorLabel {
+  position: absolute;
+  bottom: 36px;
+  left: 0;
+  width: fit-content;
+  padding-inline: 3.94px;
+  border-radius: 7.88px;
+  color: var(--color-text-button-primary);
+  background: var(--color-white-20);
+  font-size: 5.63px;
+  font-weight: 500;
+  line-height: 7.88px;
+  white-space: nowrap;
+  transition: transform 150ms;
+}
+
+.cursorLabelLeft {
+  transform: translateX(7.74px);
+}
+
+.cursorLabelRight {
+  transform: translateX(calc(-100% - 7.74px));
+}
