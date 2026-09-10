@@ -1,18 +1,110 @@
-"use client";
+"use client"
 
-import { clsx } from "clsx";
-import { useState, type ComponentProps } from "react";
+import { clsx } from "clsx"
+import { gsap } from "gsap"
+import { useEffect, useRef } from "react"
+import type { ComponentProps, MouseEvent } from "react"
 
-import styles from "./BrowsFallGraphic.module.scss";
+import styles from "./BrowsFallGraphic.module.scss"
 
-export type BrowsFallGraphicProps = Omit<ComponentProps<"div">, "children">;
+const INITIAL_HIGHLIGHT_POSITION = { column: 6, row: 2 }
+const BASE_OPACITY = 0.1
+const HIGHLIGHT_RADIUS = 3
+const GRID_COLUMNS = [49.8945, 67.6202, 85.3461, 103.072, 120.797, 138.523, 156.249, 173.975, 191.701, 209.426]
+const GRID_ROWS = [71.9688, 89.6953, 107.42, 125.146, 142.871, 165.689, 183.416, 201.141, 218.867, 236.592]
+const GRID_CELLS = GRID_COLUMNS.flatMap((x, column) => GRID_ROWS.map((y, row) => ({ x, y, column, row })))
+
+type GridPosition = {
+  column: number
+  row: number
+}
+
+type GridCell = GridPosition & {
+  element: SVGElement
+}
+
+type GridAnimation = {
+  cells: GridCell[]
+  destinations: GridPosition[]
+  position: GridPosition
+}
+
+export type BrowsFallGraphicProps = Omit<ComponentProps<"div">, "children">
 
 export function BrowsFallGraphic(props: BrowsFallGraphicProps) {
-  const { className, ...attrs } = props;
+  const { className, onMouseEnter, onMouseLeave, ...attrs } = props
+  const svgRef = useRef<SVGSVGElement>(null)
+  const gridRef = useRef<GridAnimation | null>(null)
+  const animationRef = useRef<gsap.core.Tween | null>(null)
 
-  function handleMouseEnter() {}
+  useEffect(() => {
+    const svg = svgRef.current
 
-  function handleMouseLeave() {}
+    if (!svg) {
+      return
+    }
+
+    const rectangles = Array.from(svg.querySelectorAll<SVGRectElement>("[data-grid-cell]"))
+    const cells = rectangles.map((element, index): GridCell => ({ ...GRID_CELLS[index], element }))
+    const destinations = GRID_CELLS.filter((cell) => (
+      cell.column >= HIGHLIGHT_RADIUS - 1
+      && cell.column <= GRID_COLUMNS.length - HIGHLIGHT_RADIUS
+      && cell.row >= HIGHLIGHT_RADIUS - 1
+      && cell.row <= GRID_ROWS.length - HIGHLIGHT_RADIUS
+    ))
+
+    gridRef.current = { cells, destinations, position: { ...INITIAL_HIGHLIGHT_POSITION } }
+
+    return () => {
+      animationRef.current?.kill()
+      cells.forEach((cell) => {
+        cell.element.setAttribute("opacity", String(getHighlightOpacity({ cell, center: INITIAL_HIGHLIGHT_POSITION })))
+      })
+      gridRef.current = null
+    }
+  }, [])
+
+  function animateHighlight(destination: GridPosition) {
+    const grid = gridRef.current
+
+    if (!grid) {
+      return
+    }
+
+    animationRef.current?.kill()
+    animationRef.current = gsap.to(grid.position, {
+      ...destination,
+      duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.6,
+      ease: "power2.inOut",
+      onUpdate() {
+        grid.cells.forEach((cell) => {
+          cell.element.setAttribute("opacity", String(getHighlightOpacity({ cell, center: grid.position })))
+        })
+      },
+    })
+  }
+
+  function handleMouseEnter(event: MouseEvent<HTMLDivElement>) {
+    const grid = gridRef.current
+
+    if (grid) {
+      const destinations = grid.destinations.filter((position) => (
+        Math.hypot(position.column - grid.position.column, position.row - grid.position.row) > 1
+      ))
+      const destination = destinations[Math.floor(Math.random() * destinations.length)]
+
+      if (destination) {
+        animateHighlight({ column: destination.column, row: destination.row })
+      }
+    }
+
+    onMouseEnter?.(event)
+  }
+
+  function handleMouseLeave(event: MouseEvent<HTMLDivElement>) {
+    animateHighlight(INITIAL_HIGHLIGHT_POSITION)
+    onMouseLeave?.(event)
+  }
 
   return (
     <div
@@ -22,960 +114,26 @@ export function BrowsFallGraphic(props: BrowsFallGraphicProps) {
       onMouseLeave={handleMouseLeave}
     >
       <svg
+        ref={svgRef}
         width="272"
         height="324"
         viewBox="0 0 272 324"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g opacity="0.11">
+        {GRID_CELLS.map((cell) => (
           <rect
-            x="49.8945"
-            y="71.9688"
+            key={`${cell.column}-${cell.row}`}
+            data-grid-cell=""
+            x={cell.x}
+            y={cell.y}
             width="11.8172"
             height="11.8172"
             rx="2.95429"
             fill="white"
+            opacity={getHighlightOpacity({ cell, center: INITIAL_HIGHLIGHT_POSITION })}
           />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="49.8945"
-            y="89.6953"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="49.8945"
-            y="107.42"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="49.8945"
-            y="125.146"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.19">
-          <rect
-            x="49.8945"
-            y="142.871"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="67.6202"
-            y="71.9688"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="67.6202"
-            y="89.6953"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="67.6202"
-            y="107.42"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="67.6202"
-            y="125.146"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.19">
-          <rect
-            x="67.6202"
-            y="142.871"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="85.3461"
-            y="71.9688"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="85.3461"
-            y="89.6953"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="85.3461"
-            y="107.42"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="85.3461"
-            y="125.146"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.19">
-          <rect
-            x="85.3461"
-            y="142.871"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="103.072"
-            y="71.9688"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="103.072"
-            y="89.6953"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="103.072"
-            y="107.42"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="103.072"
-            y="125.146"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.19">
-          <rect
-            x="103.072"
-            y="142.871"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="120.797"
-            y="71.9688"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="120.797"
-            y="89.6953"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="120.797"
-            y="107.42"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="120.797"
-            y="125.146"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.19">
-          <rect
-            x="120.797"
-            y="142.871"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.39">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 154.689)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.5">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 136.963)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.5">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 119.238)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.5">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 101.512)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.3">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 83.7871)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.36">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 156.249 154.689)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.5">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 156.249 136.963)"
-            fill="white"
-          />
-        </g>
-        <rect
-          width="11.8172"
-          height="11.8172"
-          rx="2.95429"
-          transform="matrix(1 0 0 -1 156.249 119.238)"
-          fill="white"
-        />
-        <g opacity="0.5">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 156.249 101.512)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.3">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 156.249 83.7871)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.15">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 154.689)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.5">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 136.963)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.5">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 119.238)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.5">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 101.512)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.3">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 83.7871)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.15">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 154.689)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.3">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 136.963)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.3">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 119.238)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.3">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 101.512)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.3">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 83.7871)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.6">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 154.689)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.19">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 136.963)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.19">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 119.238)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.19">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 101.512)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.19">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 83.7871)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="49.8945"
-            y="165.689"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="49.8945"
-            y="183.416"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="49.8945"
-            y="201.141"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="49.8945"
-            y="218.867"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            x="49.8945"
-            y="236.592"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="67.6202"
-            y="165.689"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="67.6202"
-            y="183.416"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="67.6202"
-            y="201.141"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="67.6202"
-            y="218.867"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            x="67.6202"
-            y="236.592"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="85.3461"
-            y="165.689"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="85.3461"
-            y="183.416"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="85.3461"
-            y="201.141"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="85.3461"
-            y="218.867"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            x="85.3461"
-            y="236.592"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="103.072"
-            y="165.689"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="103.072"
-            y="183.416"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="103.072"
-            y="201.141"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="103.072"
-            y="218.867"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            x="103.072"
-            y="236.592"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="120.797"
-            y="165.689"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            x="120.797"
-            y="183.416"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            x="120.797"
-            y="201.141"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            x="120.797"
-            y="218.867"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            x="120.797"
-            y="236.592"
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 248.408)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 230.682)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 212.957)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 195.23)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 138.523 177.506)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 156.249 248.408)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 156.249 230.682)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 156.249 212.957)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 156.249 195.23)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 156.249 177.506)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 248.408)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 230.682)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 212.957)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 195.23)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 173.975 177.506)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 248.408)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 230.682)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 212.957)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 195.23)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 191.701 177.506)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 248.408)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.11">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 230.682)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.07">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 212.957)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.1">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 195.23)"
-            fill="white"
-          />
-        </g>
-        <g opacity="0.14">
-          <rect
-            width="11.8172"
-            height="11.8172"
-            rx="2.95429"
-            transform="matrix(1 0 0 -1 209.426 177.506)"
-            fill="white"
-          />
-        </g>
+        ))}
         <path
           d="M135.286 240.682L133.934 243.513L137.203 243.513L135.852 240.682L135.286 240.682ZM135.569 209.32L135.286 209.32L135.286 209.89L135.569 209.89L135.852 209.89L135.852 209.32L135.569 209.32ZM135.569 211.03L135.286 211.03L135.286 212.17L135.569 212.17L135.852 212.17L135.852 211.03L135.569 211.03ZM135.569 213.31L135.286 213.31L135.286 214.449L135.569 214.449L135.852 214.449L135.852 213.31L135.569 213.31ZM135.569 215.589L135.286 215.589L135.286 216.729L135.569 216.729L135.852 216.729L135.852 215.589L135.569 215.589ZM135.569 217.869L135.286 217.869L135.286 219.008L135.569 219.008L135.852 219.008L135.852 217.869L135.569 217.869ZM135.569 220.148L135.286 220.148L135.286 221.288L135.569 221.288L135.852 221.288L135.852 220.148L135.569 220.148ZM135.569 222.428L135.286 222.428L135.286 223.567L135.569 223.567L135.852 223.567L135.852 222.428L135.569 222.428ZM135.569 224.707L135.286 224.707L135.286 225.847L135.569 225.847L135.852 225.847L135.852 224.707L135.569 224.707ZM135.569 226.987L135.286 226.987L135.286 228.127L135.569 228.127L135.852 228.127L135.852 226.987L135.569 226.987ZM135.569 229.266L135.286 229.266L135.286 230.406L135.569 230.406L135.852 230.406L135.852 229.266L135.569 229.266ZM135.569 231.546L135.286 231.546L135.286 232.686L135.569 232.686L135.852 232.686L135.852 231.546L135.569 231.546ZM135.569 233.825L135.286 233.825L135.286 234.965L135.569 234.965L135.852 234.965L135.852 233.825L135.569 233.825ZM135.569 236.105L135.286 236.105L135.286 237.245L135.569 237.245L135.852 237.245L135.852 236.105L135.569 236.105ZM135.569 238.384L135.286 238.384L135.286 239.524L135.569 239.524L135.852 239.524L135.852 238.384L135.569 238.384ZM135.569 240.664L135.286 240.664L135.286 241.804L135.569 241.804L135.852 241.804L135.852 240.664L135.569 240.664Z"
           fill="#9AAEB5"
@@ -1046,5 +204,13 @@ export function BrowsFallGraphic(props: BrowsFallGraphicProps) {
         />
       </svg>
     </div>
-  );
+  )
+}
+
+function getHighlightOpacity(options: { cell: GridPosition, center: GridPosition }) {
+  const { cell, center } = options
+  const distance = Math.hypot(cell.column - center.column, cell.row - center.row)
+  const intensity = Math.max(0, 1 - distance / HIGHLIGHT_RADIUS) ** 3
+
+  return BASE_OPACITY + (1 - BASE_OPACITY) * intensity
 }
