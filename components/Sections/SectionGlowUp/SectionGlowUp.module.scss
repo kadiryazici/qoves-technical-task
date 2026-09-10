@@ -33,7 +33,11 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  padding: spacing(10);
+  padding-bottom: spacing(10);
+
+  @include tablet {
+    padding: spacing(10);
+  }
 
   p {
     text-wrap: pretty;
@@ -143,6 +147,11 @@
   display: flex;
   position: sticky;
   top: 0;
+}
+
+.floatingHeaderAnimationTarget {
+  display: flex;
+  width: 100%;
 }
 
 .floatingHeader {

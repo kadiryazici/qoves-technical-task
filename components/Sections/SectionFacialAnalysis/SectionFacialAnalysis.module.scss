@@ -1,7 +1,15 @@
 .root {
-  min-height: 832px;
   overflow: clip;
   background-color: var(--color-primary-400);
+  min-height: 790px;
+
+  @include tablet {
+    min-height: 1133px;
+  }
+
+  @include desktop {
+    min-height: 832px;
+  }
 }
 
 .background {
@@ -11,6 +19,7 @@
   isolation: isolate;
   max-width: 100%;
   overflow: hidden;
+  padding: 0 spacing(4);
 }
 
 .backgroundGlow {
@@ -55,13 +64,26 @@
 
 .portraitParallax {
   position: absolute;
-  top: 112px;
-  right: 0;
-  left: 0;
-  width: 100%;
-  max-width: 732px;
   aspect-ratio: 732 / 1097;
-  margin-inline: auto;
+  pointer-events: none;
+  left: 50%;
+  transform: translateX(-50%);
+
+  @include mobile {
+    bottom: -48px;
+    width: 366px;
+  }
+
+  @include tablet {
+    top: 202px;
+    width: 100%;
+    max-width: 732px;
+  }
+
+  @include desktop {
+    top: 112px;
+    width: 732px;
+  }
 }
 
 .portrait {
@@ -80,12 +102,16 @@
   position: absolute;
   bottom: 154px;
   left: 50%;
-  display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 1565px;
   pointer-events: auto;
   transform: translateX(-50%);
+  display: none;
+
+  @include desktop {
+    display: flex;
+  }
 }
 
 .graphicsGroup {
@@ -118,6 +144,11 @@
   z-index: -1;
   inset: 0;
   pointer-events: none;
+  display: none;
+
+  @include desktop {
+    display: block
+  }
 }
 
 .cornerBlur {
@@ -144,4 +175,28 @@
   inset: 0;
   margin: 0 auto;
   z-index: -3;
+}
+
+.backgroundGraphicsTablet {
+  aspect-ratio: 343/322;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 185px;
+  background-image: url("/images/graphics/facial-analysis-graphics.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  bottom: 168px;
+  width: 343px;
+
+  @include tablet {
+    width: 736px;
+    bottom: 160px;
+  }
+
+  @include desktop {
+    display: none
+  }
 }

@@ -101,7 +101,9 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
             src="/images/facial-analysis-background-blur.webp"
           />
         </div>
+
         <BackgroundGraphics ref={backgroundGraphicsRef} />
+        <BackgroundGraphicsTablet />
       </PageSectionContentBackground>
 
       <CornerBlurs />
@@ -123,24 +125,24 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
               <>
                 <span className={styles.description}>
                   Every face is unique. We assess more than 100 unique facial markers to
-                  <br />
                   give you a precise understanding of your aesthetics.
                 </span>
               </>
             }
           />
-
-        <div ref={portraitParallaxRef} className={styles.portraitParallax}>
-          <div ref={portraitRef} className={styles.portrait}>
-            <Image
-              src="/images/facial-analysis/image.webp"
-              alt="facial analysis poster woman"
-              className={styles.portraitImage}
-              fill
-            />
-          </div>
-        </div>
       </PageSectionContent>
+
+      <div ref={portraitParallaxRef} className={styles.portraitParallax}>
+        <div ref={portraitRef} className={styles.portrait}>
+          <Image
+            src="/images/facial-analysis/image.webp"
+            alt="facial analysis poster woman"
+            className={styles.portraitImage}
+            fill
+            unoptimized
+          />
+        </div>
+      </div>
     </PageSection>
   )
 }
@@ -169,6 +171,17 @@ function BackgroundGraphics(props: ComponentProps<"div">) {
         </div>
       </div>
     </div>
+  )
+}
+
+function BackgroundGraphicsTablet(props: ComponentProps<"div">) {
+  const { className, ...attrs } = props;
+
+  return (
+    <div
+      {...attrs}
+      className={clsx(styles.backgroundGraphicsTablet, className)}
+    />
   )
 }
 

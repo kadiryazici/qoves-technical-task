@@ -40,18 +40,53 @@ export function SectionGlowUp(props: SectionGlowUpProps) {
   const { className, ...attrs } = props;
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const contentHeadingRef = useRef<HTMLDivElement>(null);
+  const contentCardsContainerRef = useRef<HTMLDivElement>(null);
+  const floatingHeaderContainerRef = useRef<HTMLDivElement>(null);
+  const floatingHeaderRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
     const video = videoRef.current;
+    const contentHeading = contentHeadingRef.current;
+    const contentCardsContainer = contentCardsContainerRef.current;
+    const floatingHeaderContainer = floatingHeaderContainerRef.current;
+    const floatingHeader = floatingHeaderRef.current;
 
-    if (!section || !video) {
+    if (
+      !section ||
+      !video ||
+      !contentHeading ||
+      !contentCardsContainer ||
+      !floatingHeaderContainer ||
+      !floatingHeader
+    ) {
       return;
     }
 
     gsap.registerPlugin(ScrollTrigger);
 
     const context = gsap.context(() => {
+      const cards = contentCardsContainer.querySelectorAll(`.${styles.cardContainer}`);
+      const contentTimeline = gsap.timeline({
+        defaults: { ease: "power2.out" },
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          once: true,
+        },
+      });
+
+      contentTimeline
+        .from(contentHeading, { autoAlpha: 0, y: 24, delay: 0.5, duration: 0.7 })
+        .from(cards, {
+          autoAlpha: 0,
+          x: -24,
+          filter: "blur(3px)",
+          duration: 1,
+          stagger: 0.2,
+        });
+
       gsap.to(video, {
         filter: "blur(48px)",
         ease: "none",
@@ -63,6 +98,25 @@ export function SectionGlowUp(props: SectionGlowUpProps) {
           invalidateOnRefresh: true,
         },
       });
+
+      const floatingHeaderTimeline = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: floatingHeaderContainer,
+          start: "top 35%",
+          end: "bottom -100%",
+          scrub: true,
+        },
+      });
+
+      floatingHeaderTimeline
+        .fromTo(
+          floatingHeader,
+          { autoAlpha: 0, filter: "blur(12px)" },
+          { autoAlpha: 1, filter: "blur(0px)", duration: 0.25 },
+        )
+        .to(floatingHeader, { autoAlpha: 1, filter: "blur(0px)", duration: 1.5 })
+        .to(floatingHeader, { autoAlpha: 0, filter: "blur(12px)", duration: 0.25 });
     }, section);
 
     return () => {
@@ -76,7 +130,7 @@ export function SectionGlowUp(props: SectionGlowUpProps) {
         <BackgroundVideo videoRef={videoRef} />
         <PageSectionContent className={styles.content}>
           <div className={styles.fixedContentContainer}>
-            <div className={styles.contentHeading}>
+            <div ref={contentHeadingRef} className={styles.contentHeading}>
               <ContentHeader
                 label="Backed by 2000+ research papers"
                 className={styles.header}
@@ -93,7 +147,7 @@ export function SectionGlowUp(props: SectionGlowUpProps) {
               />
             </div>
 
-            <div className={styles.contentCardsContainer}>
+            <div ref={contentCardsContainerRef} className={styles.contentCardsContainer}>
               {cards.map((card, index) => (
                 <div key={index} className={styles.cardContainer}>
                   <GlowUpCard
@@ -106,20 +160,22 @@ export function SectionGlowUp(props: SectionGlowUpProps) {
             </div>
           </div>
 
-          <div className={styles.floatingHeaderContainer}>
-            <ContentHeader
-              className={styles.floatingHeader}
-              gap="base"
-              type="primary"
-              heading={
-                <>
-                  Is it vain to care
-                  <br />
-                  <span style={{ opacity: "0.5" }}>about your appearance?</span>
-                </>
-              }
-              description="Many feel guilty about wanting to improve their looks, fearing it means they’re shallow or insecure. But here's what research tells us : caring about appearance is natural. Like health, finances, and education, it’s just another form of self-improvement."
-            />
+          <div ref={floatingHeaderContainerRef} className={styles.floatingHeaderContainer}>
+            <div ref={floatingHeaderRef} className={styles.floatingHeaderAnimationTarget}>
+              <ContentHeader
+                className={styles.floatingHeader}
+                gap="base"
+                type="primary"
+                heading={
+                  <>
+                    Is it vain to care
+                    <br />
+                    <span style={{ opacity: "0.5" }}>about your appearance?</span>
+                  </>
+                }
+                description="Many feel guilty about wanting to improve their looks, fearing it means they’re shallow or insecure. But here's what research tells us : caring about appearance is natural. Like health, finances, and education, it’s just another form of self-improvement."
+              />
+            </div>
           </div>
 
           <InfoCards />
