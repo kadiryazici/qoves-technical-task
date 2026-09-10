@@ -50,6 +50,8 @@ The output is written to `storybook-static/`. To stop a running development serv
 
 ## Storybook deployment
 
-The `Deploy Storybook` workflow runs on every push to `main` and can also be started manually from the Actions tab. It builds Storybook, creates or updates the `gh-pages` branch with the static output, and deploys the same build to GitHub Pages.
+The `Deploy Storybook` workflow runs on every push to `main` and can also be started manually from the Actions tab. It builds Storybook and publishes the static output to the root of `gh-pages`, creating the branch if it does not exist.
 
-For the initial setup, open **Settings → Pages → Build and deployment** in the GitHub repository and set **Source** to **GitHub Actions**. The workflow uses the built-in `GITHUB_TOKEN`; no additional secrets are required.
+After the first successful run, open **Settings → Pages → Build and deployment** in the GitHub repository. Select **Deploy from a branch**, choose **gh-pages** and **/ (root)**, then save.
+
+Publishing to the branch uses the built-in `GITHUB_TOKEN`; no additional secrets are required. [GitHub does not trigger a Pages build for commits pushed with this token](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). To trigger automatic Pages rebuilds from branch updates, the publishing step would need a deploy key or personal access token.
