@@ -1,0 +1,1 @@
+import{n as e,t}from"./PageSectionContentBackground-B_fw7ZVI.js";import{n}from"./rolldown-runtime-CsOFd3vK.js";var r,i,a;function o(){return(o=n((()=>{e(),r={title:`Layout/PageSectionContentBackground`,component:t,args:{children:`Dummy page section content background`}},i={},a=[`Default`]})))()}o();export{i as Default,a as __namedExportsOrder,r as default};
