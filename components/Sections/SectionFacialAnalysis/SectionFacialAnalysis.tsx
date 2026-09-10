@@ -26,31 +26,37 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
 
   const headerRef = useRef<HTMLDivElement>(null)
   const backgroundGraphicsRef = useRef<HTMLDivElement>(null)
+  const backgroundGraphicsTabletRef = useRef<HTMLDivElement>(null)
   const portraitParallaxRef = useRef<HTMLDivElement>(null)
   const portraitRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     const header = headerRef.current
     const backgroundGraphics = backgroundGraphicsRef.current
+    const backgroundGraphicsTablet = backgroundGraphicsTabletRef.current
     const portraitParallax = portraitParallaxRef.current
     const portrait = portraitRef.current
 
-    if (!header || !backgroundGraphics || !portraitParallax || !portrait) {
+    if (!header || !backgroundGraphics || !backgroundGraphicsTablet || !portraitParallax || !portrait) {
       return
     }
 
     gsap.registerPlugin(ScrollTrigger)
 
     const context = gsap.context(() => {
-      gsap.to(backgroundGraphics, {
-        y: 48,
-        ease: "none",
-        scrollTrigger: {
-          trigger: backgroundGraphics,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
+      const graphics = [backgroundGraphics, backgroundGraphicsTablet]
+
+      graphics.forEach((graphic) => {
+        gsap.to(graphic, {
+          y: 48,
+          ease: "none",
+          scrollTrigger: {
+            trigger: graphic,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        })
       })
 
       gsap.to(portraitParallax, {
@@ -74,8 +80,8 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
       })
 
       timeline
-        .from(header, { autoAlpha: 0, y: 24, duration: 0.7 })
-        .from(backgroundGraphics, { autoAlpha: 0, scale: 1.05, duration: 0.8 }, "+=0.15")
+        .from(header, { autoAlpha: 0, y: 24, delay: 0.5, duration: 0.7 })
+        .from(graphics, { autoAlpha: 0, scale: 1.05, duration: 0.8 }, "+=0.15")
         .from(portrait, { autoAlpha: 0, y: 40, scale: 0.97, duration: 0.8 }, "-=0.35")
     })
 
@@ -103,7 +109,7 @@ export function SectionFacialAnalysis(props: SectionFacialAnalysisProps) {
         </div>
 
         <BackgroundGraphics ref={backgroundGraphicsRef} />
-        <BackgroundGraphicsTablet />
+        <BackgroundGraphicsTablet ref={backgroundGraphicsTabletRef} />
       </PageSectionContentBackground>
 
       <CornerBlurs />
