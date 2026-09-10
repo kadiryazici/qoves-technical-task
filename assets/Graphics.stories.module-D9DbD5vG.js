@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-CsOFd3vK.js";var t,n;function r(){return(r=e((()=>{t=`_canvas_fbrly_1`,n={canvas:t}})))()}export{r as n,n as t};

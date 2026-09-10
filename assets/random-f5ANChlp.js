@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-CsOFd3vK.js";function t(e,t){let n=Math.ceil(e);return Math.floor(Math.random()*(Math.floor(t)-n)+n)}function n(e,t){let n=Math.ceil(e);return Math.random()*(Math.floor(t)-n)+n}function r(){return(r=e((()=>{})))()}export{t as n,r,n as t};
