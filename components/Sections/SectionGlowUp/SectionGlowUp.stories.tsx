@@ -5,7 +5,6 @@ import { SectionGlowUp } from "./SectionGlowUp"
 const meta = {
   title: "Sections/SectionGlowUp",
   component: SectionGlowUp,
-  args: { children: "Dummy glow up section" },
 } satisfies Meta<typeof SectionGlowUp>
 
 export default meta
