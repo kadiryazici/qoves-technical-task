@@ -63,6 +63,10 @@
   color: var(--color-text-button-primary);
   background-color: var(--color-primary-400);
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+
+  > * {
+    @include trim-text;
+  }
 }
 
 .body {

@@ -18,7 +18,7 @@ export function NumberCard(props: NumberCardProps) {
       <GlowupCardBackgroundBlur />
 
       <div className={styles.number}>
-        {number}
+        <span>{number}</span>
       </div>
 
       <p className={styles.body}>
