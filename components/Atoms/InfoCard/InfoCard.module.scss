@@ -6,7 +6,7 @@
   gap: spacing(4);
   border-radius: spacing(4);
   background-color: color-mix(in srgb, #fff 10%, transparent);
-  backdrop-filter: blur(32px);
+  backdrop-filter: blur(32px) saturate(1.8);
 }
 
 .heading {

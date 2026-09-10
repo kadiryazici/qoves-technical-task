@@ -88,7 +88,7 @@ export function SectionGlowUp(props: SectionGlowUpProps) {
         });
 
       gsap.to(video, {
-        filter: "blur(48px)",
+        filter: "blur(64px)",
         ease: "none",
         scrollTrigger: {
           trigger: section,
