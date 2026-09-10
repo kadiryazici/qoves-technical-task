@@ -1,22 +1,129 @@
 "use client";
 
 import { clsx } from "clsx";
-import { useState, type ComponentProps } from "react";
+import { gsap } from "gsap";
+import { useLayoutEffect, useRef, useState } from "react"
+import type { ComponentProps } from "react"
+
+import { getRandomFloat } from "@/utils/random"
 
 import styles from "./EyebrowDensityChart.module.scss";
 
 export type EyebrowDensityChartProps = Omit<ComponentProps<"div">, "children">;
 
+// Split the last Bézier at t = 0.5 to match the hover path without changing the initial curve.
+const INITIAL_CURVE_PATH =
+  "M6.92957 124.759C51.5 124.759 77.3 100.5 97.1 76.4C116.9 52.2 130.1 27.7246 150.568 27.7246C170.484 27.7246 186.992 51.9832 204.2005 76.2418C221.409 100.5004 239.318 124.759 262.036 124.759";
+const INITIAL_AREA_PATH = `${INITIAL_CURVE_PATH}V132.707H6.92957Z`;
+const INITIAL_CURSOR_X = 225.839
+const CHART_WIDTH = 272
+const CURSOR_SIZE = 3.46552
+const ANIMATION_DURATION = 0.4
+const HATCH_LINE_OFFSETS = Array.from(
+  { length: 58 },
+  (_, index) => -132 + index * 7,
+);
+
+type HoverTarget = {
+  cursorPercentage: number
+  curvePeakY: number
+}
+
 export function EyebrowDensityChart(props: EyebrowDensityChartProps) {
   const { className, ...attrs } = props;
+  const [hoverTarget, setHoverTarget] = useState<HoverTarget | null>(null)
+  const rootRef = useRef<HTMLDivElement>(null);
+  const curveRef = useRef<SVGPathElement>(null);
+  const cursorLineRef = useRef<SVGPathElement>(null);
+  const cursorTopRef = useRef<SVGRectElement>(null);
+  const cursorBottomRef = useRef<SVGRectElement>(null);
+  const fillMaskRef = useRef<SVGRectElement>(null);
+  const fillRef = useRef<SVGPathElement>(null);
+  const hatchRef = useRef<SVGPathElement>(null);
 
-  function handleMouseEnter() {}
+  useLayoutEffect(() => {
+    const isHovered = hoverTarget !== null
+    const cursorX = isHovered ? CHART_WIDTH * hoverTarget.cursorPercentage / 100 : INITIAL_CURSOR_X
+    const curvePath = isHovered ? getCurvePath(hoverTarget.curvePeakY) : INITIAL_CURVE_PATH
+    const areaPath = `${curvePath}V132.707H6.92957Z`
 
-  function handleMouseLeave() {}
+    const context = gsap.context(() => {
+      gsap.set(cursorTopRef.current, { attr: { y: 0 } })
+
+      const timeline = gsap.timeline({
+        defaults: {
+          ease: "power2.inOut",
+          duration: ANIMATION_DURATION,
+        },
+      });
+
+      timeline
+        .to(
+          curveRef.current,
+          {
+            attr: { d: curvePath },
+            opacity: isHovered ? 1 : 0.5,
+          },
+          0,
+        )
+        .to(
+          [fillRef.current, hatchRef.current],
+          {
+            attr: { d: areaPath },
+          },
+          0,
+        )
+        .to(
+          cursorLineRef.current,
+          {
+            attr: { d: `M${cursorX} 1.5L${cursorX} 132.707` },
+          },
+          0,
+        )
+        .to(
+          cursorTopRef.current,
+          {
+            attr: { x: cursorX - CURSOR_SIZE / 2 },
+          },
+          0,
+        )
+        .to(
+          cursorBottomRef.current,
+          {
+            attr: { x: cursorX - CURSOR_SIZE / 2 },
+          },
+          0,
+        )
+        .to(
+          fillMaskRef.current,
+          {
+            attr: { x: cursorX, width: CHART_WIDTH - cursorX },
+          },
+          0,
+        );
+    }, rootRef);
+
+    return () => {
+      // Keep the current positions when a new hover interrupts the animation.
+      context.kill()
+    };
+  }, [hoverTarget]);
+
+  function handleMouseEnter() {
+    setHoverTarget({
+      cursorPercentage: getRandomFloat(20, 80),
+      curvePeakY: getRandomFloat(35, 90),
+    })
+  }
+
+  function handleMouseLeave() {
+    setHoverTarget(null)
+  }
 
   return (
     <div
       {...attrs}
+      ref={rootRef}
       className={clsx(styles.root, className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -28,6 +135,20 @@ export function EyebrowDensityChart(props: EyebrowDensityChartProps) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <defs>
+          <clipPath id="eyebrow-density-fill-clip">
+            <rect
+              ref={fillMaskRef}
+              x={INITIAL_CURSOR_X}
+              y="0"
+              width={CHART_WIDTH - INITIAL_CURSOR_X}
+              height="132.707"
+            />
+          </clipPath>
+          <clipPath id="eyebrow-density-area-clip">
+            <path ref={hatchRef} d={INITIAL_AREA_PATH} />
+          </clipPath>
+        </defs>
         <rect
           x="0.273406"
           y="0.273406"
@@ -177,7 +298,7 @@ export function EyebrowDensityChart(props: EyebrowDensityChartProps) {
             fill="#D9D9D9"
           />
         </mask>
-        <g mask="url(#mask0_4_17386)">
+        <g mask="url(#mask0_4_17386)" opacity="0">
           <path
             opacity="0.5"
             d="M261.982 132.707V124.909C221.95 123.465 195.534 46.0688 165.579 33.9395V132.707H261.982Z"
@@ -399,17 +520,55 @@ export function EyebrowDensityChart(props: EyebrowDensityChartProps) {
             />
           </g>
         </g>
+        <g clipPath="url(#eyebrow-density-fill-clip)">
+          <path
+            ref={fillRef}
+            d={INITIAL_AREA_PATH}
+            fill="#CDDBE1"
+            fillOpacity="0.5"
+          />
+          <g
+            clipPath="url(#eyebrow-density-area-clip)"
+            opacity="0.6"
+          >
+            {HATCH_LINE_OFFSETS.map((offset) => (
+              <path
+                key={offset}
+                d={`M${offset} 0L${offset + 133} 133`}
+                stroke="#9AAEB5"
+                strokeWidth="0.7"
+              />
+            ))}
+          </g>
+        </g>
         <path
+          ref={curveRef}
+          d={INITIAL_CURVE_PATH}
           opacity="0.5"
+          stroke="#F9FBFB"
+          strokeWidth="0.58"
+          strokeLinecap="round"
+        />
+        <circle cx="6.92957" cy="124.759" r="1.54" fill="#F9FBFB" />
+        <circle
+          cx="262.036"
+          cy="124.759"
+          r="1.54"
+          fill="#F9FBFB"
+        />
+        <path
+          opacity="0"
           d="M5.38934 124.759C5.38934 125.61 6.07892 126.299 6.92957 126.299C7.78021 126.299 8.4698 125.61 8.4698 124.759C8.4698 123.908 7.78021 123.219 6.92957 123.219C6.07892 123.219 5.38934 123.908 5.38934 124.759ZM260.496 124.759C260.496 125.61 261.186 126.299 262.036 126.299C262.887 126.299 263.577 125.61 263.577 124.759C263.577 123.908 262.887 123.219 262.036 123.219C261.186 123.219 260.496 123.908 260.496 124.759ZM6.92957 124.759V125.048C51.646 125.048 77.5292 100.707 97.2619 76.424C102.193 70.3552 106.745 64.285 111.107 58.6028C115.471 52.9175 119.645 47.6201 123.832 43.0821C132.212 33.9994 140.594 28.0134 150.568 28.0134V27.7246V27.4358C140.342 27.4358 131.814 33.5791 123.408 42.6904C119.201 47.2494 115.013 52.5652 110.648 58.2511C106.282 63.94 101.739 69.9992 96.8137 76.0597C77.1205 100.294 51.3851 124.47 6.92957 124.47V124.759ZM150.568 27.7246V28.0134C160.549 28.0134 169.79 34.0076 178.736 43.0889C187.679 52.1663 196.278 64.2745 204.985 76.4102C213.685 88.5351 222.493 100.686 231.837 109.804C241.18 118.92 251.102 125.048 262.036 125.048V124.759V124.47C251.327 124.47 241.544 118.469 232.241 109.391C222.939 100.315 214.161 88.2072 205.455 76.0735C196.756 63.9506 188.129 51.8001 179.148 42.6836C170.17 33.5709 160.788 27.4358 150.568 27.4358V27.7246Z"
           fill="white"
         />
         <path
+          opacity="0"
           d="M260.496 124.759C260.496 125.61 261.186 126.3 262.037 126.3C262.887 126.3 263.577 125.61 263.577 124.759C263.577 123.909 262.887 123.219 262.037 123.219C261.186 123.219 260.496 123.909 260.496 124.759ZM212.662 86.5L212.43 86.6717C219.974 96.8726 227.69 106.46 235.853 113.497C244.016 120.535 252.653 125.048 262.037 125.048V124.759V124.471C252.848 124.471 244.34 120.053 236.23 113.06C228.12 106.067 220.435 96.5245 212.894 86.3283L212.662 86.5Z"
           fill="#F9FBFB"
         />
         <path
-          d="M225.839 86.6875L225.839 130.756"
+          ref={cursorLineRef}
+          d={`M${INITIAL_CURSOR_X} 1.5L${INITIAL_CURSOR_X} 132.707`}
           stroke="#9AAEB5"
           strokeWidth="0.346552"
           strokeDasharray="2.31 1.16"
@@ -427,15 +586,17 @@ export function EyebrowDensityChart(props: EyebrowDensityChartProps) {
           fill="#F2F2F2"
         />
         <rect
-          x="215.105"
+          ref={cursorBottomRef}
+          x={INITIAL_CURSOR_X - CURSOR_SIZE / 2}
           y="131.113"
           width="3.46552"
           height="3.46552"
           fill="#9AAEB5"
         />
         <rect
-          x="211.105"
-          y="84.5957"
+          ref={cursorTopRef}
+          x={INITIAL_CURSOR_X - CURSOR_SIZE / 2}
+          y="0"
           width="3.46552"
           height="3.46552"
           fill="#5D767E"
@@ -476,4 +637,15 @@ export function EyebrowDensityChart(props: EyebrowDensityChartProps) {
       </svg>
     </div>
   );
+}
+
+function getCurvePath(peakY: number) {
+  const baselineY = 124.759
+  const heightRatio = (baselineY - peakY) / (baselineY - 27.7246)
+
+  function getY(y: number) {
+    return Number((baselineY - (baselineY - y) * heightRatio).toFixed(4))
+  }
+
+  return `M6.92957 124.759C51.5 124.759 77.3 ${getY(100.5)} 97.1 ${getY(76.4)}C116.9 ${getY(52.2)} 130.1 ${peakY} 150.568 ${peakY}C170.484 ${peakY} 186.992 ${getY(51.9832)} 204.2005 ${getY(76.2418)}C221.409 ${getY(100.5004)} 239.318 124.759 262.036 124.759`
 }

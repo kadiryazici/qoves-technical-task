@@ -17,7 +17,7 @@ export function LipSmoothnessGraphic(props: LipSmoothnessGraphicProps) {
   const [percentage, setPercentage] = useState(56)
 
   function handleMouseEnter() {
-    setPercentage(getRandomInt(15, 85))
+    setPercentage(getRandomInt(2, 85))
   }
 
   function handleMouseLeave() {
