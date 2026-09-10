@@ -14,6 +14,8 @@ export type BeforeAfterComparisonProps = Omit<ComponentProps<"div">, "children">
 const beforeImageSrc = "/images/before-after/before.webp"
 const afterImageSrc = "/images/before-after/after.webp"
 
+const mobileMotionPath = "M12.5 0.5H597.5Q610 0.5 610 12.5V222.5Q610 244 631.5 244H696.5Q718 244 718 222.5V12.5Q718 0.5 730.5 0.5H1315Q1327.5 0.5 1327.5 13V512Q1327.5 524.5 1315 524.5H730.5Q718 524.5 718 512V303Q718 281.5 696.5 281.5H631.5Q610 281.5 610 303V512Q610 524.5 597.5 524.5H13Q0.5 524.5 0.5 512V13Q0.5 0.5 12.5 0.5Z"
+
 type MotionPathTrailProps = {
   gradientId: string
   trailRef: RefObject<SVGPathElement | null>
@@ -113,7 +115,9 @@ function MotionPathSVG(props: ComponentProps<"svg">) {
     }
 
     const currentMotionPath = motionPath
-    const pathLength = currentMotionPath.getTotalLength()
+    const desktopMotionPath = currentMotionPath.getAttribute("d")!
+    const mobileQuery = window.matchMedia("(max-width: 767px)")
+    let pathLength = currentMotionPath.getTotalLength()
     const animation = { progress: 0 }
     const followers = [
       { gradient: firstTrailGradient, marker: firstMarker, offset: 0.095, trail: firstTrail },
@@ -146,6 +150,15 @@ function MotionPathSVG(props: ComponentProps<"svg">) {
       })
     }
 
+    function updateMotionPath() {
+      currentMotionPath.setAttribute("d", mobileQuery.matches ? mobileMotionPath : desktopMotionPath)
+      pathLength = currentMotionPath.getTotalLength()
+      updateFollowers()
+    }
+
+    updateMotionPath()
+    mobileQuery.addEventListener("change", updateMotionPath)
+
     const timeline = gsap.to(animation, {
       duration: 24,
       ease: "none",
@@ -158,6 +171,8 @@ function MotionPathSVG(props: ComponentProps<"svg">) {
 
     return () => {
       timeline.kill()
+      mobileQuery.removeEventListener("change", updateMotionPath)
+      currentMotionPath.setAttribute("d", desktopMotionPath)
     }
   }, [])
 

@@ -115,10 +115,7 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
             {glowupCardBodies.map((body, index) => (
               <div
                 key={index}
-                className={clsx(
-                  styles.cardItem,
-                  index !== glowupCardBodies.length - 1 && styles.cardDivider,
-                )}
+                className={styles.cardItem}
               >
                 <NumberCard className={styles.card} number={index + 1}>
                   {body}
