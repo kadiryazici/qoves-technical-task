@@ -10,9 +10,9 @@ First thing I thought when I saw the design was “image and network optimizatio
 ## General Styling
 I'll use `clsx` for dynamic class names.
 
-I’ll create components with support for all HTML attributes. Such as `<SteppedCard className="absolute" />` because in the future this component might require different stylings.
+I’ll create components with support for all HTML attributes. Such as `<NumberCard className="absolute" />` because in the future this component might require different stylings.
 
-First section has an svg path animation and it looks like it’s hidden under 1440px. The bottom cards has an hover effect but they are seems to not clickable. I guess the reason why this is hidden under 1440px is because of svg animation. A different style or a different svg path can be created for mobile devices. Or pure css animations.
+First section has an svg path animation and it looks like it’s hidden under 1440px. The bottom cards has an hover effect but they are seems to be not clickable. I guess the reason why this is hidden under 1440px is because of svg animation. A different style or a different svg path can be created for mobile devices. Or pure css animations.
 
 I’ll export the SVG from Figma and use an AI agent to make the dot and trail to follow the given path.
 
@@ -61,6 +61,8 @@ for graphics, I'll describe AI agents what I need to do. I'll create a structure
 I have two choices for rectangle graphic. First one is a mask + radial gradient + transform x and z, second one is animating square's opacity independently. Mask one is the easiest to implement so I'll go with that. It also will allow me to create different shapes in the future.
 
 Also content header's design is a bit different in this section. Badge has different padding, content header has different gap and different typography. I'll create a different type for content header component like "primary" and "secondary"
+
+Rectangle graphics and chart graphics seem complicated to animate, I'll keep them to last. Others ones are possible to animate with CSS but for smaller devices and dimensions I'll use un animated SVG directly. Touch devices do not need hover animations and also CSS only vectors are hard to scale to a container without JS.
 
 # FAQ Section
 

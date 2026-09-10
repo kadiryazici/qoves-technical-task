@@ -114,7 +114,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: spacing(10);
+  padding: spacing(4);
   gap: spacing(4);
   width: 100%;
   overflow-x: auto;
@@ -124,22 +124,31 @@
     min-width: 275px;
   }
 
-  @include tablet {
-    height: 80vh;
+  @include desktop {
     width: 100%;
+    padding: spacing(10);
+    height: 100vh;
   }
 }
 
 .infoCardConsider {
   margin-bottom: auto;
-  width: 443px;
+  width: 85%;
   height: 400px;
+
+  @include desktop {
+    width: 443px;
+  }
 }
 
 .infoCardApproach {
   margin-top: auto;
-  width: 443px;
   height: 400px;
+  width: 85%;
+
+  @include desktop {
+    width: 443px;
+  }
 }
 
 .floatingHeaderContainer {

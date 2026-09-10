@@ -14,6 +14,8 @@ export default function Home() {
       <SectionFacialAnalysis />
       <SectionFAQ />
       <SectionGlowUp />
+
+      <div style={{ height: "100vh" }} />
     </PageMain>
   );
 }
