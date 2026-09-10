@@ -1,0 +1,1 @@
+import{n as e,t}from"./PageSection-DCeHT8Ua.js";import{n}from"./rolldown-runtime-CsOFd3vK.js";var r,i,a;function o(){return(o=n((()=>{e(),r={title:`Layout/PageSection`,component:t,args:{children:`Dummy page section`}},i={},a=[`Default`]})))()}o();export{i as Default,a as __namedExportsOrder,r as default};
