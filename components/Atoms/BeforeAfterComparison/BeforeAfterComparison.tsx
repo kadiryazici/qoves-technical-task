@@ -44,6 +44,7 @@ export function BeforeAfterComparison(props: BeforeAfterComparisonProps) {
             src={beforeImageSrc}
             fill
             loading="eager"
+            unoptimized
           />
         }
       />
@@ -56,6 +57,7 @@ export function BeforeAfterComparison(props: BeforeAfterComparisonProps) {
             src={afterImageSrc}
             fill
             loading="eager"
+            unoptimized
           />
         }
       />

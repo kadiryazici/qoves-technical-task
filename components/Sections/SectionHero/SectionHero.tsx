@@ -72,7 +72,6 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
       className={clsx(className)}
     >
       <PageSection
-        {...attrs}
         className={styles.sectionBorder}
       >
         <PageSectionContent className={styles.contentBorder}>
@@ -99,7 +98,6 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
       </PageSection>
 
       <PageSection
-        {...attrs}
         className={styles.sectionBorder}
       >
         <PageSectionContent className={styles.comparisonContent}>
@@ -110,7 +108,6 @@ export function SectionHero(props: Omit<ComponentProps<"div">, "children">) {
       </PageSection>
 
       <PageSection
-        {...attrs}
         className={styles.sectionBorder}
       >
         <PageSectionContent className={styles.contentBorder}>

@@ -1,10 +1,9 @@
 "use client";
 
 import { clsx } from "clsx"
-import { useEffect, useState, type ComponentProps, type ReactNode } from "react"
+import { useState, type ComponentProps, type ReactNode } from "react"
 
 import { getRandomInt } from "@/utils/random"
-import { animate, percent, useMotionValue, useMotionValueEvent } from "motion/react"
 import styles from "./SymmetryGraphic.module.scss"
 
 export type SymmetryGraphicProps = Omit<ComponentProps<"div">, "children">

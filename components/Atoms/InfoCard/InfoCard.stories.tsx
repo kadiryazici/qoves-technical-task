@@ -5,7 +5,22 @@ import { InfoCard } from "./InfoCard"
 const meta = {
   title: "Atoms/InfoCard",
   component: InfoCard,
-  render() {
+} satisfies Meta<typeof InfoCard>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  args: {
+    heading: "Consider this...",
+    children: <>
+      <InfoCard.Item>First impressions matter</InfoCard.Item>
+      <InfoCard.Item>It has a considerable impact on interpersonal interactions</InfoCard.Item>
+      <InfoCard.Item>Small improvements can drastically impact quality of life</InfoCard.Item>
+    </>
+  },
+  render(args) {
     return (
       <div
         style={{
@@ -13,18 +28,8 @@ const meta = {
           backgroundColor: "var(--color-primary-600)",
         }}
       >
-        <InfoCard heading="Consider this..." style={{ width: "443px", height: "360px" }}>
-          <InfoCard.Item>First impressions matter</InfoCard.Item>
-          <InfoCard.Item>It has a considerable impact on interpersonal interactions</InfoCard.Item>
-          <InfoCard.Item>Small improvements can drastically impact quality of life</InfoCard.Item>
-        </InfoCard>
+        <InfoCard {...args} style={{ width: "443px", height: "360px" }} />
       </div>
     )
   },
-} satisfies Meta<typeof InfoCard>
-
-export default meta
-
-type Story = StoryObj<typeof meta>
-
-export const Default: Story = {}
+}

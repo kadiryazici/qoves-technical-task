@@ -172,9 +172,5 @@
     :global(.heading) {
         @include heading-7;
     }
-
-    :global(.description) {
-        @include body-3;
-    }
   }
 }

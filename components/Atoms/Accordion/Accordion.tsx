@@ -18,6 +18,7 @@ import {
 
 import { IconClose, IconMinus, IconPlus } from "../Icons/Icons";
 import styles from "./Accordion.module.scss";
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 type AccordionContext = {
   activeId: string;
@@ -172,6 +173,7 @@ function AnimatedAccordionBody(props: AnimatedAccordionBodyProps) {
           ease: "power2.out",
           onComplete: () => {
             gsap.set(body, { height: "auto" });
+            ScrollTrigger.refresh(true);
           },
         },
       );
