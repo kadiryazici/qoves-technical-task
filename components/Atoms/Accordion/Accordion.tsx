@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { clsx } from "clsx";
-import { gsap } from "gsap";
-import Image from "next/image";
+import { clsx } from "clsx"
+import { gsap } from "gsap"
+import Image from "next/image"
 import {
   createContext,
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
   useContext,
   useId,
   useLayoutEffect,
@@ -14,26 +14,26 @@ import {
   useState,
   type ComponentProps,
   type ReactNode,
-} from "react";
+} from "react"
 
-import { IconClose, IconMinus, IconPlus } from "../Icons/Icons";
-import styles from "./Accordion.module.scss";
+import { IconClose, IconMinus, IconPlus } from "../Icons/Icons"
+import styles from "./Accordion.module.scss"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 type AccordionContext = {
-  activeId: string;
-  setActiveId: Dispatch<SetStateAction<string>>;
-  isSubAccordion: boolean;
-};
+  activeId: string
+  setActiveId: Dispatch<SetStateAction<string>>
+  isSubAccordion: boolean
+}
 
-const accordionContext = createContext<AccordionContext | undefined>(undefined);
+const accordionContext = createContext<AccordionContext | undefined>(undefined)
 
 function AccordionRoot(props: ComponentProps<"div">) {
-  const { children, className, ...attrs } = props;
-  const parent = useContext(accordionContext);
+  const { children, className, ...attrs } = props
+  const parent = useContext(accordionContext)
 
-  const [activeId, setActiveId] = useState("");
-  const isSubAccordion = parent != null;
+  const [activeId, setActiveId] = useState("")
+  const isSubAccordion = parent != null
 
   return (
     <accordionContext.Provider
@@ -50,23 +50,26 @@ function AccordionRoot(props: ComponentProps<"div">) {
         {children}
       </div>
     </accordionContext.Provider>
-  );
+  )
 }
 
 type AccordionItemProps = ComponentProps<"div"> & {
-  heading: ReactNode;
-  body: ReactNode;
-};
+  heading: ReactNode
+  body: ReactNode
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
+}
 
 function AccordionItem(props: AccordionItemProps) {
-  const { className, heading, body, ...attrs } = props;
-  const { activeId, isSubAccordion, setActiveId } = useContext(accordionContext)!;
-  const id = useId();
+  const { className, heading, body, headingLevel, ...attrs } = props
+  const { activeId, isSubAccordion, setActiveId } = useContext(accordionContext)!
+  const id = useId()
+  const triggerId = `${id}-trigger`
+  const panelId = `${id}-panel`
 
-  const visible = activeId === id;
+  const visible = activeId === id
 
   function handleToggle() {
-    setActiveId((v) => (v === id ? "" : id));
+    setActiveId((v) => (v === id ? "" : id))
   }
 
   const Icon = !visible
@@ -91,7 +94,7 @@ function AccordionItem(props: AccordionItemProps) {
           className={clsx(styles.background, visible && styles.backgroundVisible)}
         >
           <Image
-            alt="blurred background image"
+            alt=""
             aria-hidden="true"
             className={styles.backgroundImage}
             fill
@@ -101,29 +104,43 @@ function AccordionItem(props: AccordionItemProps) {
       )}
 
       <div
-        role="button"
-        onClick={handleToggle}
-        className={clsx(styles.trigger, !isSubAccordion && styles.primaryTrigger)}
+        role="heading"
+        aria-level={headingLevel ?? (isSubAccordion ? 4 : 3)}
       >
-        <span
-          className={clsx(
-            styles.heading,
-            isSubAccordion ? styles.subHeading : styles.primaryHeading,
-            isSubAccordion || visible ? styles.activeText : styles.inactiveText,
-          )}
+        <button
+          id={triggerId}
+          type="button"
+          aria-expanded={visible}
+          aria-controls={panelId}
+          onClick={handleToggle}
+          className={clsx(styles.trigger, !isSubAccordion && styles.primaryTrigger)}
         >
-          {heading}
-        </span>
+          <span
+            className={clsx(
+              styles.heading,
+              isSubAccordion ? styles.subHeading : styles.primaryHeading,
+              isSubAccordion || visible ? styles.activeText : styles.inactiveText,
+            )}
+          >
+            {heading}
+          </span>
 
-        <Icon
-          className={clsx(
-            styles.icon,
-            isSubAccordion || visible ? styles.activeText : styles.inactiveIcon,
-          )}
-        />
+          <Icon
+            aria-hidden="true"
+            focusable="false"
+            className={clsx(
+              styles.icon,
+              isSubAccordion || visible ? styles.activeText : styles.inactiveIcon,
+            )}
+          />
+        </button>
       </div>
 
-      <AnimatedAccordionBody isOpen={visible}>
+      <AnimatedAccordionBody
+        id={panelId}
+        aria-labelledby={triggerId}
+        isOpen={visible}
+      >
         <div
           className={clsx(styles.body, isSubAccordion && styles.subBody)}
         >
@@ -131,38 +148,38 @@ function AccordionItem(props: AccordionItemProps) {
         </div>
       </AnimatedAccordionBody>
     </div>
-  );
+  )
 }
 
-type AnimatedAccordionBodyProps = {
-  isOpen: boolean;
-  children: ReactNode;
-};
+type AnimatedAccordionBodyProps = ComponentProps<"div"> & {
+  isOpen: boolean
+  children: ReactNode
+}
 
 function AnimatedAccordionBody(props: AnimatedAccordionBodyProps) {
-  const { children, isOpen } = props;
-  const bodyRef = useRef<HTMLDivElement>(null);
-  const [safeToUnmount, setSafeToUnmount] = useState(!isOpen);
+  const { children, isOpen, className, ...attrs } = props
+  const bodyRef = useRef<HTMLDivElement>(null)
+  const [safeToUnmount, setSafeToUnmount] = useState(!isOpen)
 
   useLayoutEffect(() => {
     if (isOpen && safeToUnmount) {
-      setSafeToUnmount(false);
+      setSafeToUnmount(false)
 
-      return;
+      return
     }
 
-    const body = bodyRef.current;
+    const body = bodyRef.current
 
-    if (!body) {
-      return;
+    if (!body || safeToUnmount) {
+      return
     }
 
-    gsap.killTweensOf(body);
+    gsap.killTweensOf(body)
 
     if (isOpen) {
-      gsap.set(body, { height: "auto" });
+      gsap.set(body, { height: "auto" })
 
-      const height = body.offsetHeight;
+      const height = body.offsetHeight
 
       gsap.fromTo(
         body,
@@ -172,11 +189,11 @@ function AnimatedAccordionBody(props: AnimatedAccordionBodyProps) {
           duration: 0.35,
           ease: "power2.out",
           onComplete: () => {
-            gsap.set(body, { height: "auto" });
-            ScrollTrigger.refresh(true);
+            gsap.set(body, { height: "auto" })
+            ScrollTrigger.refresh(true)
           },
         },
-      );
+      )
 
       return;
     }
@@ -186,23 +203,28 @@ function AnimatedAccordionBody(props: AnimatedAccordionBodyProps) {
       duration: 0.35,
       ease: "power2.out",
       onComplete: () => {
-        setSafeToUnmount(true);
+        setSafeToUnmount(true)
+        ScrollTrigger.refresh(true)
       },
-    });
-  }, [isOpen, safeToUnmount]);
-
-  if (safeToUnmount) {
-    return null;
-  }
+    })
+  }, [isOpen, safeToUnmount])
 
   return (
-    <div ref={bodyRef} className={styles.animatedBody}>
-      {children}
+    <div
+      {...attrs}
+      ref={bodyRef}
+      role="region"
+      aria-hidden={!isOpen}
+      inert={!isOpen}
+      hidden={safeToUnmount}
+      className={clsx(styles.animatedBody, className)}
+    >
+      {!safeToUnmount && children}
     </div>
-  );
+  )
 }
 
 export const Accordion = Object.assign(AccordionRoot, {
   Root: AccordionRoot,
   Item: AccordionItem,
-});
+})
